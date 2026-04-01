@@ -1,0 +1,353 @@
+% ========================================
+% CHAPITRE 2 - PROBLÉMATIQUE ET CONTEXTE DU PROJET
+% ========================================
+
+\chapter{Problématique et Contexte du Projet}
+\label{chap:problematique_contexte}
+
+\section*{Introduction}
+
+Ce chapitre présente de manière détaillée la problématique rencontrée dans la gestion des accès et de la sûreté industrielle au sein du Groupe OCP, ainsi que le contexte spécifique qui a motivé le développement du système JLHUBSECURITY. À travers une analyse approfondie des processus existants, nous identifierons les défis majeurs, les points de douleur et les opportunités d'amélioration qui justifient la nécessité d'une solution digitale moderne.
+
+Cette analyse nous permettra de comprendre les enjeux opérationnels, techniques et stratégiques qui sous-tendent le projet, tout en définissant clairement les objectifs à atteindre et les bénéfices attendus de la digitalisation des processus de sûreté industrielle.
+
+\section{Analyse des Processus Existants}
+
+\subsection{Vue d'Ensemble des Processus Actuels}
+
+La gestion des accès sur les sites industriels d'OCP repose actuellement sur un ensemble de processus manuels et semi-automatisés qui impliquent plusieurs acteurs et étapes de validation. Ces processus couvrent différents types d'accès selon les profils des demandeurs et la nature de leurs interventions sur site.
+
+\subsubsection{Typologie des Accès Gérés}
+
+Les processus actuels de gestion des accès concernent plusieurs catégories d'intervenants :
+
+\begin{itemize}
+\item \textbf{Personnel permanent} : Agents OCP permanents, filiales OCP permanentes
+\item \textbf{Personnel temporaire} : Collaborateurs OCP en mission, stagiaires, intervenants courte durée
+\item \textbf{Sous-traitants} : Entreprises externes intervenant sur les sites
+\item \textbf{Visiteurs} : Visiteurs standards et VIP nécessitant un accompagnement spécifique
+\item \textbf{Véhicules et engins} : Véhicules légers, transport collectif, engins de chantier
+\item \textbf{Matériels et biens} : Entrée/sortie de matériel OCP et sous-traitant, sorties provisoires
+\end{itemize}
+
+\subsubsection{Acteurs Impliqués dans les Processus}
+
+La chaîne de validation des accès implique plusieurs acteurs avec des rôles et responsabilités spécifiques :
+
+\begin{itemize}
+\item \textbf{Demandeurs} : Visiteurs, collaborateurs, sous-traitants
+\item \textbf{Hôtes} : Collaborateurs OCP responsables des visiteurs
+\item \textbf{Chefs de projet} : Responsables des projets impliquant des sous-traitants
+\item \textbf{HSE E} : Responsables Hygiène, Sécurité, Environnement Entreprise
+\item \textbf{Head Entité} : Responsables d'entités organisationnelles
+\item \textbf{Agents de sûreté} : Personnel en charge du contrôle des accès
+\item \textbf{Responsables sûreté N-1 et N-2} : Hiérarchie de validation des demandes
+\end{itemize}
+
+\subsection{Processus de Gestion des Accès Visiteurs}
+
+\subsubsection{Étape de Préparation du Rendez-vous}
+
+Le processus de gestion des accès visiteurs débute par une phase de préparation qui implique plusieurs échanges entre le visiteur, l'hôte et les services de sûreté :
+
+\begin{enumerate}
+\item \textbf{Prise de contact} : Le visiteur et l'hôte conviennent d'une date de rendez-vous
+\item \textbf{Communication des exigences} : L'hôte informe le visiteur des documents requis
+\item \textbf{Collecte d'informations} : L'hôte recueille les données d'identification du visiteur et de son véhicule
+\item \textbf{Création de la demande} : L'hôte renseigne le canevas de demande d'autorisation d'accès
+\item \textbf{Transmission} : La demande est envoyée par email à la sûreté site (minimum 24h avant)
+\item \textbf{Vérification} : La sûreté vérifie la complétude des données et demande des compléments si nécessaire
+\end{enumerate}
+
+\subsubsection{Étape d'Accès au Site}
+
+L'accès effectif au site suit un protocole rigoureux de contrôle et de validation :
+
+\begin{enumerate}
+\item \textbf{Présentation} : Le visiteur se présente à l'entrée avec les documents requis
+\item \textbf{Contrôle de sécurité} : Vérification de l'identité et fouille des affaires personnelles
+\item \textbf{Vérification de la demande} : L'agent récupère la pièce d'identité et vérifie l'existence de la demande
+\item \textbf{Remise du badge} : Préparation et remise du badge d'accès temporaire
+\item \textbf{Information et guidage} : Indication de l'itinéraire et remise du dépliant d'information
+\item \textbf{Contrôle véhicule} : Contrôle supplémentaire pour les véhicules selon les zones d'accès
+\end{enumerate}
+
+\subsubsection{Étape de Sortie du Site}
+
+La sortie du site implique également des procédures de contrôle :
+
+\begin{enumerate}
+\item \textbf{Restitution du badge} : Le visiteur doit restituer son badge d'accès
+\item \textbf{Récupération de la pièce d'identité} : Restitution de la pièce d'identité mise en caution
+\item \textbf{Contrôle des matériels} : Vérification de l'absence de matériel non déclaré
+\item \textbf{Enregistrement de la sortie} : Mise à jour manuelle des registres
+\end{enumerate}
+
+\subsection{Processus de Gestion des Accès Matériels}
+
+\subsubsection{Sous-processus d'Entrée de Matériel}
+
+Le processus d'entrée de matériel sur site suit plusieurs étapes de contrôle :
+
+\begin{enumerate}
+\item \textbf{Présentation} : Le transporteur se présente devant la porte d'accès
+\item \textbf{Vérification de la demande} : Contrôle de la réception de la demande d'accès
+\item \textbf{Rapprochement documentaire} : Vérification de la conformité entre contenu et documentation
+\item \textbf{Validation ou refus} : Décision d'autorisation d'entrée
+\item \textbf{Enregistrement} : Mise à jour manuelle des registres système
+\end{enumerate}
+
+\subsubsection{Sous-processus de Sortie de Matériel}
+
+La sortie de matériel nécessite des contrôles renforcés :
+
+\begin{enumerate}
+\item \textbf{Demande de sortie} : Présentation du bon d'entrée et/ou de sortie
+\item \textbf{Restitution documentaire} : Remise des documents d'autorisation
+\item \textbf{Rapprochement et contrôle} : Vérification de la conformité du matériel
+\item \textbf{Autorisation définitive} : Validation finale de la sortie
+\item \textbf{Traçabilité} : Mise à jour du registre de suivi des matériels
+\end{enumerate}
+
+\section{Identification des Points de Douleur (Pain Points)}
+
+\subsection{Problèmes Liés à la Préparation des Rendez-vous}
+
+L'analyse des processus existants révèle plusieurs dysfonctionnements majeurs lors de la phase de préparation :
+
+\subsubsection{Saisies Répétitives et Risques d'Erreurs}
+
+\begin{itemize}
+\item \textbf{Demandes répétitives d'informations} : Les visiteurs réguliers doivent fournir les mêmes informations (CIN, employeur, etc.) à chaque nouvelle demande d'accès
+\item \textbf{Saisie manuelle par l'hôte} : La création des demandes d'accès par l'hôte favorise les risques d'erreurs (numéro de pièce d'identité erroné, nom ou prénom mal orthographié)
+\item \textbf{Copie manuelle des données} : Les informations sont recopiées manuellement depuis le canevas vers les fichiers maintenus par la sûreté
+\end{itemize}
+
+\subsubsection{Défaut de Communication et de Traçabilité}
+
+\begin{itemize}
+\item \textbf{Absence de confirmation} : Manque de confirmation automatique de la validation des demandes d'accès
+\item \textbf{Défaut de notification} : L'hôte n'est pas informé automatiquement de l'arrivée de son visiteur au site
+\item \textbf{Informations insuffisantes} : Manque d'informations fournies aux visiteurs pour faciliter leur accès au site
+\end{itemize}
+
+\subsection{Problèmes Liés à l'Accès au Site}
+
+\subsubsection{Temps d'Attente et Gestion des Flux}
+
+\begin{itemize}
+\item \textbf{Temps d'attente prolongés} : Attentes très longues, particulièrement aux heures de pointe (entre 8h et 10h30), dues à la procédure manuelle de remise des badges physiques
+\item \textbf{Espace d'accueil insuffisant} : Capacité limitée de l'espace d'accueil pour gérer les pics d'affluence
+\item \textbf{Absence de signalisation} : Difficulté pour les visiteurs à localiser le bâtiment principal et l'espace d'accueil
+\end{itemize}
+
+\subsubsection{Risques Sécuritaires}
+
+\begin{itemize}
+\item \textbf{Risque de perte des pièces d'identité} : Les CIN et passeports laissés en caution peuvent être perdus ou mélangés
+\item \textbf{Gestion manuelle des badges} : Risque de remise de badges non conformes ou expirés
+\item \textbf{Contrôles non standardisés} : Variabilité dans l'application des procédures de contrôle selon les agents
+\end{itemize}
+
+\subsection{Problèmes Liés à la Sortie du Site}
+
+\subsubsection{Défaut de Suivi et de Contrôle}
+
+\begin{itemize}
+\item \textbf{Absence de notification de sortie} : L'hôte n'est pas informé automatiquement de la sortie de son visiteur
+\item \textbf{Contrôle limité des dépassements} : Les agents de sécurité ne sont pas alertés de la présence d'un visiteur au-delà de ses heures autorisées
+\item \textbf{Risque de visite non autorisée} : Possibilité pour les visiteurs d'aller voir d'autres collaborateurs de manière impromptue
+\end{itemize}
+
+\subsubsection{Gestion des Badges et Matériels}
+
+\begin{itemize}
+\item \textbf{Impossibilité de réédition} : Avec le système actuel, impossibilité de régénérer un badge en cas de perte
+\item \textbf{Contrôle de matériel défaillant} : Risque de sortie de matériel non déclaré à l'entrée
+\item \textbf{Traçabilité limitée} : Absence de suivi automatisé des mouvements de matériel
+\end{itemize}
+
+\subsection{Problèmes Transversaux}
+
+\subsubsection{Défaut d'Intégration Système}
+
+\begin{itemize}
+\item \textbf{Systèmes cloisonnés} : Absence d'intégration entre les différents outils utilisés par la sûreté
+\item \textbf{Redondance d'informations} : Saisie multiple des mêmes données dans différents systèmes
+\item \textbf{Manque de centralisation} : Dispersion des informations dans multiple fichiers et registres
+\end{itemize}
+
+\subsubsection{Limitations Fonctionnelles}
+
+\begin{itemize}
+\item \textbf{Absence de reporting automatisé} : Impossibilité de générer facilement des statistiques et des rapports
+\item \textbf{Recherche et consultation limitées} : Difficulté à retrouver l'historique des accès d'un visiteur ou d'une entreprise
+\item \textbf{Gestion des permissions complexe} : Processus de validation non standardisé selon les types de demandes
+\end{itemize}
+
+\section{Impact des Dysfonctionnements}
+
+\subsection{Impact Opérationnel}
+
+\subsubsection{Inefficacité des Processus}
+
+Les dysfonctionnements identifiés génèrent plusieurs impacts négatifs sur l'efficacité opérationnelle :
+
+\begin{itemize}
+\item \textbf{Perte de temps} : Les processus manuels consomment un temps considérable des équipes de sûreté et des hôtes
+\item \textbf{Charge administrative élevée} : Multiplication des tâches de saisie et de vérification manuelle
+\item \textbf{Gestion des pics d'activité} : Difficultés à absorber les pics d'affluence aux heures de pointe
+\end{itemize}
+
+\subsubsection{Qualité de Service Dégradée}
+
+\begin{itemize}
+\item \textbf{Expérience visiteur médiocre} : Temps d'attente prolongés et processus peu fluides
+\item \textbf{Frustration des hôtes} : Complexité des procédures et manque de visibilité sur le statut des demandes
+\item \textbf{Stress des équipes de sûreté} : Charge de travail élevée et risque d'erreurs
+\end{itemize}
+
+\subsection{Impact Sécuritaire}
+
+\subsubsection{Risques de Sécurité}
+
+\begin{itemize}
+\item \textbf{Erreurs de contrôle} : Les processus manuels augmentent le risque d'erreurs dans les vérifications
+\item \textbf{Traçabilité insuffisante} : Difficulté à reconstituer précisément les mouvements sur site
+\item \textbf{Gestion des exceptions} : Procédures d'urgence peu formalisées et risque de contournement
+\end{itemize}
+
+\subsubsection{Conformité Réglementaire}
+
+\begin{itemize}
+\item \textbf{Respect des normes} : Difficulté à garantir le respect systématique des procédures
+\item \textbf{Audit et contrôle} : Limitations dans la capacité à produire des preuves de conformité
+\item \textbf{Évolution réglementaire} : Adaptabilité limitée aux changements de réglementation
+\end{itemize}
+
+\subsection{Impact Économique}
+
+\subsubsection{Coûts Directs}
+
+\begin{itemize}
+\item \textbf{Temps de travail} : Coût du temps consacré aux tâches administratives manuelles
+\item \textbf{Erreurs et reprises} : Coût des erreurs et du temps consacré aux corrections
+\item \textbf{Matériel et consommables} : Coût des badges physiques et des documents papier
+\end{itemize}
+
+\subsubsection{Coûts Indirects}
+
+\begin{itemize}
+\item \textbf{Productivité réduite} : Impact sur la productivité des visiteurs et des équipes d'accueil
+\item \textbf{Image de l'entreprise} : Risque d'impact sur l'image d'OCP auprès des partenaires
+\item \textbf{Opportunités perdues} : Limitation dans la capacité à accueillir de nouveaux partenaires
+\end{itemize}
+
+\section{Définition de la Problématique}
+
+\subsection{Problématique Principale}
+
+Au regard de l'analyse des processus existants et des dysfonctionnements identifiés, la problématique principale peut être formulée ainsi :
+
+\begin{quote}
+\textit{Comment concevoir et développer une solution digitale intégrée qui permette de moderniser les processus de gestion des accès et de sûreté industrielle d'OCP, tout en améliorant l'efficacité opérationnelle, la sécurité des sites et l'expérience utilisateur, dans le respect des contraintes techniques, organisationnelles et réglementaires de l'entreprise ?}
+\end{quote}
+
+\subsection{Sous-problématiques Techniques}
+
+Cette problématique principale se décline en plusieurs sous-problématiques techniques spécifiques :
+
+\subsubsection{Digitalisation des Workflows}
+
+\begin{itemize}
+\item Comment digitaliser des processus métier complexes impliquant de multiples acteurs et étapes de validation ?
+\item Comment garantir la fluidité des workflows tout en maintenant les contrôles de sécurité nécessaires ?
+\item Comment gérer les exceptions et les cas particuliers dans un système automatisé ?
+\end{itemize}
+
+\subsubsection{Intégration et Interopérabilité}
+
+\begin{itemize}
+\item Comment intégrer la nouvelle solution avec l'écosystème informatique existant d'OCP ?
+\item Comment assurer la cohérence des données entre les différents systèmes ?
+\item Comment garantir l'évolutivité de la solution face aux changements futurs ?
+\end{itemize}
+
+\subsubsection{Sécurité et Authentification}
+
+\begin{itemize}
+\item Comment implémenter un système d'authentification robuste adapté aux différents profils d'utilisateurs ?
+\item Comment gérer les permissions et les droits d'accès de manière granulaire ?
+\item Comment assurer la traçabilité complète des actions dans le système ?
+\end{itemize}
+
+\subsubsection{Interface et Expérience Utilisateur}
+
+\begin{itemize}
+\item Comment concevoir une interface utilisateur intuitive pour des profils d'utilisateurs très divers ?
+\item Comment optimiser l'expérience mobile pour les utilisateurs nomades ?
+\item Comment faciliter l'adoption de la solution par les utilisateurs finaux ?
+\end{itemize}
+
+\section{Contexte du Projet JLHUBSECURITY}
+
+\subsection{Positionnement Stratégique}
+
+\subsubsection{Alignement avec la Stratégie Groupe}
+
+Le projet JLHUBSECURITY s'inscrit dans la stratégie globale de transformation digitale du Groupe OCP, qui vise à :
+
+\begin{itemize}
+\item Moderniser les processus internes pour améliorer l'efficacité opérationnelle
+\item Renforcer la sécurité et la sûreté des installations industrielles
+\item Améliorer l'expérience des parties prenantes (collaborateurs, partenaires, visiteurs)
+\item Créer les conditions d'une croissance durable et responsable
+\end{itemize}
+
+\subsubsection{Rôle d'OCP Maintenance Solutions}
+
+OCP Maintenance Solutions, en tant que filiale spécialisée dans la digitalisation industrielle, joue un rôle central dans ce projet en apportant :
+
+\begin{itemize}
+\item Son expertise technique en développement de solutions sur mesure
+\item Sa connaissance approfondie des enjeux industriels et sécuritaires
+\item Sa capacité à innover et à intégrer les technologies émergentes
+\item Son expérience dans l'accompagnement de la transformation digitale
+\end{itemize}
+
+\subsection{Enjeux et Défis du Projet}
+
+\subsubsection{Enjeux Techniques}
+
+\begin{itemize}
+\item \textbf{Robustesse} : Développer une solution fiable capable de gérer de gros volumes de demandes
+\item \textbf{Performance} : Assurer des temps de réponse acceptables même en période de forte charge
+\item \textbf{Sécurité} : Implémenter les mesures de sécurité appropriées pour protéger les données sensibles
+\item \textbf{Évolutivité} : Concevoir une architecture capable de s'adapter aux besoins futurs
+\end{itemize}
+
+\subsubsection{Enjeux Organisationnels}
+
+\begin{itemize}
+\item \textbf{Conduite du changement} : Accompagner les utilisateurs dans l'adoption de la nouvelle solution
+\item \textbf{Formation} : Développer les compétences nécessaires à l'utilisation du système
+\item \textbf{Processus} : Adapter les procédures existantes à la nouvelle solution digitale
+\item \textbf{Gouvernance} : Mettre en place les instances de pilotage et de contrôle appropriées
+\end{itemize}
+
+\subsubsection{Enjeux Stratégiques}
+
+\begin{itemize}
+\item \textbf{Compétitivité} : Renforcer la position concurrentielle d'OCP par l'innovation
+\item \textbf{Réplicabilité} : Créer une solution déployable sur l'ensemble des sites du groupe
+\item \textbf{Partenariats} : Améliorer l'attractivité d'OCP pour les partenaires et sous-traitants
+\item \textbf{Conformité} : Anticiper l'évolution des exigences réglementaires
+\end{itemize}
+
+\section*{Conclusion}
+
+L'analyse approfondie des processus existants de gestion des accès et de sûreté industrielle chez OCP révèle de nombreux dysfonctionnements qui impactent significativement l'efficacité opérationnelle, la sécurité des sites et l'expérience des utilisateurs. Ces limitations, héritées de processus largement manuels, justifient pleinement la nécessité de développer une solution digitale moderne et intégrée.
+
+La problématique identifiée dépasse le simple cadre technique pour englober des enjeux organisationnels, sécuritaires et stratégiques majeurs. Le projet JLHUBSECURITY représente ainsi une opportunité unique de transformer en profondeur les pratiques de sûreté industrielle tout en contribuant à la stratégie de transformation digitale du Groupe OCP.
+
+Les défis techniques et fonctionnels identifiés dans ce chapitre orienteront les choix de conception et de développement présentés dans les chapitres suivants, en garantissant que la solution développée réponde précisément aux besoins exprimés et aux objectifs stratégiques de l'entreprise.

@@ -1,0 +1,254 @@
+
+
+\documentclass[a4paper, oneside, 12pt, final]{extreport}
+\usepackage{graphicx}
+\usepackage{makeidx}
+\usepackage[lined,boxed,commentsnumbered, french, ruled,vlined,linesnumbered]{algorithm2e}
+\usepackage{amsthm}
+\usepackage{etoolbox}
+\usepackage[nottoc]{tocbibind}
+\usepackage{ifxetex}
+\usepackage{graphics}
+\usepackage[acronym,toc,section=chapter]{glossaries}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{adjustbox}
+\usepackage{dirtree}
+\usepackage[edges]{forest}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usepackage{float}
+
+
+\parindent 0cm
+\makeindex
+\makeglossaries
+
+% Page layout
+\textwidth 18cm
+\textheight 24cm
+\topmargin -0.5cm
+\oddsidemargin -1cm
+
+% Font encoding
+\ifxetex
+  \usepackage{fontspec}
+\else
+  \usepackage[T1]{fontenc}
+  \usepackage{lmodern}
+\fi
+
+% Theorem environments
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{exemple}{Example}[chapter]
+
+% Keywords commands
+\providecommand{\keywords}[1]{\textbf{\textit{Mots clés---}} #1}
+\providecommand{\keywordss}[1]{\textbf{\textit{Keywords---}} #1}
+
+% Document information
+\newcommand{\reportTitle}{\textsc{Projet de Fin d'études}}
+
+\newcommand{\reportAuthor}{Haitham \textsc{El Abdioui}}
+
+\newcommand{\reportSubject}{%
+  BIFROST%
+}
+
+\newcommand{\dateSoutenance}{16/09/2025}
+
+\newcommand{\academicYear}{2025-2026}
+
+\newcommand{\studyDepartment}{VISEO}
+
+\newcommand{\EMSI}{Ecole Marocaine des Sciences de l'Ing\'enieur}
+
+% Encadrant
+\newcommand{\juryMemberOne}{M Nabil \textsc{EL OUARDI}}
+\newcommand{\juryMemberOneDesc}{Encadrant Académique}
+
+\newcommand{\juryMemberTwo}{Mme Jihade \textsc{DOUMIRI}}
+\newcommand{\juryMemberTwoDesc}{Encadrant Entreprise}
+
+% Jury members
+\newcommand{\juryMemberThree}{Mme Asmaa \textsc{ROUDANE}}
+\newcommand{\juryMemberThreeDesc}{Membre du jury}
+
+\newcommand{\juryMemberFour}{Mme Sara \textsc{AIT }}
+\newcommand{\juryMemberFourDesc}{Membre du jury}
+
+
+% Utility commands
+\newcommand{\specialcell}[1]{%
+  \begin{tabularx}{\textwidth}{@{}X@{}}#1\end{tabularx}%
+}
+
+% Document metadata
+\title{\reportSubject}
+\author{\reportAuthor}
+
+% Acronyms
+\newacronym{abc}{ABC}{A contrived acronym}
+\newacronym{efg}{EFG}{Another acronym}
+\newacronym{svm}{SVM}{Support Vector Machines}
+
+\pagenumbering{roman}
+
+\begin{document}
+
+% ========================================
+% PAGE DE GARDE
+% ========================================
+\thispagestyle{empty}
+\begin{titlepage}
+\begin{center}
+
+% Header
+{%
+  \fontsize{9pt}{9pt}\selectfont%
+  \begin{tabular}{c}
+    Honoris united universities - \EMSI{} \\
+  \end{tabular}
+}
+
+
+
+\begin{tabular}{ccc}
+\adjustbox{valign=c}{\includegraphics[scale=0.5]{image/EMSI_logo2.png}} & 
+\adjustbox{valign=c}{\includegraphics[scale=0.2]{image/Viseo/viseo.jpg}} 
+\end{tabular}
+
+\vspace{30pt}
+
+% Document type
+\textbf{\textit{Rapport de stage}}
+
+\vspace{30pt}
+
+% Author
+\textbf{\textit{Réalisé par}}\\
+\vspace{10pt}
+{%
+  \fontsize{18pt}{18pt}\selectfont%
+  \textbf{\reportAuthor}\\
+}%
+
+\vspace{10pt}
+
+% Title
+{%
+  \fontsize{27pt}{27pt}\selectfont%
+  \rule{0.5\textwidth}{.4pt}\\
+  \vspace{10pt}
+  \reportSubject{}\\%
+  \vspace{10pt}
+  \rule{0.5\textwidth}{.4pt}
+}
+
+\vspace{10pt}
+\textbf{\textit{sous la direction de :\\}}
+\vspace{20pt}
+
+% Supervisors
+\begin{tabular}{p{0.3\linewidth} p{0.3\linewidth}}
+  \juryMemberOne{} & \juryMemberOneDesc{}\\
+  \juryMemberTwo{} & \juryMemberTwoDesc{}\\
+\end{tabular}
+
+\vspace{20pt}
+%date 
+
+\textbf{\textit{Date soutenance :}} \\
+\vspace{10pt}
+\dateSoutenance{}
+\vspace{20pt}
+
+% Jury
+
+\textbf{\textit{Membres du jury :}}\\
+\vspace{10pt}
+\begin{tabular}{p{0.3\linewidth} p{0.3\linewidth}}
+  \juryMemberThree{} & \juryMemberThreeDesc{} \\
+  \juryMemberFour{} & \juryMemberFourDesc{} \\
+\end{tabular}
+\vspace{20pt}
+\vspace{30pt}
+
+% Host company
+\textbf{\textit{Entreprise d'accueil :}}\\
+\vspace{10pt}
+(\studyDepartment)\\
+
+\end{center}
+\end{titlepage}
+
+% ========================================
+% DÉDICACE
+% ========================================
+\input{dedicace}
+
+% ========================================
+% REMERCIEMENTS
+% ========================================
+\input{remerciement}
+% ========================================
+% RÉSUMÉ
+% ========================================
+\input{resume}
+
+% ========================================
+% TABLES DES MATIÈRES
+% ========================================
+\tableofcontents
+\listoffigures
+
+
+\cleardoublepage
+\newpage
+\pagenumbering{arabic}
+
+% ========================================
+% INTRODUCTION
+% ========================================
+
+
+\input{introduction}
+
+% ========================================
+% CHAPITRES PRINCIPAUX
+% ========================================
+
+\label{chap:1}
+\input{chapitre1}
+
+
+\label{chap:2}
+\input{chapitre2}
+
+
+\label{chap:3}
+\input{chapitre3}
+
+\label{chap:4}
+\input{chapitre4}
+
+% ========================================
+% CONCLUSION
+% ========================================
+
+\input{conclusion}
+
+
+
+% ========================================
+% BIBLIOGRAPHIE
+% ========================================
+\nocite{*}
+\bibliographystyle{apalike}
+\bibliography{Biblio.bib}
+
+\cleardoublepage
+
+
+\end{document}

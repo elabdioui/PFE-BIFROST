@@ -1,0 +1,37 @@
+# LaTeX temporary files
+*.aux
+*.bbl
+*.blg
+*.brf
+*.fdb_latexmk
+*.fls
+*.glo
+*.gls
+*.glsdefs
+*.idx
+*.ilg
+*.ind
+*.ist
+*.lof
+*.log
+*.lot
+*.lox
+*.out
+*.synctex.gz
+*.toc
+*.acn
+*.alg
+*.xdy
+
+# PDF output
+*.pdf
+
+# Editor/IDE
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS
+Thumbs.db
