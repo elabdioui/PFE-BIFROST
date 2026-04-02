@@ -1,515 +1,394 @@
 % ========================================
-% CHAPITRE 1 - PRÉSENTATION DE L'ENTREPRISE D'ACCUEIL
+% CHAPITRE 1 - CONTEXTE GÉNÉRAL DU PROJET
 % ========================================
 
-\chapter{Présentation de l'Entreprise d'Accueil}
-\label{chap:presentation_entreprise}
+\chapter{Contexte g\'en\'eral du projet}
+\label{chap:contexte_general}
 
-\section*{Introduction}
+\section{Introduction}
 
-Ce premier chapitre présente l'organisme d'accueil de manière générale et détermine les objectifs et le contexte du stage. Nous commencerons par une présentation succincte du Groupe OCP, avant de nous concentrer sur OCP Maintenance Solutions, la filiale qui nous a accueillis pour ce projet de fin d'études.
+Ce chapitre introductif a pour objectif de contextualiser le projet en le pla\c{c}ant dans un cadre plus vaste. Pour cela, on commencera par pr\'esenter l'organisme d'accueil, en mettant en \'evidence ses domaines d'expertise et sa client\`ele. Ensuite, on se penchera sur la pr\'esentation du client. \'Egalement, on abordera l'organisation de l'\'equipe, les t\^aches qui lui sont assign\'ees, le contexte m\'etier, l'\'etude de l'existant, la probl\'ematique \`a r\'esoudre, la solution propos\'ee, ainsi que l'organisation et la gestion du projet.
 
-Cette présentation permettra de comprendre l'environnement industriel et technologique dans lequel s'inscrit le projet JLHUBSECURITY, ainsi que les enjeux stratégiques qui sous-tendent le développement de solutions digitales innovantes dans le domaine de la sûreté industrielle.
+% ========================================
+\section{Organisme d'accueil}
+% ========================================
 
-\section{Présentation Générale du Groupe OCP}
+\subsection{Pr\'esentation de l'organisme d'accueil}
 
-\subsection{Introduction au Groupe OCP}
+Fond\'ee en 1999, VISEO est une entreprise fran\c{c}aise de conseil en technologies et en transformation digitale. Depuis plus de 25 ans, elle accompagne ses clients dans leur parcours de transformation en s'appuyant sur une technologie de pointe et une expertise sectorielle. L'approche globale de VISEO en mati\`ere de transformation digitale, combin\'ee \`a son r\'eseau international et \`a ses \'equipes qualifi\'ees, garantit des r\'esultats durables et des transformations commerciales r\'eussies pour ses clients.\cite{Viseo}
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.4\textwidth]{image/OCP-logo.jpg}
-\caption{Logo du Groupe OCP}
-\label{fig:logo_ocp}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{image/chapitre1/viseo.png}
+    \caption{Logo VISEO.}
+    \label{fig:viseo_logo}
 \end{figure}
 
-L'Office Chérifien des Phosphates (OCP), créé le 7 août 1920 par dahir royal, constitue aujourd'hui l'un des piliers de l'économie marocaine et un acteur incontournable sur la scène internationale. Transformé en société anonyme (OCP SA) en 2008, le groupe s'est imposé comme le leader mondial incontesté dans l'industrie des phosphates et des engrais phosphatés.
+Aujourd'hui, VISEO est pr\'esent sur les cinq continents, avec 24 centres d'excellence r\'epartis dans plus de 20 pays.
 
-\subsubsection{Chiffres Clés du Groupe}
+L'entreprise compte une \'equipe de 3\,000 collaborateurs et a g\'en\'er\'e un chiffre d'affaires de plus de 360 millions d'euros en 2024.
 
-OCP détient une position dominante sur le marché mondial des phosphates avec des indicateurs impressionnants :
-
-\begin{itemize}
-\item \textbf{Réserves mondiales} : Accès à plus de 70\% des réserves mondiales de roches phosphatées
-\item \textbf{Effectifs} : Près de 23 000 employés
-\item \textbf{Part de marché} : 31\% du marché mondial des produits phosphatés
-\item \textbf{Production} : Plus de 25 millions de tonnes de phosphate brut par an
-\end{itemize}
-
-\subsection{Historique du Groupe OCP}
-
-\subsubsection{Étapes Clés de l'Évolution}
-
-\textbf{1920-1950 : Fondation et premiers développements}
-\begin{itemize}
-\item \textbf{1920} : Création de l'Office Chérifien des Phosphates par dahir royal le 7 août
-\item \textbf{1921} : Début de l'exploitation souterraine sur le gisement des Oulad Abdoun et première exportation de phosphate depuis Casablanca (7 000 tonnes)
-\item \textbf{1930} : Ouverture du centre de production de Youssoufia
-\end{itemize}
-
-\textbf{1951-1975 : Expansion et modernisation}
-\begin{itemize}
-\item \textbf{1951} : Démarrage de l'extraction à ciel ouvert à Khouribga et développement des installations de séchage
-\item \textbf{1965} : Création de Maroc Chimie et début de la valorisation des phosphates avec l'usine de Safi
-\item \textbf{1975} : Formation du Groupe OCP et intégration des industries chimiques aux structures internes
-\end{itemize}
-
-\textbf{2008-Présent : Transformation moderne}
-\begin{itemize}
-\item \textbf{2008} : Transformation historique en société anonyme (OCP SA)
-\item \textbf{2014} : Inauguration du pipeline de transport reliant Khouribga à Jorf Lasfar (187 km)
-\item \textbf{2024} : Création d'OCP Nutricrops, nouvelle filiale spécialisée
-\end{itemize}
-
-\subsection{Structure Organisationnelle}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.8\textwidth]{image/organigramme_ocp.jpg}
-\caption{Structure organisationnelle du Groupe OCP avec ses principales filiales}
-\label{fig:structure_ocp}
-\end{figure}
-\newpage
-
-Le Groupe OCP s'appuie sur un écosystème de filiales spécialisées, notamment \textbf{OCP Maintenance Solutions} qui constitue la filiale d'accueil de notre stage et se spécialise dans la digitalisation et la maintenance industrielle 4.0.
-
-\section{OCP Maintenance Solutions : Notre Organisme d'Accueil}
-
-\subsection{Présentation Générale}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.5\textwidth]{image/ocpms.png}
-\caption{Logo d'OCP Maintenance Solutions}
-\label{fig:logo_ocp_ms}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{image/chapitre1/ViseoGlobal.png}
+    \caption{Les filiales du groupe VISEO.}
+    \label{fig:viseo_global}
 \end{figure}
 
-OCP Maintenance Solutions (OCP-MS) représente l'incarnation de la stratégie d'innovation et de digitalisation du Groupe OCP. \textbf{Créée en 2017} comme Business Unit puis transformée en filiale autonome, cette société spécialisée dans la maintenance et la digitalisation industrielle s'est rapidement imposée comme le leader marocain dans les systèmes de surveillance conditionnelle et les services de maintenance prédictive.
+Pr\'esent au Maroc depuis 2004, le centre d'excellence VISEO de Casablanca b\'en\'eficie de plus de 20 ans d'exp\'erience et a connu une croissance continue. Il emploie actuellement plus de 311 collaborateurs et pr\'evoit d'atteindre les 600 collaborateurs d'ici 2026.
 
-\subsection{Mission et Vision Stratégique}
-
-\subsubsection{Mission d'OCP-MS}
-
-La mission d'OCP-MS s'articule autour de trois axes stratégiques fondamentaux :
-
-\textbf{Amélioration de la Productivité :}
+VISEO s'engage \`a promouvoir une innovation utile qui a un impact sur le mod\`ele \'economique de ses clients et r\'epond aux besoins des utilisateurs et des consommateurs. Avec une pr\'esence sur 5 continents et plus d'une vingtaine de bureaux d\'eploy\'es dans 15 pays, VISEO continue d'\'etendre son expertise \`a travers le monde. VISEO offre diff\'erents types d'intervention pour couvrir l'int\'egralit\'e du cycle d'un projet :
 \begin{itemize}
-\item Optimisation des performances industrielles par l'intégration de technologies avancées
-\item Réduction des temps d'arrêt non planifiés de 40\% en moyenne
-\item Augmentation de la disponibilité des équipements de 15 à 20\%
-\item Optimisation des coûts de maintenance de 25\% grâce à la prédictivité
+    \item Conseil, id\'eation et architecture ;
+    \item Design, conception, d\'eveloppement et int\'egration ;
+    \item D\'eploiement, lancement, change management, maintenance et supervision.
 \end{itemize}
 
-\textbf{Digitalisation et Transformation :}
-\begin{itemize}
-\item Accompagnement complet de la transformation numérique des entreprises industrielles
-\item Développement de solutions IoT et d'intelligence artificielle adaptées au contexte industriel
-\item Intégration de plateformes de gestion des données industrielles
-\item Mise en place de jumeaux numériques pour les équipements critiques
-\end{itemize}
+\subsection{Partenaires VISEO}
 
-\textbf{Formation et Développement des Compétences :}
-\begin{itemize}
-\item Développement de l'expertise en maintenance industrielle 4.0
-\item Certification des techniciens aux nouvelles technologies
-\item Transfert de savoir-faire et de bonnes pratiques
-\item Création d'un écosystème de compétences en maintenance prédictive
-\end{itemize}
+Gr\^ace \`a son expertise dans diff\'erents secteurs, VISEO est partenaire de fournisseurs de premier plan dans la transformation num\'erique des entreprises :
 
-\subsection{Domaines d'Expertise et Solutions Technologiques}
-
-\subsubsection{Maintenance Prédictive et Intelligence Artificielle}
-
-
-
-OCP Maintenance Solutions a développé un écosystème technologique complet utilisant les technologies de pointe :
-
-\textbf{Technologies Core :}
-\begin{itemize}
-\item \textbf{IIOT (Industrial Internet of Things)} : Capteurs intelligents connectés pour collecte de données en temps réel
-\item \textbf{Big Data Analytics} : Traitement et analyse de téraoctets de données industrielles
-\item \textbf{Machine Learning} : Algorithmes d'apprentissage automatique pour la détection d'anomalies
-\item \textbf{Intelligence Artificielle} : Modèles prédictifs avancés pour anticiper les pannes
-\end{itemize}
-
-\textbf{Portefeuille de Solutions :}
-
-\textbf{I-SENSE Platform :}
-\begin{itemize}
-\item Plateforme IoT hautement évolutive et sécurisée
-\item Connexion en temps réel de milliers d'équipements
-\item Interface web et mobile pour monitoring à distance
-\item Tableaux de bord personnalisables par métier
-\item Alertes intelligentes et notifications automatiques
-\end{itemize}
-
-\textbf{Vibox - Système de Surveillance Conditionnelle :}
-\begin{itemize}
-\item Protection des machines contre les dommages
-\item Surveillance continue de la vibration, température, pression
-\item Analyses spectrales avancées
-\item Diagnostic automatique des défauts
-\item ROI démontré de 300\% en moyenne
-\end{itemize}
-
-\textbf{MobiVib - Analyse Vibratoire Mobile :}
-\begin{itemize}
-\item Kit portable d'acquisition de données
-\item Analyse spectrale sur site
-\item Mesures haute précision pour équipements rotatifs
-\item Rapports automatiques de diagnostic
-\item Formation intégrée des opérateurs
-\end{itemize}
-
-\subsubsection{Technologies d'Inspection Avancées}
-
-\textbf{Drones d'Inspection Industrielle :}
-
-
-
-Acquise en août 2023, cette technologie révolutionnaire permet :
-
-\begin{itemize}
-\item \textbf{Inspection thermique} : Détection des points chauds et fuites énergétiques
-\item \textbf{Inspection visuelle} : Caméras haute définition pour contrôles visuels
-\item \textbf{Zones d'application} : Lignes électriques, panneaux photovoltaïques, pipelines, réservoirs
-\item \textbf{Sécurité} : Élimination des risques pour le personnel en environnements dangereux
-\item \textbf{Efficacité} : Réduction de 80\% du temps d'inspection
-\end{itemize}
-
-\subsubsection{Contrôles Non Destructifs (CND)}
-
-OCP Maintenance Solutions propose une gamme complète de services CND certifiés :
-
-\textbf{Techniques Disponibles :}
-\begin{itemize}
-\item \textbf{Ultrasons (UT)} : Détection de défauts internes, mesure d'épaisseurs
-\item \textbf{Magnétoscopie (MT)} : Contrôle des matériaux ferromagnétiques
-\item \textbf{Ressuage (PT)} : Détection de défauts de surface
-\item \textbf{Radiographie industrielle (RT)} : Contrôle volumétrique des soudures
-\item \textbf{Ultrasons phased array (PAUT)} : Inspection avancée des structures complexes
-\item \textbf{Endoscopie industrielle} : Inspection visuelle des espaces confinés
-\end{itemize}
-
-\textbf{Secteurs d'Application :}
-\begin{itemize}
-\item Pétrochimie et raffinerie
-\item Centrales électriques
-\item Industrie minière
-\item Construction métallique
-\item Aéronautique
-\end{itemize}
-
-\subsection{Formation et Certification - OCP MS Academy}
-
-\subsubsection{Centre d'Excellence en Formation}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.4\textwidth]{image/ocp_ms_academy.png}
-\caption{Centre de formation OCP MS Academy}
-\label{fig:ocp_ms_academy}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.1\textwidth]{image/chapitre1/ViseoPartner.png}
+    \caption{Partenaires VISEO.}
+    \label{fig:viseo_partner}
 \end{figure}
 
-OCP MS Academy représente le bras formation de la filiale, avec une approche innovante basée sur le "blended learning" :
+\subsection{Clients de VISEO}
 
-\textbf{Programmes de Formation :}
-\begin{itemize}
-\item \textbf{Analyse vibratoire} : Niveaux I, II, III selon standards ISO 18436
-\item \textbf{Maintenance prédictive} : Techniques et technologies émergentes
-\item \textbf{IoT industriel} : Déploiement et gestion de capteurs connectés
-\item \textbf{Contrôles non destructifs} : Certification selon normes internationales
-\item \textbf{Leadership industriel} : Management et soft skills pour l'industrie 4.0
-\end{itemize}
+VISEO b\'en\'eficie d'une vaste exp\'erience, acquise gr\^ace \`a une connaissance approfondie des sp\'ecificit\'es de chaque secteur. L'entreprise met les technologies digitales au service de la transformation de ses clients, favorisant l'\'emergence de nouveaux mod\`eles \'economiques et l'am\'elioration de leurs performances. Elle a ainsi men\'e avec succ\`es de nombreux projets pour plus de 30 clients issus de divers secteurs d'activit\'e.
 
-\textbf{Méthodologie Pédagogique :}
-\begin{itemize}
-\item Formation présentielle avec simulateurs industriels
-\item E-learning interactif et adaptatif
-\item Réalité virtuelle pour situations dangereuses
-\item Compagnonnage sur site avec experts
-\item Certification continue et évaluation des compétences
-\end{itemize}
-
-\subsubsection{Partenariats Internationaux Stratégiques}
-
-\textbf{Mobius Institute (Australie) :}
-\begin{itemize}
-\item Premier centre certificateur Mobius au Maroc et en Afrique
-\item Standards internationaux en analyse vibratoire
-\item Plus de 500 techniciens certifiés depuis 2020
-\item Reconnaissance mondiale des certifications délivrées
-\end{itemize}
-
-\textbf{Nucleom (Canada) :}
-\begin{itemize}
-\item Partenariat signé en 2021 pour les CND avancés
-\item Expertise en inspection de niveau NASA et aerospace
-\item Transfert de technologies de pointe
-\item Accès aux marchés aéronautique et nucléaire
-\end{itemize}
-
-\textbf{Autres Partenaires Technologiques :}
-\begin{itemize}
-\item \textbf{Wikitude (Autriche)} : Solutions de réalité augmentée
-\item \textbf{ifm (Allemagne)} : Capteurs et automatismes industriels
-\item \textbf{LARES (Maroc)} : Instruments de métrologie
-\item \textbf{BCG Gamma (International)} : Analytics et data science
-\end{itemize}
-
-\subsection{Clientèle et Marchés}
-
-\subsubsection{Portefeuille Clients Diversifié}
-
-
-
-\textbf{Secteurs d'Intervention :}
-
-\textbf{Cimenterie :}
-\begin{itemize}
-\item \textbf{Lafarge Holcim} : Contrat de maintenance prédictive sur 5 sites
-\item \textbf{Ciments du Maroc} : Surveillance conditionnelle des broyeurs
-\item Services : Analyse vibratoire, thermographie, équilibrage
-\end{itemize}
-
-\textbf{Sidérurgie et Métallurgie :}
-\begin{itemize}
-\item \textbf{Universal Industrial Steel} : Partenariat pluriannuel
-\item \textbf{Sonasid} : Maintenance prédictive des laminoirs
-\item Résultats : Réduction de 60\% des arrêts non planifiés
-\end{itemize}
-
-\textbf{Énergie et Utilities :}
-\begin{itemize}
-\item \textbf{ONEE} : Inspection des centrales thermiques
-\item \textbf{Nareva} : Maintenance éoliennes et solaire
-\item \textbf{TAQA} : Optimisation des turbines gaz
-\end{itemize}
-
-\textbf{Pétrochimie :}
-\begin{itemize}
-\item \textbf{SAMIR} : Expertise en raffinerie
-\item \textbf{Shell Maroc} : Partenariat technologique
-\item Spécialités : CND, analyse d'huile, thermographie
-\end{itemize}
-
-\textbf{International :}
-\begin{itemize}
-\item \textbf{Afrique de l'Ouest} : Nigeria, Sénégal, Côte d'Ivoire
-\item \textbf{Maghreb} : Tunisie, Algérie (projets pilotes)
-\item \textbf{Moyen-Orient} : Émirats Arabes Unis (prospection)
-\end{itemize}
-
-\subsubsection{Témoignages Clients}
-
-\begin{quote}
-\textit{"La collaboration entre Universal Industrial Steel et OCP Maintenance Solutions dure depuis plusieurs années. Les experts d'OCP-MS nous procurent des analyses pertinentes qui nous ont permis d'améliorer la disponibilité de notre outil industriel et de réaliser des économies considérables."} 
-
---- Directeur Technique, Universal Industrial Steel
-\end{quote}
-
-\begin{quote}
-\textit{"Les experts OCP MS sont dévoués et prêts à supporter les équipes opérationnelles pour atteindre une maintenance World Class."} 
-
---- Responsable Maintenance, Lafarge Holcim
-\end{quote}
-
-\subsection{Innovation et Recherche \& Développement}
-
-\subsubsection{Laboratoire d'Innovation}
-
-OCP Maintenance Solutions dispose d'un centre R\&D dédié au développement de solutions "Made in Morocco" :
-
-\textbf{Axes de Recherche :}
-\begin{itemize}
-\item \textbf{Maintenance 5.0} : Intégration de l'humain dans l'industrie 4.0
-\item \textbf{Jumeaux numériques} : Modélisation virtuelle des équipements industriels
-\item \textbf{IA explicable} : Algorithmes transparents pour l'aide à la décision
-\item \textbf{Edge computing} : Traitement local des données pour réactivité optimale
-\end{itemize}
-
-\textbf{Projets de R\&D en Cours :}
-\begin{itemize}
-\item Développement d'un assistant virtuel pour techniciens de maintenance
-\item Plateforme de réalité augmentée pour formation immersive
-\item Algorithmes d'optimisation énergétique par IA
-\item Solutions de cybersécurité pour l'IoT industriel
-\end{itemize}
-
-\subsubsection{Propriété Intellectuelle}
-
-\begin{itemize}
-\item \textbf{Brevets déposés} : 5 brevets en cours d'examen
-\item \textbf{Solutions propriétaires} : 12 logiciels développés en interne
-\item \textbf{Certifications} : ISO 9001, ISO 14001, ISO 45001
-\item \textbf{Agréments} : COFREND pour les CND, certification Mobius
-\end{itemize}
-
-\subsection{Structure Organisationnelle et Ressources Humaines}
-
-\subsubsection{Organisation et Gouvernance}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.8\textwidth]{image/organigramme_ocpms.png}
-\caption{Structure organisationnelle d'OCP Maintenance Solutions}
-\label{fig:organigramme_ocp_ms}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{image/chapitre1/ViseoClients.png}
+    \caption{Clients de VISEO.}
+    \label{fig:viseo_clients}
 \end{figure}
 
-\textbf{Direction Générale :}
+\subsection{Les services de VISEO}
+
+VISEO offre une gamme compl\`ete de services pour accompagner les entreprises dans leur transformation digitale, notamment \`a travers :
 \begin{itemize}
-\item \textbf{Fondateur-Directeur} : Expert maintenance mécanique OCP depuis 2007
-\item \textbf{Vision} : Faire d'OCP-MS le leader africain de la maintenance 4.0
-\item \textbf{Stratégie} : Croissance organique et acquisitions stratégiques
+    \item \textbf{D\'eveloppement Sur-Mesure} : VISEO propose des services allant du d\'eveloppement de nouvelles applications \`a leur modernisation, en passant par leur gestion et leur maintenance. VISEO couvre ainsi toutes les \'etapes du cycle de vie applicatif.
+    \item \textbf{Exp\'erience Client} : VISEO accompagne les entreprises, qu'elles soient B2B ou B2C, dans la digitalisation de leurs parcours clients. L'objectif est de personnaliser les interactions client-vendeur, de booster les ventes omnicanales et d'optimiser la gestion de la disponibilit\'e des stocks.
+    \item \textbf{Syst\`eme ERP Cloud Moderne} : VISEO accompagne les entreprises dans la transition vers des syst\`emes ERP cloud modernes, offrant une combinaison unique de comp\'etences techniques, m\'ethodologiques et fonctionnelles pour assurer une transformation r\'eussie.
+    \item \textbf{Analyse de Donn\'ees et Intelligence Artificielle} : VISEO aide les entreprises \`a d\'efinir la valeur commerciale qu'elles souhaitent atteindre et \`a identifier comment les donn\'ees et l'intelligence artificielle peuvent les aider \`a atteindre cet objectif, en optimisant la gestion et la gouvernance des donn\'ees pour assurer une transition fluide et s\'ecuris\'ee de toutes les informations.
 \end{itemize}
 
-\textbf{Départements Opérationnels :}
+\subsection{Organigramme de VISEO CoE Casablanca}
+
+Le centre d'excellence VISEO de Casablanca b\'en\'eficie de plus de 20 ans d'exp\'erience et a connu une croissance continue. Il emploie actuellement plus de 311 collaborateurs et pr\'evoit d'atteindre les 600 collaborateurs d'ici 2026. L'organigramme pr\'esent\'e \`a la figure~\ref{fig:viseo_organ} repr\'esente sch\'ematiquement les liens fonctionnels, organisationnels et hi\'erarchiques de VISEO CoE Casablanca.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{image/chapitre1/ViseoOrgan.png}
+    \caption{Organigramme du CoE VISEO Casablanca.}
+    \label{fig:viseo_organ}
+\end{figure}
+
+\subsection{Fiche technique}
+
+\begin{table}[H]
+\caption{Fiche technique VISEO.}
+\centering
+\begin{tabular}{|>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{10cm}|}
+\hline
+\textbf{Taille de l'\'equipe} & Plus de 150 ing\'enieurs \\
+\hline
+\textbf{CA mondiale en 2024} & 360M\euro{} \\
+\hline
+\textbf{Domaines d'expertise} & D\'eveloppement logiciel, Test et qualit\'e, D\'eveloppement mobile, CRM, ERP, BI, Cloud, IoT \\
+\hline
+\textbf{Technologies} & Java, .NET, PHP, Node.js, Angular, React, iOS, Android, Salesforce, SAP, Oracle, AWS, Azure \\
+\hline
+\textbf{Certifications} & ISO 9001, CMMI Level 3, ISO 27001, ISO 14001 \\
+\hline
+\textbf{Partenariats} & Microsoft, Salesforce, SAP, Oracle, AWS, GCP, Red Hat, Talend, Tableau \\
+\hline
+\textbf{Projets} & Divers secteurs (banque et finance, assurance, t\'el\'ecommunications, distribution, industrie, sant\'e, services publics) \\
+\hline
+\textbf{Localisation} & Nearshore Park 1100 -- boulevard Al Qods -- shore 23 \\
+\hline
+\end{tabular}
+\label{tab:fiche_viseo}
+\end{table}
+
+\subsection{Les valeurs VISEO}
+
 \begin{itemize}
-\item \textbf{R\&D et Innovation} : 15 ingénieurs et data scientists
-\item \textbf{Services Terrain} : 25 techniciens et experts CND
-\item \textbf{Formation et Académie} : 8 formateurs certifiés
-\item \textbf{Commercial et Marketing} : 6 business developers
-\item \textbf{Support et IT} : 6 administrateurs systèmes et support client
+    \item \textbf{Un engagement pour la r\'eussite} : Nous menons \`a bien nos missions avec un tr\`es haut niveau d'engagement.
+    \item \textbf{Toujours plus loin ensemble} : Nous avons toujours fait de nos ambitions et de nos initiatives une aventure collective, pour explorer de nouveaux territoires et nous d\'epasser ensemble.
+    \item \textbf{La meilleure expertise en toute simplicit\'e} : Nos expertises et l'int\'er\^et des enjeux que nous traitons n'emp\^echent jamais l'humilit\'e, indispensable pour garder notre capacit\'e d'\'ecoute et de remise en question.
+    \item \textbf{Avec et pour l'\'equipe} : Par un management de proximit\'e entre pairs, nous souhaitons amener chacun \`a exprimer le meilleur de lui-m\^eme, pour le bien de tous, avec la bienveillance que la connaissance des r\'ealit\'es du terrain apporte.
 \end{itemize}
 
-\subsubsection{Capital Humain}
+% ========================================
+\section{Pr\'esentation du client}
+% ========================================
 
-\textbf{Profil des Collaborateurs :}
+L'entreprise partenaire de ce projet est \textbf{Adista}, un acteur majeur du secteur des technologies de l'information et des communications (TIC), bas\'e en France. Forte d'une croissance continue, Adista compte plusieurs centaines de collaborateurs et propose un portefeuille vari\'e de solutions num\'eriques \`a destination d'une client\`ele exclusivement B2B.
+
+Sp\'ecialis\'ee dans la fourniture de services num\'eriques pour les entreprises, Adista propose des solutions de t\'el\'ecommunications, de r\'eseaux, de cloud computing et de services manag\'es. Ces offres s'adressent principalement \`a des organisations op\'erant dans des secteurs tels que la banque et la finance, l'assurance, la sant\'e, l'industrie, la distribution et les services publics.
+
+L'entreprise se distingue par sa capacit\'e \`a accompagner ses clients dans leur transformation digitale, en int\'egrant des solutions modernes et s\'ecuris\'ees. Gr\^ace \`a ses certifications internationales et \`a ses partenariats strat\'egiques avec des leaders technologiques, Adista dispose d'une expertise reconnue sur le march\'e fran\c{c}ais des t\'el\'ecommunications d'entreprise.
+
+Dans le cadre de sa transition vers un nouvel ERP (Microsoft Dynamics), Adista a constat\'e que l'outil de devis g\'en\'erique propos\'e ne r\'epondait pas \`a ses sp\'ecificit\'es m\'etier. Elle a donc confi\'e \`a VISEO la mission de concevoir et de d\'evelopper une solution d\'edi\'ee~: la plateforme \textbf{Bifr\"ost}.
+
+% ========================================
+\section{Contexte du projet}
+% ========================================
+
+Dans un environnement \'economique marqu\'e par une forte digitalisation et une concurrence accrue dans le secteur des t\'el\'ecommunications, les entreprises sp\'ecialis\'ees dans la fourniture de services B2B font face \`a une complexit\'e croissante dans la gestion de leurs processus commerciaux. La diversit\'e des offres, la multiplicit\'e des cat\'egories d'articles et les sp\'ecificit\'es m\'etier propres aux secteurs des r\'eseaux et des t\'el\'ecommunications rendent l'utilisation d'outils g\'en\'eriques insuffisante pour garantir efficacit\'e et fiabilit\'e.
+
+Face \`a cette r\'ealit\'e, Adista a engag\'e une transition de son syst\`eme ERP de Nova vers Microsoft Dynamics. Or, l'outil de devis propos\'e nativement par Dynamics s'est av\'er\'e trop g\'en\'erique pour prendre en compte les sp\'ecificit\'es m\'etier du secteur des t\'el\'ecommunications~: catalogue de plusieurs dizaines de milliers de r\'ef\'erences, logique de lignes et sous-lignes dans les devis, processus d'\'eligibilit\'e des adresses, et modifications de services complexes.
+
+Pour r\'esoudre cette probl\'ematique, Adista a choisi de r\'eutiliser et d'\'etendre la solution \textbf{Atlas} d\'evelopp\'ee par Unyc, une entreprise affili\'ee au groupe Inh\'erent. C'est dans ce cadre que VISEO a \'et\'e mandat\'e pour d\'evelopper \textbf{Bifr\"ost}~: une plateforme web d\'edi\'ee \`a la gestion des devis et des abonnements, destin\'ee aux agents du service client d'Adista.
+
+La plateforme Bifr\"ost s'appuie sur une architecture trois couches~:
 \begin{itemize}
-\item \textbf{Effectif total} : 60 collaborateurs (objectif 100 en 2025)
-\item \textbf{Âge moyen} : 32 ans
-\item \textbf{Formation} : 70\% d'ingénieurs, 30\% de techniciens spécialisés
-\item \textbf{Genre} : 25\% de femmes (objectif 35\% en 2025)
-\item \textbf{Nationalités} : 85\% marocains, 15\% expatriés experts
+    \item Un \textbf{backend Django REST Framework} (Quoter App), d\'evelopp\'e en Python avec PostgreSQL, g\'erant la logique m\'etier des devis et des configurations ;
+    \item Une \textbf{API .NET ASP.NET Core} (API Bifr\"ost), d\'evelopp\'ee en C\#, servant de pont entre les r\'ef\'erentiels ERP et l'interface utilisateur ;
+    \item Un \textbf{frontend Vue.js\,/\,TypeScript}, offrant une interface moderne et ergonomique aux agents du service client.
 \end{itemize}
 
-\textbf{Politique RH et Culture d'Entreprise :}
+Mon stage au sein de VISEO s'inscrit dans la phase de TMA (Tierce Maintenance Applicative) du projet Bifr\"ost, soit la phase d'\'evolution continue et de correction de la plateforme apr\`es son premier d\'eploiement en production.
+
+% ========================================
+\section{Probl\'ematique}
+% ========================================
+
+La mise en production d'une plateforme de gestion de devis au sein d'un environnement t\'el\'ecom complexe soul\`eve des d\'efis sp\'ecifiques. La diversit\'e des types d'articles, la logique de calcul des marges et des remises, la n\'ecessit\'e de s\'ecuriser les interfaces expos\'ees, et l'exigence de fiabilit\'e vis-\`a-vis des agents utilisateurs forment un ensemble de contraintes qui ne peuvent \^etre ignor\'ees une fois la solution en production.
+
+Comment contribuer efficacement \`a l'am\'elioration d'une plateforme logicielle en production~--- en corrigeant ses anomalies, en impl\'ementant de nouvelles fonctionnalit\'es et en renfor\c{c}ant sa qualit\'e~--- tout en garantissant la stabilit\'e du syst\`eme et sans introduire de r\'egressionsnieur~?
+
+C'est \`a cette question que le pr\'esent projet de fin d'\'etudes vise \`a r\'epondre, en proposant une contribution cibl\'ee et rigoureuse au d\'eveloppement de la plateforme Bifr\"ost, selon une discipline de changement minimal et une culture DevOps structur\'ee.
+
+% ========================================
+\section{Les objectifs du projet}
+% ========================================
+
+L'objectif principal de ce projet est de contribuer au d\'eveloppement, \`a la correction et \`a l'am\'elioration de la plateforme Bifr\"ost, en intervenant sur les trois couches de son architecture~: frontend Vue.js, API .NET et backend Django.
+
+De mani\`ere plus sp\'ecifique, les objectifs poursuivis sont les suivants~:
+
 \begin{itemize}
-\item \textbf{Formation continue} : 40 heures/an/collaborateur minimum
-\item \textbf{Innovation} : 20\% du temps dédié aux projets innovants
-\item \textbf{Mobilité} : Rotation inter-sites et missions internationales
-\item \textbf{Reconnaissance} : Programme de primes à l'innovation
+    \item \textbf{Corriger les anomalies fonctionnelles identifi\'ees}~: notamment la logique de calcul des marges en masse, la persistance des colonnes et les comportements erron\'es de l'\'edition inline.
+    \item \textbf{Impl\'ementer de nouvelles fonctionnalit\'es}~: persistance des pr\'ef\'erences de colonnes par utilisateur, identification individuelle des erreurs lors des modifications de services, s\'election globale des lignes filtr\'ees.
+    \item \textbf{S\'ecuriser l'application}~: d\'esactivation de Swagger\,UI en pr\'eprod et production, avec g\'en\'eration automatique de la sp\'ecification OpenAPI en pipeline CI/CD.
+    \item \textbf{Am\'eliorer la qualit\'e du code}~: r\'eduction des code smells d\'etect\'es par SonarQube, extraction de helpers m\'etier, refactoring de composants Vue.js complexes.
+    \item \textbf{Fiabiliser les pipelines CI}~: correction des erreurs de linting, formatage et couverture de tests dans les pipelines GitLab CI et Azure DevOps.
+    \item \textbf{Initier une d\'emarche d'observabilit\'e}~: \'etude et planification de l'int\'egration Splunk pour la centralisation des logs de s\'ecurit\'e.
 \end{itemize}
 
-\subsubsection{Philosophie "Mouvement"}
+En r\'esum\'e, le projet vise \`a renforcer la fiabilit\'e, la s\'ecurit\'e et la maintenabilit\'e de la plateforme Bifr\"ost, tout en contribuant \`a l'exp\'erience des agents du service client d'Adista.
 
-OCP Maintenance Solutions s'inscrit dans la continuité du "Mouvement", initiative stratégique du Groupe OCP pour :
+% ========================================
+\section{Description du besoin}
+% ========================================
+
+La plateforme Bifr\"ost est utilis\'ee au quotidien par les agents du service client d'Adista pour cr\'eer, modifier et g\'erer les devis commerciaux. Elle doit r\'epondre \`a des exigences fonctionnelles strictes dict\'ees par les sp\'ecificit\'es du secteur t\'el\'ecom~: gestion de pr\'efixes de lignes, calcul de marges et de remises, modification de services (r\'esiliation, d\'em\'enagement, upgrade\,/\,downgrade), et v\'erification d'\'eligibilit\'e des adresses.
+
+Lors de mon int\'egration dans l'\'equipe, plusieurs besoins ont \'et\'e identifi\'es~:
 
 \begin{itemize}
-\item \textbf{Libérer le potentiel} : Encourager l'initiative et la créativité
-\item \textbf{Intelligence collective} : Favoriser la collaboration inter-métiers
-\item \textbf{Agilité} : Adapter rapidement l'organisation aux enjeux
-\item \textbf{Entrepreneuriat interne} : Soutenir les projets innovants des collaborateurs
+    \item La \textbf{logique de calcul des marges en masse} \'etait incorrecte~: le syst\`eme n'appliquait pas correctement la r\`egle m\'etier (si marge inf\'erieure \`a la marge de base, utiliser le prix remis\'e~; sinon, utiliser le prix de vente).
+    \item La \textbf{configuration des colonnes} (visibilit\'e, ordre) n'\'etait pas persist\'ee entre les sessions~: les agents devaient reconfigurer leur vue \`a chaque connexion.
+    \item Les \textbf{erreurs lors des modifications de services} \'etaient affich\'ees de mani\`ere globale, sans permettre d'identifier quelle ligne d'abonnement \'etait concern\'ee.
+    \item L'interface \textbf{Swagger\,UI} \'etait accessible en environnements pr\'eprod et production, exposant les sp\'ecifications de l'API \`a des risques de s\'ecurit\'e.
+    \item Plusieurs \textbf{pipelines CI} \'etaient en \'echec en raison de probl\`emes de formatage, de linting et de couverture de tests insuffisante.
 \end{itemize}
 
-\subsection{Stratégie de Développement et Perspectives}
+La soci\'et\'e VISEO a donc assign\'e \`a mon p\'erim\`etre de stage la correction de ces anomalies, l'impl\'ementation des fonctionnalit\'es manquantes et l'am\'elioration continue de la base de code, en collaboration avec l'\'equipe projet.
 
-\subsubsection{Plan Stratégique 2024-2027}
+% ========================================
+\section{\'Etude fonctionnelle}
+% ========================================
 
-\textbf{Objectifs Quantitatifs :}
+L'\'etude fonctionnelle est une \'etape cruciale dans la conception et l'\'evolution d'un syst\`eme d'information. Elle consiste \`a analyser les besoins des utilisateurs, \`a identifier les fonctionnalit\'es attendues et \`a d\'efinir les sp\'ecifications fonctionnelles servant de r\'ef\'erence au d\'eveloppement.
+
+\subsection{Capture des besoins fonctionnels}
+
 \begin{itemize}
-\item \textbf{Chiffre d'affaires} : Triplement à horizon 2027
-\item \textbf{Clients externes} : 50\% du CA (vs 30\% actuellement)
-\item \textbf{International} : 25\% du CA depuis les marchés africains
-\item \textbf{Innovation} : 15\% du CA investi en R\&D
+    \item \textbf{Gestion des devis}~: cr\'eation, modification et suppression de lignes de devis~; \'edition des quantit\'es, prix et remises~; regroupement d'articles~; duplication de devis.
+
+    \item \textbf{\'Edition inline du pr\'efixe}~: permettre la modification directe du pr\'efixe d'une ligne dans la grille, avec validation en temps r\'eel (40 caract\`eres maximum, trim automatique, interdiction des retours \`a la ligne).
+
+    \item \textbf{Persistance de la configuration des colonnes}~: conservation par utilisateur des colonnes visibles, masqu\'ees et de leur ordre entre les sessions et les devis~; r\'einitialisation possible aux valeurs par d\'efaut.
+
+    \item \textbf{Correction de la logique de marge en masse}~: appliquer correctement la r\`egle m\'etier~: si la marge souhait\'ee est inf\'erieure \`a la marge de base, utiliser le prix remis\'e~; sinon, utiliser le prix de vente. Validation ligne par ligne pour pr\'evenir les devis sous-\'evalu\'es.
+
+    \item \textbf{Identification des erreurs par modification de service}~: lors d'une modification de service (r\'esiliation, d\'em\'enagement, etc.), afficher un bloc d'erreur individuel par ligne d'abonnement concern\'ee, avec un message explicite traduit en fran\c{c}ais, tout en conservant les modifications valides.
+
+    \item \textbf{S\'election globale des lignes filtr\'ees}~: permettre la s\'election en une action de toutes les lignes filtr\'ees, m\^eme multi-pages, avec un bandeau d'information indiquant le nombre de lignes s\'electionn\'ees.
+
+    \item \textbf{S\'ecurisation de Swagger\,UI}~: d\'esactivation conditionnelle de l'interface Swagger en pr\'eprod et production~; g\'en\'eration de la sp\'ecification OpenAPI \`a la compilation via Swashbuckle CLI et publication en artefact de pipeline.
+
+    \item \textbf{V\'erification de l'\'eligibilit\'e des adresses}~: r\'ealisation d'\'eligibilit\'es proposant la liste des fournisseurs disponibles et leurs options associ\'ees.
 \end{itemize}
 
-\textbf{Axes de Développement :}
+\subsection{Capture des besoins non fonctionnels}
+
 \begin{itemize}
-\item \textbf{Expansion géographique} : Bureau au Nigeria et Sénégal
-\item \textbf{Diversification sectorielle} : Agroalimentaire, textile, automobile
-\item \textbf{Nouveaux services} : Cybersécurité industrielle, efficacité énergétique
-\item \textbf{Acquisitions} : Rachat de startups technologiques locales
+    \item \textbf{Fiabilit\'e}~: l'application doit fonctionner sans interruption~; les corrections apport\'ees ne doivent pas introduire de r\'egressions dans les fonctionnalit\'es existantes.
+    \item \textbf{S\'ecurit\'e}~: les interfaces expos\'ees (Swagger, endpoints API) doivent \^etre prot\'eg\'ees selon l'environnement d'ex\'ecution~; les logs ne doivent contenir aucune donn\'ee personnelle ni identifiant.
+    \item \textbf{Maintenabilit\'e}~: le code produit doit respecter les standards de l'\'equipe (Black, Pylama, SonarQube)~; la couverture de tests doit rester au-dessus du seuil d\'efini en CI.
+    \item \textbf{Facilit\'e d'utilisation}~: l'interface doit \^etre intuitive pour les agents~; les messages d'erreur doivent \^etre clairs, en fran\c{c}ais et actionables.
+    \item \textbf{Performance}~: le syst\`eme doit assurer la fluidit\'e de l'affichage m\^eme pour des devis volumineux (plus de 3\,000 lignes), gr\^ace au virtualisation (TanStack Virtual).
 \end{itemize}
 
-\section{Contexte du Projet JLHUBSECURITY}
+% ========================================
+\section{Solutions propos\'ees}
+% ========================================
 
-\subsection{Positionnement Stratégique dans l'Écosystème OCP}
+Pour r\'epondre aux besoins identifi\'es, la strat\'egie adopt\'ee repose sur trois principes directeurs~:
 
-\subsubsection{Alignement avec la Vision Groupe}
+\textbf{Discipline de changement minimal}~: chaque modification est la plus chirurgicale possible. Aucun refactoring large n'est engag\'e sans \^etre explicitement dans le p\'erim\`etre du ticket. Cela garantit la stabilit\'e du syst\`eme en production et facilite les revues de code.
 
+\textbf{Correction c\^ot\'e pipeline plut\^ot que c\^ot\'e application}~: lorsqu'un probl\`eme touche des fichiers partag\'es ou de production, la correction est r\'ealise\'ee dans la configuration CI/CD plut\^ot que dans le code applicatif.
 
+\textbf{Architecture s\'ecuris\'ee par le code}~: la s\'ecurisation de Swagger\,UI est impl\'ement\'ee directement dans le code applicatif .NET via une condition sur la variable d'environnement \texttt{ASPNETCORE\_ENVIRONMENT}, sans se reposer uniquement sur des couches r\'eseau ou proxy.
 
-Le système JLHUBSECURITY s'inscrit parfaitement dans la stratégie de digitalisation globale d'OCP Maintenance Solutions et du Groupe OCP. Cette plateforme représente un exemple concret de l'application des technologies Industry 4.0 aux processus de sécurité industrielle, illustrant la capacité d'innovation de la filiale.
+Sur le plan technique, les solutions impl\'ement\'ees s'appuient sur les stacks existantes~: Vue.js\,/\,TypeScript pour le frontend, .NET ASP.NET Core pour l'API, Django REST Framework pour le backend m\'etier, et les pipelines Azure DevOps\,/\,GitLab CI pour la livraison continue.
 
-\textbf{Cohérence Stratégique :}
+% ========================================
+\section{Gestion de projet}
+% ========================================
+
+\subsection{La m\'ethode AGILE SCRUM}
+
+La m\'ethodologie de gestion de projet utilis\'ee est la m\'ethodologie \textbf{AGILE SCRUM}. Elle permet d'avancer progressivement, d'ajuster au fur et \`a mesure, d'impliquer davantage le client et d'\'echanger efficacement. La m\'ethode AGILE SCRUM transforme le projet en un processus it\'eratif et incr\'emental, structur\'e en cycles de travail appel\'es \og{}Sprint\fg{}.
+
+En parall\`ele, des r\'eunions entre les membres de l'\'equipe sont organis\'ees r\'eguli\`erement~: une r\'eunion de planification de sprint, des stand-ups quotidiens de 15 minutes permettant \`a chaque d\'eveloppeur de faire le point sur l'avanc\'ee, les blocages rencontr\'es et les objectifs de la journ\'ee.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=16cm]{image/chapitre1/agile.png}
+    \caption{M\'ethode Agile SCRUM.}
+    \label{fig:agile}
+\end{figure}
+
+Les points cl\'es de la m\'ethode Scrum appliqu\'ee dans ce projet sont les suivants~:
+
 \begin{itemize}
-\item \textbf{Transformation digitale} : Contribution directe aux objectifs de modernisation
-\item \textbf{Sécurité industrielle} : Renforcement des standards de sûreté sur tous les sites
-\item \textbf{Innovation technologique} : Démonstration des capacités internes de développement
-\item \textbf{Expérience utilisateur} : Amélioration de l'interaction avec les parties prenantes
+    \item \textbf{\'Equipes auto-organis\'ees}~: l'\'equipe Bifr\"ost est autonome et responsable de la planification, de la r\'ealisation et de la livraison du travail.
+    \item \textbf{Sprints de deux semaines}~: chaque sprint a un objectif clair et produit un incr\'ement potentiellement livrable.
+    \item \textbf{Product Backlog}~: g\'er\'e dans Azure DevOps, il recense les User Stories, bugs et t\^aches techniques prioris\'es par le Product Owner.
+    \item \textbf{Sprint Planning}~: s\'election des items du backlog en d\'ebut de sprint, estimation en points d'effort.
+    \item \textbf{Daily Scrum}~: synchronisation quotidienne de l'\'equipe sur l'avancement et les impediments.
+    \item \textbf{Sprint Review et R\'etrospective}~: d\'emonstration du travail accompli et identification des axes d'am\'elioration du processus.
+    \item \textbf{Transparence et adaptation continue}~: utilisation de tableaux Kanban Azure DevOps pour une visibilit\'e permanente de l'\'etat des tickets.\cite{scrum}
 \end{itemize}
 
-\subsubsection{Enjeux et Défis Sectoriels}
+\subsection{Planification du projet}
 
-Dans un contexte où la sécurité industrielle devient un enjeu majeur pour les entreprises, particulièrement dans le secteur minier et chimique, OCP Maintenance Solutions développe des solutions innovantes pour répondre aux défis contemporains :
+Mon stage au sein de VISEO s'est d\'eroul\'e du \textbf{4 mars 2025} au \textbf{4 septembre 2025}. Il a d\'ebut\'e par une phase d'int\'egration comportant des formations sur les technologies .NET et Vue.js, les pratiques organisationnelles SCRUM, et les principes du clean code appliqu\'es chez VISEO.
 
-\textbf{Défis Réglementaires :}
-\begin{itemize}
-\item \textbf{Conformité internationale} : Respect des standards ISO 45001, OHSAS 18001
-\item \textbf{Traçabilité renforcée} : Exigences croissantes en matière d'audit et de reporting
-\item \textbf{Responsabilité sociétale} : Démonstration de l'engagement sécurité de l'entreprise
-\end{itemize}
+Apr\`es cette mont\'ee en comp\'etence initiale, j'ai rejoint l'\'equipe de d\'eveloppement Bifr\"ost pour contribuer activement aux sprints en cours.
 
-\textbf{Défis Opérationnels :}
-\begin{itemize}
-\item \textbf{Digitalisation des processus} : Passage du papier au numérique
-\item \textbf{Optimisation des workflows} : Réduction des délais et des erreurs
-\item \textbf{Amélioration de l'expérience} : Simplification pour tous les utilisateurs
-\item \textbf{Renforcement de la traçabilité} : Contrôle total des mouvements sur site
-\end{itemize}
+\textbf{\'Equipe Scrum~:}
 
-\textbf{Défis Technologiques :}
-\begin{itemize}
-\item \textbf{Intégration système} : Connexion avec l'écosystème IT existant
-\item \textbf{Sécurité des données} : Protection des informations sensibles
-\item \textbf{Scalabilité} : Capacité à gérer la croissance des volumes
-\item \textbf{Mobilité} : Accès depuis tout type de terminal
-\end{itemize}
+\begin{table}[H]
+\caption{\'Equipe Scrum du projet Bifr\"ost.}
+\centering
+\begin{tabular}{|c|l|}
+\hline
+\rowcolor{black}
+\textbf{\textcolor{white}{R\^ole}} & \textbf{\textcolor{white}{Personne en charge}} \\
+\hline
+\cellcolor[rgb]{0.871,0.902,0.937}\textbf{Product Owner} & Aur\'elie (VISEO) \\
+\hline
+\cellcolor[rgb]{0.871,0.902,0.937}\textbf{Scrum Master / Tech Lead} & ZOUHDI Youness \\
+\hline
+\cellcolor[rgb]{0.871,0.902,0.937}\textbf{Scrum Development Team} & BENDAOUD Adil \\
+\cline{2-2}
+\cellcolor[rgb]{0.871,0.902,0.937} & EL ABDIOUI Haitham \\
+\hline
+\end{tabular}
+\label{tab:scrum-equipe}
+\end{table}
 
-\subsection{Opportunités et Bénéfices Attendus}
+\textbf{Sprints~:}
 
-\subsubsection{Bénéfices Opérationnels}
+Les sprints \'etaient d'une dur\'ee de deux semaines, int\'egrant les phases de d\'eveloppement, de revue de code et de tests pour chaque fonctionnalit\'e. La mise en recette est effectu\'ee \`a chaque fin de sprint dans les environnements de test et de pr\'eprod.
 
-\textbf{Pour OCP Maintenance Solutions :}
-\begin{itemize}
-\item Démonstration des capacités de développement de solutions métier
-\item Référence client interne pour conquérir des marchés externes
-\item Développement de compétences en cybersécurité industrielle
-\item Création d'une offre produit réplicable sur d'autres sites
-\end{itemize}
+\begin{table}[H]
+\caption{Tableau des sprints du projet Bifr\"ost.}
+\centering
+\begin{tabular}{|c|l|c|c|}
+\hline
+\rowcolor{black}
+\textbf{\textcolor{white}{Sprint}} &
+\multicolumn{1}{c|}{\textbf{\textcolor{white}{Incr\'ement (Objectif du sprint)}}} &
+\textbf{\textcolor{white}{Estimation}} &
+\textbf{\textcolor{white}{Statut}} \\
+\hline
+\cellcolor[rgb]{0.871,0.902,0.937}\textbf{Sprint 0} &
+  \footnotesize{Installation de l'environnement de d\'eveloppement} &
+  \footnotesize{10 jours} & \footnotesize{Termin\'e} \\
+\hline
+\cellcolor[rgb]{0.871,0.902,0.937}\textbf{Sprint 1} &
+  \footnotesize{Formation VISEO, prise en main du projet Bifr\"ost} &
+  \footnotesize{10 jours} & \footnotesize{Termin\'e} \\
+\hline
+\cellcolor[rgb]{0.871,0.902,0.937}\textbf{Sprint 2} &
+  \footnotesize{\'Edition inline du pr\'efixe (US-2260)} &
+  \footnotesize{10 jours} & \footnotesize{Termin\'e} \\
+\hline
+\cellcolor[rgb]{0.871,0.902,0.937}\textbf{Sprint 3} &
+  \footnotesize{Correction persistance colonnes fixes (US-2261)} &
+  \footnotesize{10 jours} & \footnotesize{Termin\'e} \\
+\hline
+\cellcolor[rgb]{0.871,0.902,0.937}\textbf{Sprint 4} &
+  \footnotesize{Correction virtual scroll -- loading infini (US-2262)} &
+  \footnotesize{10 jours} & \footnotesize{Termin\'e} \\
+\hline
+\cellcolor[rgb]{0.871,0.902,0.937}\textbf{Sprint 5} &
+  \footnotesize{D\'esactivation Swagger UI en pr\'eprod/prod -- .NET (US-4873)} &
+  \footnotesize{10 jours} & \footnotesize{Termin\'e} \\
+\hline
+\cellcolor[rgb]{0.871,0.902,0.937}\textbf{Sprint 6} &
+  \footnotesize{Persistance configuration colonnes -- Django (US-4874)} &
+  \footnotesize{10 jours} & \footnotesize{En cours} \\
+\hline
+\cellcolor[rgb]{0.871,0.902,0.937}\textbf{Sprint 7} &
+  \footnotesize{Correction logique marge en masse (US-4875)} &
+  \footnotesize{10 jours} & \footnotesize{En cours} \\
+\hline
+\cellcolor[rgb]{0.871,0.902,0.937}\textbf{Sprint 8} &
+  \footnotesize{Refactor \& correction SonarQube (US-4876)} &
+  \footnotesize{10 jours} & \footnotesize{En cours} \\
+\hline
+\cellcolor[rgb]{0.871,0.902,0.937}\textbf{Sprint 9} &
+  \footnotesize{S\'election globale lignes filtr\'ees (US-4878)} &
+  \footnotesize{10 jours} & \footnotesize{Termin\'e} \\
+\hline
+\cellcolor[rgb]{0.871,0.902,0.937}\textbf{Sprint 10} &
+  \footnotesize{Identification erreurs modification service (US-4879)} &
+  \footnotesize{10 jours} & \footnotesize{Termin\'e} \\
+\hline
+\cellcolor[rgb]{0.871,0.902,0.937}\textbf{Sprint 11} &
+  \footnotesize{Tests, corrections de bugs et finalisation} &
+  \footnotesize{10 jours} & \footnotesize{En cours} \\
+\hline
+\end{tabular}
+\label{tab:sprints}
+\end{table}
 
-\textbf{Pour le Groupe OCP :}
-\begin{itemize}
-\item Modernisation des processus de sûreté sur tous les sites
-\item Amélioration de l'image employeur et de l'attractivité
-\item Réduction des risques opérationnels et réglementaires
-\item Optimisation des coûts de gestion des accès
-\end{itemize}
+\clearpage
+\textbf{Diagramme de GANTT~:}
 
-\subsubsection{Impact sur l'Écosystème}
+Un diagramme de Gantt est un outil pratique pour planifier des projets. Gr\^ace \`a une vue d'ensemble des t\^aches planifi\'ees, toutes les personnes impliqu\'ees savent quelle activit\'e doit \^etre effectu\'ee et \`a quelle date. La figure~\ref{fig:gantt} repr\'esente le planning de notre projet depuis la phase d'int\'egration jusqu'au dernier sprint.\cite{gantt}
 
-\textbf{Visiteurs et Partenaires :}
-\begin{itemize}
-\item Expérience d'accès simplifiée et digitalisée
-\item Réduction des temps d'attente et des contraintes administratives
-\item Meilleure information et accompagnement
-\item Image moderne et innovante d'OCP
-\end{itemize}
+\begin{figure}[H]
+\centering
+\includegraphics[width=17cm]{figures/diagrammes/GANTT11.png}
+\caption{Diagramme de Gantt -- Projet Bifr\"ost.}
+\label{fig:gantt}
+\end{figure}
 
-\textbf{Équipes de Sûreté :}
-\begin{itemize}
-\item Automatisation des tâches administratives répétitives
-\item Outils de contrôle et de reporting avancés
-\item Amélioration de la traçabilité et de la conformité
-\item Réduction de la charge de travail manuelle
-\end{itemize}
+% ========================================
+\section{Conclusion}
+% ========================================
 
-\section*{Conclusion}
-
-Le Groupe OCP, fort de plus d'un siècle d'expérience et de sa position de leader mondial des phosphates, continue d'innover et de se développer à travers ses filiales spécialisées. Cette capacité d'innovation se manifeste particulièrement à travers OCP Maintenance Solutions, qui illustre parfaitement la transformation de l'entreprise vers l'industrie 4.0.
-
-OCP Maintenance Solutions, par son expertise technologique, sa culture d'innovation et sa vision stratégique, représente l'incarnation parfaite des ambitions de digitalisation du Groupe OCP. La filiale développe des solutions technologiques avancées qui répondent aux enjeux contemporains de l'industrie tout en créant de la valeur pour l'ensemble de l'écosystème.
-
-Le projet JLHUBSECURITY, sur lequel porte ce mémoire, s'inscrit naturellement dans cette dynamique d'innovation et de digitalisation. Il contribue non seulement à l'amélioration des processus de sûreté industrielle au sein d'OCP, mais participe également au renforcement de la position de l'entreprise comme référence en matière de technologies industrielles avancées.
-
-Cette présentation de l'entreprise d'accueil démontre que le projet développé s'appuie sur un environnement d'innovation exceptionnel, des ressources technologiques de premier plan et une vision stratégique claire orientée vers l'excellence opérationnelle et la transformation digitale. Ces éléments constituent un socle solide pour le développement et le déploiement réussi de solutions innovantes comme JLHUBSECURITY.
+Dans ce chapitre, nous avons pr\'esent\'e le contexte g\'en\'eral du projet en introduisant l'organisme d'accueil VISEO et le client Adista. Nous avons ensuite d\'efini le cadre du projet Bifr\"ost~: son architecture trois couches (Vue.js\,/\,.NET\,/\,Django), ses objectifs de d\'eveloppement et d'am\'elioration continue, ainsi que les besoins fonctionnels et non fonctionnels identifi\'es. Enfin, nous avons d\'ecrit l'organisation agile de l'\'equipe et la planification en sprints. Ces \'el\'ements constituent la fondation sur laquelle s'appuient les chapitres suivants, d\'edi\'es \`a l'analyse de l'existant et aux r\'ealisations techniques du stage.

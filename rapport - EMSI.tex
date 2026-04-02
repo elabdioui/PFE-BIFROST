@@ -1,5 +1,3 @@
-
-
 \documentclass[a4paper, oneside, 12pt, final]{extreport}
 \usepackage{graphicx}
 \usepackage{makeidx}
@@ -18,7 +16,7 @@
 \usepackage{tikz}
 \usepackage{tikz-qtree}
 \usepackage{float}
-
+\usepackage[table]{xcolor}
 
 \parindent 0cm
 \makeindex
@@ -47,37 +45,43 @@
 \providecommand{\keywords}[1]{\textbf{\textit{Mots clés---}} #1}
 \providecommand{\keywordss}[1]{\textbf{\textit{Keywords---}} #1}
 
-% Document information
-\newcommand{\reportTitle}{\textsc{Projet de Fin d'études}}
+% ========================================
+% INFORMATIONS DU DOCUMENT
+% ========================================
+\newcommand{\reportTitle}{\textsc{Projet de Fin d'\'etudes}}
 
 \newcommand{\reportAuthor}{Haitham \textsc{El Abdioui}}
 
 \newcommand{\reportSubject}{%
-  BIFROST%
+  Contribution au d\'eveloppement et \\
+  \vspace{6pt}
+  \`a l'am\'elioration de la plateforme Bifr\"ost%
 }
 
 \newcommand{\dateSoutenance}{16/09/2025}
 
-\newcommand{\academicYear}{2025-2026}
+\newcommand{\academicYear}{2024--2025}
 
 \newcommand{\studyDepartment}{VISEO}
 
-\newcommand{\EMSI}{Ecole Marocaine des Sciences de l'Ing\'enieur}
+\newcommand{\EMSI}{\'Ecole Marocaine des Sciences de l'Ing\'enieur}
 
-% Encadrant
-\newcommand{\juryMemberOne}{M Nabil \textsc{EL OUARDI}}
-\newcommand{\juryMemberOneDesc}{Encadrant Académique}
+% Encadrants
+\newcommand{\juryMemberOne}{M. Nabil \textsc{El Ouardi}}
+\newcommand{\juryMemberOneDesc}{Encadrant Acad\'emique}
 
-\newcommand{\juryMemberTwo}{Mme Jihade \textsc{DOUMIRI}}
+\newcommand{\juryMemberTwo}{Mme Jihade \textsc{Doumiri}}
 \newcommand{\juryMemberTwoDesc}{Encadrant Entreprise}
 
-% Jury members
-\newcommand{\juryMemberThree}{Mme Asmaa \textsc{ROUDANE}}
-\newcommand{\juryMemberThreeDesc}{Membre du jury}
+% Membres du jury
+\newcommand{\juryMemberThree}{FLAN \textsc{FLANE}}
+\newcommand{\juryMemberThreeDesc}{POSTE}
 
-\newcommand{\juryMemberFour}{Mme Sara \textsc{AIT }}
-\newcommand{\juryMemberFourDesc}{Membre du jury}
+\newcommand{\juryMemberFour}{FLANE \textsc{FLANE}}
+\newcommand{\juryMemberFourDesc}{FLANE}
 
+\newcommand{\juryMemberFive}{FLANE \textsc{FLANE}}
+\newcommand{\juryMemberFiveDesc}{FLANE}
 
 % Utility commands
 \newcommand{\specialcell}[1]{%
@@ -89,9 +93,9 @@
 \author{\reportAuthor}
 
 % Acronyms
-\newacronym{abc}{ABC}{A contrived acronym}
-\newacronym{efg}{EFG}{Another acronym}
-\newacronym{svm}{SVM}{Support Vector Machines}
+\newacronym{api}{API}{Application Programming Interface}
+\newacronym{drf}{DRF}{Django REST Framework}
+\newacronym{ci}{CI}{Continuous Integration}
 
 \pagenumbering{roman}
 
@@ -102,86 +106,68 @@
 % ========================================
 \thispagestyle{empty}
 \begin{titlepage}
-\begin{center}
+    \begin{center}
 
-% Header
-{%
-  \fontsize{9pt}{9pt}\selectfont%
-  \begin{tabular}{c}
-    Honoris united universities - \EMSI{} \\
-  \end{tabular}
-}
+    % 1. En-tête et Logos
+    {\large Honoris United Universities -- \EMSI{} \par}
+    \vspace{0.8cm}
+    \begin{tabular}{cc}      
+      \adjustbox{valign=c}{\includegraphics[scale=0.5]{image/EMSI_logo2.png}} & 
+      \adjustbox{valign=c}{\includegraphics[scale=0.2]{image/viseo.jpg}}
+    \end{tabular}
 
+    \vfill
 
+    % 2. Type de document et Auteur
+    {\Large\textbf{\textit{Rapport de stage -- Projet de Fin d'Études}}}\par
+    
+    \vspace{1cm}
 
-\begin{tabular}{ccc}
-\adjustbox{valign=c}{\includegraphics[scale=0.5]{image/EMSI_logo2.png}} & 
-\adjustbox{valign=c}{\includegraphics[scale=0.2]{image/Viseo/viseo.jpg}} 
-\end{tabular}
+    {\large \textit{Réalisé par :}}\par
+    \vspace{0.3cm}
+    {\Large \textbf{\reportAuthor}}\par
+    
+    \vfill
 
-\vspace{30pt}
+    % 3. Titre du projet
+    \rule{0.85\textwidth}{0.5pt}\par
+    \vspace{0.6cm}
+    {\LARGE \textbf{\reportSubject}}\par
+    \vspace{0.6cm}
+    \rule{0.85\textwidth}{0.5pt}\par
+    
+    \vfill
 
-% Document type
-\textbf{\textit{Rapport de stage}}
+    % 4. Encadrants et Jury disposés proprement en deux colonnes équilibrées
+    \begin{minipage}[t]{0.48\textwidth}
+        {\large \textit{Sous la direction de :}}\\[0.3cm]
+        \textbf{\juryMemberOne}\\
+        \small \juryMemberOneDesc\\[0.3cm]
+        \textbf{\juryMemberTwo}\\
+        \small \juryMemberTwoDesc
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        {\large \textit{Membres du jury :}}\\[0.3cm]
+        \textbf{\juryMemberThree}\\
+        \small \juryMemberThreeDesc\\[0.3cm]
+        \textbf{\juryMemberFour}\\
+        \small \juryMemberFourDesc\\[0.3cm]
+        \textbf{\juryMemberFive}\\
+        \small \juryMemberFiveDesc
+    \end{minipage}\par
 
-\vspace{30pt}
+    \vfill
+    
+    % 5. Informations de bas de page
+    \textbf{\textit{Année académique :}} \academicYear{} \hfill \textbf{\textit{Date de soutenance :}} \dateSoutenance{} \\
+    \vspace{0.4cm}
+    \textbf{\textit{Entreprise d'accueil :}} \studyDepartment{}
 
-% Author
-\textbf{\textit{Réalisé par}}\\
-\vspace{10pt}
-{%
-  \fontsize{18pt}{18pt}\selectfont%
-  \textbf{\reportAuthor}\\
-}%
-
-\vspace{10pt}
-
-% Title
-{%
-  \fontsize{27pt}{27pt}\selectfont%
-  \rule{0.5\textwidth}{.4pt}\\
-  \vspace{10pt}
-  \reportSubject{}\\%
-  \vspace{10pt}
-  \rule{0.5\textwidth}{.4pt}
-}
-
-\vspace{10pt}
-\textbf{\textit{sous la direction de :\\}}
-\vspace{20pt}
-
-% Supervisors
-\begin{tabular}{p{0.3\linewidth} p{0.3\linewidth}}
-  \juryMemberOne{} & \juryMemberOneDesc{}\\
-  \juryMemberTwo{} & \juryMemberTwoDesc{}\\
-\end{tabular}
-
-\vspace{20pt}
-%date 
-
-\textbf{\textit{Date soutenance :}} \\
-\vspace{10pt}
-\dateSoutenance{}
-\vspace{20pt}
-
-% Jury
-
-\textbf{\textit{Membres du jury :}}\\
-\vspace{10pt}
-\begin{tabular}{p{0.3\linewidth} p{0.3\linewidth}}
-  \juryMemberThree{} & \juryMemberThreeDesc{} \\
-  \juryMemberFour{} & \juryMemberFourDesc{} \\
-\end{tabular}
-\vspace{20pt}
-\vspace{30pt}
-
-% Host company
-\textbf{\textit{Entreprise d'accueil :}}\\
-\vspace{10pt}
-(\studyDepartment)\\
-
-\end{center}
+    \end{center}
 \end{titlepage}
+
+
 
 % ========================================
 % DÉDICACE
@@ -192,6 +178,7 @@
 % REMERCIEMENTS
 % ========================================
 \input{remerciement}
+
 % ========================================
 % RÉSUMÉ
 % ========================================
@@ -200,9 +187,14 @@
 % ========================================
 % TABLES DES MATIÈRES
 % ========================================
+\newpage
 \tableofcontents
+
+\newpage
 \listoffigures
 
+\newpage
+\listoftables
 
 \cleardoublepage
 \newpage
@@ -211,8 +203,6 @@
 % ========================================
 % INTRODUCTION
 % ========================================
-
-
 \input{introduction}
 
 % ========================================
@@ -222,10 +212,8 @@
 \label{chap:1}
 \input{chapitre1}
 
-
 \label{chap:2}
 \input{chapitre2}
-
 
 \label{chap:3}
 \input{chapitre3}
@@ -236,10 +224,7 @@
 % ========================================
 % CONCLUSION
 % ========================================
-
 \input{conclusion}
-
-
 
 % ========================================
 % BIBLIOGRAPHIE
@@ -249,6 +234,5 @@
 \bibliography{Biblio.bib}
 
 \cleardoublepage
-
 
 \end{document}

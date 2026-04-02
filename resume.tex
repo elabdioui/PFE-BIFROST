@@ -1,30 +1,28 @@
-\chapter*{Résumé}
+\chapter*{R\'esum\'e}
 \thispagestyle{empty}
 
-Dans un contexte industriel où la sécurité et la digitalisation constituent des enjeux majeurs, l'Office Chérifien des Phosphates (OCP) s'engage dans une démarche d'amélioration continue de ses processus de gestion des accès et de sûreté industrielle. Ce projet de stage s'inscrit dans cette dynamique en contribuant au développement et à l'optimisation du système JLHUBSECURITY chez OCP Maintenance Solutions.
+Dans un contexte o\`u la transformation digitale des outils m\'etier constitue un enjeu strat\'egique majeur pour les entreprises, \textbf{VISEO} s'engage dans l'\'evolution continue de ses produits logiciels au service de ses clients. Ce projet de fin d'\'etudes s'inscrit dans cette dynamique en contribuant au d\'eveloppement et \`a l'am\'elioration de la plateforme \textbf{Bifr\"ost}, un outil de gestion de devis et d'abonnements utilis\'e par les agents du service client.
 
 \vspace{0.5cm}
 
-Les processus traditionnels de gestion des accès au site de Jorf Lasfar présentaient plusieurs limitations : saisies manuelles répétitives sources d'erreurs, temps d'attente prolongés aux heures de pointe, absence de traçabilité numérique et risque de perte des pièces d'identité des visiteurs. Ces dysfonctionnements impactaient l'efficacité opérationnelle et la satisfaction des utilisateurs.
+La plateforme Bifr\"ost repose sur une architecture multi-couches compos\'ee d'un backend \textbf{Django REST Framework} (Quoter App), d'une API \textbf{.NET ASP.NET Core} (API Bifr\"ost) faisant office de couche interm\'ediaire, et d'un frontend \textbf{Vue.js / TypeScript}. Cette architecture distribu\'ee pr\'esentait des probl\'ematiques de fiabilit\'e, de s\'ecurit\'e et d'exp\'erience utilisateur qui constituaient l'axe principal de ce stage.
 
 \vspace{0.5cm}
 
- L'objectif principal consistait à digitaliser et moderniser le système de gestion des accès en développant une plateforme web intégrée permettant de dématérialiser les demandes, automatiser les workflows de validation, générer des badges QR code sécurisés et améliorer l'expérience utilisateur.
- 
-\vspace{0.5cm}
-
-Le projet a été mené selon une approche agile avec analyse des besoins utilisateurs, étude des processus existants, conception d'une architecture technique robuste et développement d'une solution modulaire. La stack technique retenue comprend Laravel pour le backend et Vue.js pour le frontend, garantissant performance et maintenabilité.
+L'objectif principal consistait \`a contribuer activement au d\'eveloppement de nouvelles fonctionnalit\'es, \`a corriger des anomalies identifi\'ees et \`a am\'eliorer la qualit\'e du code existant, tout en respectant les standards de l'\'equipe en mati\`ere de CI/CD, de tests et de qualit\'e logicielle.
 
 \vspace{0.5cm}
 
-La solution développée intègre plusieurs modules fonctionnels : gestion des visiteurs avec génération automatique de QR codes, système de validation multi-niveaux, tableau de bord de pilotage, gestion des véhicules et du matériel, ainsi qu'un module spécialisé pour la ferraille. L'interface responsive assure une utilisation optimale sur tous les supports.
+Le travail r\'ealis\'e couvre plusieurs volets compl\'ementaires~: c\^ot\'e \textbf{frontend}, correction de la logique d'\'edition en masse des devis, refactoring de composants Vue.js (r\'eduction des code smells SonarQube, extraction de helpers), et impl\'ementation d'un syst\`eme d'identification individuelle des erreurs par ligne d'abonnement. C\^ot\'e \textbf{backend .NET}, s\'ecurisation de l'interface Swagger UI en pr\'eprod et production, avec g\'en\'eration automatique de la sp\'ecification OpenAPI en pipeline CI/CD. C\^ot\'e \textbf{backend Django}, impl\'ementation du syst\`eme de persistance des pr\'ef\'erences de colonnes par utilisateur, correction des pipelines CI (linting, formatage, couverture de tests), et initialisation d'une d\'emarche de mise \`a jour des d\'ependances Python.
 
 \vspace{0.5cm}
 
- L'implémentation du système JLHUBSECURITY a permis de réduire significativement les temps de traitement des demandes, d'éliminer les erreurs de saisie manuelle, d'améliorer la traçabilité des accès et d'offrir une meilleure expérience utilisateur. Les fonctionnalités de reporting et d'audit renforcent le contrôle et la supervision des activités.
- 
+Les r\'ealisations de ce stage ont permis d'am\'eliorer la fiabilit\'e des calculs de marge, la s\'ecurit\'e de l'application, l'exp\'erience des agents lors des modifications de services, ainsi que la maintenabilit\'e globale du code. Une d\'emarche d'observabilit\'e (int\'egration Splunk, OpenTelemetry) a \'egalement \'et\'e initi\'ee en parall\`ele des tickets fonctionnels.
+
 \vspace{0.5cm}
 
-Ce projet démontre l'importance de la transformation digitale dans l'industrie et contribue à positionner OCP comme un leader en matière d'innovation technologique appliquée à la sûreté industrielle.
+Ce projet illustre comment une approche rigoureuse -- combinant discipline de changement minimal, qualit\'e de test et culture DevOps -- permet de contribuer efficacement \`a un produit logiciel en production tout en garantissant sa stabilit\'e.
 
+\vspace{0.5cm}
 
+\keywords{Vue.js, Django REST Framework, .NET ASP.NET Core, CI/CD, Azure DevOps, GitLab CI, SonarQube, OpenAPI, Splunk, observabilit\'e, gestion de devis}
