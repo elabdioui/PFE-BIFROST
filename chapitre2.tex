@@ -2,352 +2,319 @@
 % CHAPITRE 2 - PROBLÉMATIQUE ET CONTEXTE DU PROJET
 % ========================================
 
-\chapter{Problématique et Contexte du Projet}
+\chapter{Probl\'ematique et Contexte du Projet}
 \label{chap:problematique_contexte}
 
 \section*{Introduction}
 
-Ce chapitre présente de manière détaillée la problématique rencontrée dans la gestion des accès et de la sûreté industrielle au sein du Groupe OCP, ainsi que le contexte spécifique qui a motivé le développement du système JLHUBSECURITY. À travers une analyse approfondie des processus existants, nous identifierons les défis majeurs, les points de douleur et les opportunités d'amélioration qui justifient la nécessité d'une solution digitale moderne.
+Ce chapitre pr\'esente de mani\`ere d\'etaill\'ee la probl\'ematique rencontr\'ee dans la gestion commerciale des offres t\'el\'ecom au sein de l'entreprise cliente, ainsi que le contexte sp\'ecifique qui a motiv\'e la conception et le d\'eveloppement de la plateforme Bifr\"ost. \`A travers une analyse approfondie des processus existants, nous identifierons les d\'efis majeurs, les points de douleur et les opportunit\'es d'am\'elioration qui ont justifi\'e la n\'ecessit\'e d'une solution sur mesure, moderne et int\'egr\'ee.
 
-Cette analyse nous permettra de comprendre les enjeux opérationnels, techniques et stratégiques qui sous-tendent le projet, tout en définissant clairement les objectifs à atteindre et les bénéfices attendus de la digitalisation des processus de sûreté industrielle.
+Cette analyse permet de comprendre les enjeux op\'erationnels, techniques et strat\'egiques qui sous-tendent le projet, tout en d\'efinissant clairement les objectifs \`a atteindre et les b\'en\'efices attendus de la mise en place d'une plateforme d\'edi\'ee \`a la gestion des devis et des abonnements B2B.
 
+% ========================================
 \section{Analyse des Processus Existants}
+% ========================================
 
 \subsection{Vue d'Ensemble des Processus Actuels}
 
-La gestion des accès sur les sites industriels d'OCP repose actuellement sur un ensemble de processus manuels et semi-automatisés qui impliquent plusieurs acteurs et étapes de validation. Ces processus couvrent différents types d'accès selon les profils des demandeurs et la nature de leurs interventions sur site.
+Avant le d\'eveloppement de Bifr\"ost, la gestion des devis commerciaux au sein de l'entreprise cliente reposait sur des processus partiellement automatis\'es, intimement li\'es \`a un ERP g\'en\'eraliste inadapt\'e aux sp\'ecificit\'es m\'etier du secteur des t\'el\'ecommunications. Ces processus couvraient diff\'erentes \'etapes du cycle commercial~: la cr\'eation d'une opportunit\'e, la r\'edaction du devis, la n\'egociation commerciale, la validation et enfin la g\'en\'eration du bon de commande. Chacune de ces \'etapes mobilisait plusieurs acteurs et g\'en\'erait des interactions manuelles co\^uteuses en temps et en fiabilit\'e.
 
-\subsubsection{Typologie des Accès Gérés}
+\subsubsection{Acteurs Impliqu\'es dans les Processus}
 
-Les processus actuels de gestion des accès concernent plusieurs catégories d'intervenants :
-
-\begin{itemize}
-\item \textbf{Personnel permanent} : Agents OCP permanents, filiales OCP permanentes
-\item \textbf{Personnel temporaire} : Collaborateurs OCP en mission, stagiaires, intervenants courte durée
-\item \textbf{Sous-traitants} : Entreprises externes intervenant sur les sites
-\item \textbf{Visiteurs} : Visiteurs standards et VIP nécessitant un accompagnement spécifique
-\item \textbf{Véhicules et engins} : Véhicules légers, transport collectif, engins de chantier
-\item \textbf{Matériels et biens} : Entrée/sortie de matériel OCP et sous-traitant, sorties provisoires
-\end{itemize}
-
-\subsubsection{Acteurs Impliqués dans les Processus}
-
-La chaîne de validation des accès implique plusieurs acteurs avec des rôles et responsabilités spécifiques :
+La cha\^ine de traitement des devis impliquait plusieurs profils d'utilisateurs aux r\^oles et responsabilit\'es distincts~:
 
 \begin{itemize}
-\item \textbf{Demandeurs} : Visiteurs, collaborateurs, sous-traitants
-\item \textbf{Hôtes} : Collaborateurs OCP responsables des visiteurs
-\item \textbf{Chefs de projet} : Responsables des projets impliquant des sous-traitants
-\item \textbf{HSE E} : Responsables Hygiène, Sécurité, Environnement Entreprise
-\item \textbf{Head Entité} : Responsables d'entités organisationnelles
-\item \textbf{Agents de sûreté} : Personnel en charge du contrôle des accès
-\item \textbf{Responsables sûreté N-1 et N-2} : Hiérarchie de validation des demandes
+    \item \textbf{Agents commerciaux}~: responsables de la cr\'eation et de l'\'edition des devis \`a partir du catalogue d'offres.
+    \item \textbf{Superviseurs ADV}~: charg\'es de la validation des devis avant transmission au client.
+    \item \textbf{\'Equipes de production}~: destinataires des lignes de devis apr\`es validation, en charge de la mise en \oe{}uvre des services vendus.
+    \item \textbf{Syst\`emes tiers (CRM, ERP)}~: syst\`emes sources et cibles des donn\'ees de devis, n\'ecessitant des \'echanges structur\'es et fiables.
 \end{itemize}
 
-\subsection{Processus de Gestion des Accès Visiteurs}
+\subsubsection{Flux du Processus Commercial Existant}
 
-\subsubsection{Étape de Préparation du Rendez-vous}
-
-Le processus de gestion des accès visiteurs débute par une phase de préparation qui implique plusieurs échanges entre le visiteur, l'hôte et les services de sûreté :
+Le processus commercial suivait un enchaînement s\'equentiel rigide~:
 
 \begin{enumerate}
-\item \textbf{Prise de contact} : Le visiteur et l'hôte conviennent d'une date de rendez-vous
-\item \textbf{Communication des exigences} : L'hôte informe le visiteur des documents requis
-\item \textbf{Collecte d'informations} : L'hôte recueille les données d'identification du visiteur et de son véhicule
-\item \textbf{Création de la demande} : L'hôte renseigne le canevas de demande d'autorisation d'accès
-\item \textbf{Transmission} : La demande est envoyée par email à la sûreté site (minimum 24h avant)
-\item \textbf{Vérification} : La sûreté vérifie la complétude des données et demande des compléments si nécessaire
+    \item \textbf{Cr\'eation de l'opportunit\'e}~: le CRM g\'en\`ere une opportunit\'e commerciale et la transmet au syst\`eme de devis.
+    \item \textbf{S\'election des articles}~: le commercial parcourt manuellement un catalogue de pr\`es de 45\,000 r\'ef\'erences pour s\'electionner les articles un par un.
+    \item \textbf{\'Edition du devis}~: les lignes sont ajout\'ees, configur\'ees et valid\'ees manuellement, sans assistance de configurateur.
+    \item \textbf{Validation}~: le superviseur ADV examine et valide le devis, sans interface d\'edi\'ee ni workflow automatis\'e.
+    \item \textbf{Transmission}~: le devis valid\'e est transmis au client et aux \'equipes de production par des canaux non unifi\'es.
+    \item \textbf{Archivage}~: le devis est archiv\'e manuellement lorsque son \'etat passe \`a inactif dans le syst\`eme source.
 \end{enumerate}
 
-\subsubsection{Étape d'Accès au Site}
+\subsection{Processus de Gestion des Devis}
 
-L'accès effectif au site suit un protocole rigoureux de contrôle et de validation :
+\subsubsection{\'Etape de Cr\'eation et de Configuration}
+
+La phase de cr\'eation d'un devis constituait l'\'etape la plus chronophage et la plus source d'erreurs du processus existant. L'agent commercial devait~:
 
 \begin{enumerate}
-\item \textbf{Présentation} : Le visiteur se présente à l'entrée avec les documents requis
-\item \textbf{Contrôle de sécurité} : Vérification de l'identité et fouille des affaires personnelles
-\item \textbf{Vérification de la demande} : L'agent récupère la pièce d'identité et vérifie l'existence de la demande
-\item \textbf{Remise du badge} : Préparation et remise du badge d'accès temporaire
-\item \textbf{Information et guidage} : Indication de l'itinéraire et remise du dépliant d'information
-\item \textbf{Contrôle véhicule} : Contrôle supplémentaire pour les véhicules selon les zones d'accès
+    \item Rechercher les articles adapt\'es parmi un catalogue de plusieurs dizaines de milliers de r\'ef\'erences, sans filtrage intelligents ni assistant de configuration~;
+    \item Saisir manuellement chaque ligne avec ses param\`etres (quantit\'e, prix, remise, dur\'ee d'engagement)~;
+    \item G\'erer manuellement la hi\'erarchie lignes\,/\,sous-lignes pour les offres complexes~;
+    \item V\'erifier la coh\'erence des donn\'ees sans outil de validation automatis\'e.
 \end{enumerate}
 
-\subsubsection{Étape de Sortie du Site}
+\subsubsection{\'Etape de Validation et de Transmission}
 
-La sortie du site implique également des procédures de contrôle :
+La validation des devis s'op\'erait de mani\`ere informelle, sans workflow d\'efini~:
 
 \begin{enumerate}
-\item \textbf{Restitution du badge} : Le visiteur doit restituer son badge d'accès
-\item \textbf{Récupération de la pièce d'identité} : Restitution de la pièce d'identité mise en caution
-\item \textbf{Contrôle des matériels} : Vérification de l'absence de matériel non déclaré
-\item \textbf{Enregistrement de la sortie} : Mise à jour manuelle des registres
+    \item Le commercial soumettait le devis au superviseur ADV par email ou via un outil g\'en\'eraliste~;
+    \item Le superviseur effectuait une relecture manuelle sans vue consolid\'ee des modifications~;
+    \item Les retours \'etaient communiqu\'es de mani\`ere non structur\'ee, rallongeant les cycles de validation~;
+    \item La transmission aux \'equipes de production se faisait sans correspondance automatique entre les lignes commerciales et les lignes de production.
 \end{enumerate}
 
-\subsection{Processus de Gestion des Accès Matériels}
+\subsubsection{\'Etape de Modification des Services Existants}
 
-\subsubsection{Sous-processus d'Entrée de Matériel}
-
-Le processus d'entrée de matériel sur site suit plusieurs étapes de contrôle :
+La gestion des modifications de services en cours de vie (r\'esiliation, d\'em\'enagement, upgrade\,/\,downgrade) \'etait particuli\`erement probl\'ematique~:
 
 \begin{enumerate}
-\item \textbf{Présentation} : Le transporteur se présente devant la porte d'accès
-\item \textbf{Vérification de la demande} : Contrôle de la réception de la demande d'accès
-\item \textbf{Rapprochement documentaire} : Vérification de la conformité entre contenu et documentation
-\item \textbf{Validation ou refus} : Décision d'autorisation d'entrée
-\item \textbf{Enregistrement} : Mise à jour manuelle des registres système
+    \item L'agent devait identifier manuellement les lignes concern\'ees parmi les abonnements existants~;
+    \item Les types de modification (r\'esiliation, remplacement, cr\'eation administrative) n'\'etaient pas encadr\'es par des workflows distincts~;
+    \item Les erreurs de saisie sur une ligne \'etaient difficiles \`a identifier, aucun m\'ecanisme de notification granulaire n'existant~;
+    \item La tra\c{c}abilit\'e des changements d'\'etat des abonnements \'etait assur\'ee manuellement, avec un risque \'elev\'e de perte d'information.
 \end{enumerate}
 
-\subsubsection{Sous-processus de Sortie de Matériel}
+\subsection{Processus de Gestion des Abonnements}
 
-La sortie de matériel nécessite des contrôles renforcés :
+\subsubsection{Suivi du Cycle de Vie des Abonnements}
+
+Le suivi des abonnements post-vente pr\'esentait \'egalement de nombreuses lacunes~:
 
 \begin{enumerate}
-\item \textbf{Demande de sortie} : Présentation du bon d'entrée et/ou de sortie
-\item \textbf{Restitution documentaire} : Remise des documents d'autorisation
-\item \textbf{Rapprochement et contrôle} : Vérification de la conformité du matériel
-\item \textbf{Autorisation définitive} : Validation finale de la sortie
-\item \textbf{Traçabilité} : Mise à jour du registre de suivi des matériels
+    \item L'\'etat des abonnements (actif, suspendu, r\'esili\'e) n'\'etait pas visible en temps r\'eel depuis l'interface de devis~;
+    \item Les modifications d'abonnements d\'eclenchaient des interventions manuelles dans plusieurs syst\`emes~;
+    \item L'historique des changements n'\'etait pas consolid\'e, rendant les audits et les contr\^oles difficiles~;
+    \item La facturation associ\'ee aux modifications n'\'etait pas automatis\'ee, engendrant des risques d'\'ecarts.
 \end{enumerate}
 
-\section{Identification des Points de Douleur (Pain Points)}
+% ========================================
+\section{Identification des Points de Douleur}
+% ========================================
 
-\subsection{Problèmes Liés à la Préparation des Rendez-vous}
+\subsection{Probl\`emes Li\'es \`a la Cr\'eation et l'\'Edition des Devis}
 
-L'analyse des processus existants révèle plusieurs dysfonctionnements majeurs lors de la phase de préparation :
-
-\subsubsection{Saisies Répétitives et Risques d'Erreurs}
-
-\begin{itemize}
-\item \textbf{Demandes répétitives d'informations} : Les visiteurs réguliers doivent fournir les mêmes informations (CIN, employeur, etc.) à chaque nouvelle demande d'accès
-\item \textbf{Saisie manuelle par l'hôte} : La création des demandes d'accès par l'hôte favorise les risques d'erreurs (numéro de pièce d'identité erroné, nom ou prénom mal orthographié)
-\item \textbf{Copie manuelle des données} : Les informations sont recopiées manuellement depuis le canevas vers les fichiers maintenus par la sûreté
-\end{itemize}
-
-\subsubsection{Défaut de Communication et de Traçabilité}
+\subsubsection{Complexit\'e du Catalogue et Lenteur de Recherche}
 
 \begin{itemize}
-\item \textbf{Absence de confirmation} : Manque de confirmation automatique de la validation des demandes d'accès
-\item \textbf{Défaut de notification} : L'hôte n'est pas informé automatiquement de l'arrivée de son visiteur au site
-\item \textbf{Informations insuffisantes} : Manque d'informations fournies aux visiteurs pour faciliter leur accès au site
+    \item \textbf{Catalogue trop vaste}~: avec pr\`es de 45\,000 r\'ef\'erences disponibles, la recherche manuelle d'un article adapt\'e repr\'esentait une charge cognitive et temporelle consid\'erable pour les agents commerciaux.
+    \item \textbf{Absence de configurateur}~: aucun assistant de type wizard ne guidait le commercial dans la s\'election des offres, l'obligeant \`a construire chaque devis article par article.
+    \item \textbf{Gestion manuelle de la hi\'erarchie}~: la structure lignes\,/\,sous-lignes des devis t\'el\'ecom n'\'etait pas support\'ee nativement, n\'ecessitant des manipulations fastidieuses.
 \end{itemize}
 
-\subsection{Problèmes Liés à l'Accès au Site}
-
-\subsubsection{Temps d'Attente et Gestion des Flux}
+\subsubsection{Fiabilit\'e des Calculs et des Remises}
 
 \begin{itemize}
-\item \textbf{Temps d'attente prolongés} : Attentes très longues, particulièrement aux heures de pointe (entre 8h et 10h30), dues à la procédure manuelle de remise des badges physiques
-\item \textbf{Espace d'accueil insuffisant} : Capacité limitée de l'espace d'accueil pour gérer les pics d'affluence
-\item \textbf{Absence de signalisation} : Difficulté pour les visiteurs à localiser le bâtiment principal et l'espace d'accueil
+    \item \textbf{Calculs de marges non contr\^ol\'es}~: en l'absence de r\`egles m\'etier automatis\'ees, les commerciaux appliquaient des remises pouvant conduire \`a des devis sous-\'evalu\'es, avec un impact direct sur la rentabilit\'e.
+    \item \textbf{Absence de validation en temps r\'eel}~: aucun m\'ecanisme d'alerte n'existait pour signaler qu'une remise appliqu\'ee d\'epassait le seuil de marge acceptable.
+    \item \textbf{Inconsistance des donn\'ees}~: les prix et quantit\'es saisis manuellement n'\'etaient pas v\'erifi\'es automatiquement, g\'en\'erant r\'eguli\`erement des \'ecarts entre le devis et le bon de commande.
 \end{itemize}
 
-\subsubsection{Risques Sécuritaires}
+\subsection{Probl\`emes Li\'es \`a la Gestion des Configurations Utilisateur}
+
+\subsubsection{Absence de Persistance des Pr\'ef\'erences}
 
 \begin{itemize}
-\item \textbf{Risque de perte des pièces d'identité} : Les CIN et passeports laissés en caution peuvent être perdus ou mélangés
-\item \textbf{Gestion manuelle des badges} : Risque de remise de badges non conformes ou expirés
-\item \textbf{Contrôles non standardisés} : Variabilité dans l'application des procédures de contrôle selon les agents
+    \item \textbf{Reconfiguration syst\'ematique}~: les agents devaient reconfigurer manuellement l'affichage des colonnes (visibles, masqu\'ees, ordre) \`a chaque nouvelle session, sans m\'emorisation des pr\'ef\'erences individuelles.
+    \item \textbf{Productivit\'e r\'eduite}~: cette contrainte r\'ep\'etitive entra\^inait une perte de temps quotidienne non n\'egligeable pour des \'equipes g\'erant de nombreux devis.
+    \item \textbf{Exp\'erience utilisateur d\'egrad\'ee}~: l'interface ne s'adaptait pas au profil de l'utilisateur, rendant l'outil moins intuitif qu'attendu.
 \end{itemize}
 
-\subsection{Problèmes Liés à la Sortie du Site}
-
-\subsubsection{Défaut de Suivi et de Contrôle}
+\subsubsection{Performances Insuffisantes sur les Devis Volumineux}
 
 \begin{itemize}
-\item \textbf{Absence de notification de sortie} : L'hôte n'est pas informé automatiquement de la sortie de son visiteur
-\item \textbf{Contrôle limité des dépassements} : Les agents de sécurité ne sont pas alertés de la présence d'un visiteur au-delà de ses heures autorisées
-\item \textbf{Risque de visite non autorisée} : Possibilité pour les visiteurs d'aller voir d'autres collaborateurs de manière impromptue
+    \item \textbf{Ralentissements importants}~: les devis comportant plusieurs centaines ou milliers de lignes g\'en\'eraient des comportements anormaux de l'interface (chargement infini, blocages de navigation).
+    \item \textbf{Absence de virtualisation}~: le rendu de l'int\'egralit\'e des lignes sans m\'ecanisme de virtualisation \'epuisait les ressources du navigateur et d\'egrad\'ait significativement la r\'eactivit\'e de l'application.
 \end{itemize}
 
-\subsubsection{Gestion des Badges et Matériels}
+\subsection{Probl\`emes Li\'es \`a la Gestion des Modifications de Services}
+
+\subsubsection{Opacit\'e des Erreurs et Difficult\'e de D\'ebogage}
 
 \begin{itemize}
-\item \textbf{Impossibilité de réédition} : Avec le système actuel, impossibilité de régénérer un badge en cas de perte
-\item \textbf{Contrôle de matériel défaillant} : Risque de sortie de matériel non déclaré à l'entrée
-\item \textbf{Traçabilité limitée} : Absence de suivi automatisé des mouvements de matériel
+    \item \textbf{Messages d'erreur globaux}~: en cas d'\'echec d'une modification de service, l'interface affichait un message g\'en\'erique sans indiquer quelle ligne d'abonnement \'etait concern\'ee, obligeant l'agent \`a inspecter manuellement l'ensemble du devis.
+    \item \textbf{Perte des modifications valides}~: une erreur sur une seule ligne annulait l'ensemble des modifications en cours, y compris celles correctement saisies sur les autres lignes.
+    \item \textbf{Absence de feedback actionnable}~: les agents ne disposaient pas d'information suffisante pour corriger l'erreur sans l'intervention d'un support technique.
 \end{itemize}
 
-\subsection{Problèmes Transversaux}
-
-\subsubsection{Défaut d'Intégration Système}
+\subsubsection{Absence de S\'election Globale sur Filtres}
 
 \begin{itemize}
-\item \textbf{Systèmes cloisonnés} : Absence d'intégration entre les différents outils utilisés par la sûreté
-\item \textbf{Redondance d'informations} : Saisie multiple des mêmes données dans différents systèmes
-\item \textbf{Manque de centralisation} : Dispersion des informations dans multiple fichiers et registres
+    \item \textbf{S\'election page par page}~: lors d'op\'erations en masse sur des listes filtr\'ees, les agents ne pouvaient s\'electionner que les lignes visibles sur la page courante, rendant les traitements multi-pages laborieux.
+    \item \textbf{Manque d'information contextuelle}~: aucun indicateur ne signalait combien de lignes correspondaient au filtre actif en dehors de la page visible.
 \end{itemize}
 
-\subsubsection{Limitations Fonctionnelles}
+\subsection{Probl\`emes Transversaux}
+
+\subsubsection{S\'ecurit\'e et Exposition des Interfaces Techniques}
 
 \begin{itemize}
-\item \textbf{Absence de reporting automatisé} : Impossibilité de générer facilement des statistiques et des rapports
-\item \textbf{Recherche et consultation limitées} : Difficulté à retrouver l'historique des accès d'un visiteur ou d'une entreprise
-\item \textbf{Gestion des permissions complexe} : Processus de validation non standardisé selon les types de demandes
+    \item \textbf{Interface Swagger accessible en production}~: la documentation interactive de l'API .NET \'etait accessible dans les environnements de pr\'e-production et de production, exposant la totalit\'e des endpoints et leurs param\`etres \`a tout utilisateur disposant d'un acc\`es r\'eseau, en contradiction avec les exigences de s\'ecurit\'e de l'entreprise.
+    \item \textbf{Absence de g\'en\'eration automatis\'ee de la sp\'ecification}~: la sp\'ecification OpenAPI n'\'etait pas g\'en\'er\'ee automatiquement en pipeline, ce qui imposait des mises \`a jour manuelles et introduisait des risques de d\'esynchronisation entre la documentation et l'impl\'ementation r\'eelle.
 \end{itemize}
 
+\subsubsection{Qualit\'e du Code et Maintenabilit\'e}
+
+\begin{itemize}
+    \item \textbf{Dette technique accumul\'ee}~: l'analyse SonarQube r\'ev\'elait un nombre significatif de code smells, de duplications et de complexit\'es cyclomatiques \'elev\'ees dans les composants Vue.js, rendant la base de code difficile \`a faire \'evoluer sans risque de r\'egression.
+    \item \textbf{Pipelines CI instables}~: les pipelines d'int\'egration continue \'echouaient r\'eguli\`erement en raison de probl\`emes de linting, de formatage non conform et de d\'ependances incompatibles, fragilisant la cha\^ine de livraison.
+    \item \textbf{D\'ependances obsol\`etes}~: plusieurs biblioth\`eques Python pr\'esentaient des vuln\'erabilit\'es connues ou des versions d\'epass\'ees, sans proc\'edure structur\'ee de mise \`a jour.
+\end{itemize}
+
+% ========================================
 \section{Impact des Dysfonctionnements}
+% ========================================
 
-\subsection{Impact Opérationnel}
+\subsection{Impact Op\'erationnel}
 
-\subsubsection{Inefficacité des Processus}
+\subsubsection{Inefficacit\'e des Processus Commerciaux}
 
-Les dysfonctionnements identifiés génèrent plusieurs impacts négatifs sur l'efficacité opérationnelle :
-
-\begin{itemize}
-\item \textbf{Perte de temps} : Les processus manuels consomment un temps considérable des équipes de sûreté et des hôtes
-\item \textbf{Charge administrative élevée} : Multiplication des tâches de saisie et de vérification manuelle
-\item \textbf{Gestion des pics d'activité} : Difficultés à absorber les pics d'affluence aux heures de pointe
-\end{itemize}
-
-\subsubsection{Qualité de Service Dégradée}
+Les dysfonctionnements identifi\'es ont g\'en\'er\'e plusieurs impacts n\'egatifs sur l'efficacit\'e des \'equipes~:
 
 \begin{itemize}
-\item \textbf{Expérience visiteur médiocre} : Temps d'attente prolongés et processus peu fluides
-\item \textbf{Frustration des hôtes} : Complexité des procédures et manque de visibilité sur le statut des demandes
-\item \textbf{Stress des équipes de sûreté} : Charge de travail élevée et risque d'erreurs
+    \item \textbf{Perte de temps}~: la recherche manuelle dans un catalogue de 45\,000 r\'ef\'erences et la reconfiguration syst\'ematique de l'interface repr\'esentaient une charge quotidienne injustifi\'ee pour les agents.
+    \item \textbf{Cycles de validation prolong\'es}~: l'absence de workflow structur\'e allongeait consid\'erablement les d\'elais de validation et de transmission des devis aux clients.
+    \item \textbf{Difficult\'e de traitement en masse}~: l'impossibilit\'e de s\'electionner globalement des lignes filtr\'ees contraignait les agents \`a des op\'erations p\'enibles et r\'ep\'etitives sur les grands portefeuilles de devis.
 \end{itemize}
 
-\subsection{Impact Sécuritaire}
-
-\subsubsection{Risques de Sécurité}
+\subsubsection{Qualit\'e de Service D\'egrad\'ee}
 
 \begin{itemize}
-\item \textbf{Erreurs de contrôle} : Les processus manuels augmentent le risque d'erreurs dans les vérifications
-\item \textbf{Traçabilité insuffisante} : Difficulté à reconstituer précisément les mouvements sur site
-\item \textbf{Gestion des exceptions} : Procédures d'urgence peu formalisées et risque de contournement
+    \item \textbf{Exp\'erience utilisateur m\'ediocre}~: les ralentissements sur les devis volumineux, les messages d'erreur opaques et les reconfigurations r\'ep\'etitives nuisaient \`a l'adoption de l'outil par les agents.
+    \item \textbf{Frustration des \'equipes}~: la complexit\'e des proc\'edures et l'absence d'automatisations \'el\'ementaires g\'en\'eraient un sentiment de charge inutile chez les utilisateurs.
+    \item \textbf{Risque d'erreur humaine \'elev\'e}~: la multiplication des saisies manuelles augmentait m\'ecaniquement la probabilit\'e d'erreurs dans les devis transmis aux clients.
 \end{itemize}
 
-\subsubsection{Conformité Réglementaire}
+\subsection{Impact S\'ecuritaire et Technique}
+
+\subsubsection{Risques de S\'ecurit\'e}
 
 \begin{itemize}
-\item \textbf{Respect des normes} : Difficulté à garantir le respect systématique des procédures
-\item \textbf{Audit et contrôle} : Limitations dans la capacité à produire des preuves de conformité
-\item \textbf{Évolution réglementaire} : Adaptabilité limitée aux changements de réglementation
+    \item \textbf{Exposition de la documentation API}~: l'accessibilit\'e de Swagger\,UI en environnements sensibles constituait un vecteur de reconnaissance pour tout acteur malveillant disposant d'un acc\`es r\'eseau, en permettant d'inventorier l'ensemble des endpoints, des types de param\`etres et des r\'eponses attendues.
+    \item \textbf{Vuln\'erabilit\'es de d\'ependances}~: des biblioth\`eques Python pr\'esentant des CVE connues \'etaient utilis\'ees en production sans processus de mise \`a jour formalis\'e.
 \end{itemize}
 
-\subsection{Impact Économique}
-
-\subsubsection{Coûts Directs}
+\subsubsection{Risques de Maintenabilit\'e}
 
 \begin{itemize}
-\item \textbf{Temps de travail} : Coût du temps consacré aux tâches administratives manuelles
-\item \textbf{Erreurs et reprises} : Coût des erreurs et du temps consacré aux corrections
-\item \textbf{Matériel et consommables} : Coût des badges physiques et des documents papier
+    \item \textbf{Dette technique croissante}~: sans processus de revue de code syst\'ematique ni seuil de qualit\'e appliqu\'e en CI, la base de code se d\'egrad\'ait progressivement, augmentant le co\^ut des \'evolutions futures.
+    \item \textbf{Observabilit\'e inexistante}~: l'absence de centralisation des logs applicatifs rendait le diagnostic des incidents en production lent et incomplet, sans possibilit\'e de corr\'elation entre les \'ev\'enements survenus sur les diff\'erentes couches de l'application.
 \end{itemize}
 
-\subsubsection{Coûts Indirects}
+\subsection{Impact Strat\'egique}
+
+\subsubsection{Comp\'etitivit\'e et Image}
 
 \begin{itemize}
-\item \textbf{Productivité réduite} : Impact sur la productivité des visiteurs et des équipes d'accueil
-\item \textbf{Image de l'entreprise} : Risque d'impact sur l'image d'OCP auprès des partenaires
-\item \textbf{Opportunités perdues} : Limitation dans la capacité à accueillir de nouveaux partenaires
+    \item \textbf{Lenteur des r\'eponses commerciales}~: des cycles de devis prolong\'es r\'eduisaient la r\'eactivit\'e commerciale de l'entreprise face \`a ses concurrents.
+    \item \textbf{Image de l'outil}~: une interface peu performante et peu ergonomique nuisait \`a l'image interne de la solution et freinerait son adoption \`a plus grande \'echelle.
+    \item \textbf{Difficult\'e d'\'evolution}~: une base de code de faible qualit\'e et des pipelines instables rendaient co\^uteuse l'introduction de nouvelles fonctionnalit\'es, limitant la capacit\'e \`a r\'epondre aux \'evolutions du march\'e.
 \end{itemize}
 
-\section{Définition de la Problématique}
+% ========================================
+\section{D\'efinition de la Probl\'ematique}
+% ========================================
 
-\subsection{Problématique Principale}
+\subsection{Probl\'ematique Principale}
 
-Au regard de l'analyse des processus existants et des dysfonctionnements identifiés, la problématique principale peut être formulée ainsi :
+Au regard de l'analyse des processus existants et des dysfonctionnements identifi\'es, la probl\'ematique principale peut \^etre formul\'ee ainsi~:
 
 \begin{quote}
-\textit{Comment concevoir et développer une solution digitale intégrée qui permette de moderniser les processus de gestion des accès et de sûreté industrielle d'OCP, tout en améliorant l'efficacité opérationnelle, la sécurité des sites et l'expérience utilisateur, dans le respect des contraintes techniques, organisationnelles et réglementaires de l'entreprise ?}
+\textit{Comment concevoir et d\'evelopper une plateforme web sp\'ecialis\'ee qui permette de moderniser l'ensemble du processus de gestion des devis et des abonnements dans le secteur des t\'el\'ecommunications B2B~--- en int\'egrant un configurateur d'offres, un moteur de calcul des marges fiable, une gestion granulaire des modifications de services et une exp\'erience utilisateur adapt\'ee aux contraintes des agents commerciaux~--- tout en garantissant la s\'ecurit\'e, la performance et la maintenabilit\'e de la solution dans un environnement distribu\'e et conteneuris\'e~?}
 \end{quote}
 
-\subsection{Sous-problématiques Techniques}
+\subsection{Sous-probl\'ematiques Techniques}
 
-Cette problématique principale se décline en plusieurs sous-problématiques techniques spécifiques :
+Cette probl\'ematique principale se d\'ecline en plusieurs sous-probl\'ematiques sp\'ecifiques~:
 
-\subsubsection{Digitalisation des Workflows}
-
-\begin{itemize}
-\item Comment digitaliser des processus métier complexes impliquant de multiples acteurs et étapes de validation ?
-\item Comment garantir la fluidité des workflows tout en maintenant les contrôles de sécurité nécessaires ?
-\item Comment gérer les exceptions et les cas particuliers dans un système automatisé ?
-\end{itemize}
-
-\subsubsection{Intégration et Interopérabilité}
+\subsubsection{Conception de l'Architecture et des Flux}
 
 \begin{itemize}
-\item Comment intégrer la nouvelle solution avec l'écosystème informatique existant d'OCP ?
-\item Comment assurer la cohérence des données entre les différents systèmes ?
-\item Comment garantir l'évolutivité de la solution face aux changements futurs ?
+    \item Comment architecturer une solution trois couches (frontend, API, backend m\'etier) capable de s'int\'egrer nativement avec les syst\`emes CRM et ERP existants~?
+    \item Comment mod\'eliser les flux d'appels entre les composants (cr\'eation, \'edition, validation, archivage) de mani\`ere \`a garantir la coh\'erence des donn\'ees \`a chaque \'etape~?
+    \item Comment g\'erer la s\'eparation entre services \`a vendre, services \`a produire et services \`a exploiter au sein d'une m\^eme structure de devis~?
 \end{itemize}
 
-\subsubsection{Sécurité et Authentification}
+\subsubsection{Performance et Ergonomie}
 
 \begin{itemize}
-\item Comment implémenter un système d'authentification robuste adapté aux différents profils d'utilisateurs ?
-\item Comment gérer les permissions et les droits d'accès de manière granulaire ?
-\item Comment assurer la traçabilité complète des actions dans le système ?
+    \item Comment assurer la fluidit\'e de l'interface pour des devis comportant plusieurs milliers de lignes, tout en maintenant la r\'eactivit\'e des interactions utilisateur~?
+    \item Comment concevoir un syst\`eme de persistance des pr\'ef\'erences d'affichage par utilisateur, compatible avec un environnement multi-sessions et multi-tenants~?
+    \item Comment r\'eduire la charge cognitive des agents commerciaux en proposant un acc\`es structur\'e au catalogue d'offres, via des configurateurs adapt\'es aux types de services propos\'es~?
 \end{itemize}
 
-\subsubsection{Interface et Expérience Utilisateur}
+\subsubsection{S\'ecurit\'e et Observabilit\'e}
 
 \begin{itemize}
-\item Comment concevoir une interface utilisateur intuitive pour des profils d'utilisateurs très divers ?
-\item Comment optimiser l'expérience mobile pour les utilisateurs nomades ?
-\item Comment faciliter l'adoption de la solution par les utilisateurs finaux ?
+    \item Comment contr\^oler finement l'exposition des interfaces techniques (documentation API, endpoints sensibles) selon l'environnement de d\'eploiement~?
+    \item Comment mettre en place une strat\'egie de qualit\'e logicielle automatised (linting, formatage, couverture de tests) int\'egr\'ee aux pipelines de livraison continue~?
+    \item Comment poser les fondations d'une architecture d'observabilit\'e centr\'ee sur la collecte et l'analyse des logs applicatifs et de s\'ecurit\'e \`a l'\'echelle des environnements Kubernetes~?
 \end{itemize}
 
-\section{Contexte du Projet JLHUBSECURITY}
+% ========================================
+\section{Contexte du Projet Bifr\"ost}
+% ========================================
 
-\subsection{Positionnement Stratégique}
+\subsection{Positionnement Strat\'egique}
 
-\subsubsection{Alignement avec la Stratégie Groupe}
+\subsubsection{Alignement avec la Strat\'egie de l'Entreprise Cliente}
 
-Le projet JLHUBSECURITY s'inscrit dans la stratégie globale de transformation digitale du Groupe OCP, qui vise à :
+Le projet Bifr\"ost s'inscrit dans la strat\'egie de transformation digitale de l'entreprise cliente, qui vise \`a~:
 
 \begin{itemize}
-\item Moderniser les processus internes pour améliorer l'efficacité opérationnelle
-\item Renforcer la sécurité et la sûreté des installations industrielles
-\item Améliorer l'expérience des parties prenantes (collaborateurs, partenaires, visiteurs)
-\item Créer les conditions d'une croissance durable et responsable
+    \item Moderniser les outils commerciaux internes pour am\'eliorer la r\'eactivit\'e et la fiabilit\'e des processus de vente~;
+    \item R\'eduire la d\'ependance aux manipulations manuelles sources d'erreurs et de lenteurs~;
+    \item Am\'eliorer l'exp\'erience des agents du service client, qui constituent les utilisateurs quotidiens de la plateforme~;
+    \item Cr\'eer les conditions d'une \'evolution continue de la solution, adapt\'ee aux \'evolutions du march\'e t\'el\'ecom.
 \end{itemize}
 
-\subsubsection{Rôle d'OCP Maintenance Solutions}
+\subsubsection{R\^ole de VISEO dans le Projet}
 
-OCP Maintenance Solutions, en tant que filiale spécialisée dans la digitalisation industrielle, joue un rôle central dans ce projet en apportant :
+VISEO, en tant que soci\'et\'e de conseil et d'int\'egration num\'erique, a jou\'e un r\^ole central dans ce projet en apportant~:
 
 \begin{itemize}
-\item Son expertise technique en développement de solutions sur mesure
-\item Sa connaissance approfondie des enjeux industriels et sécuritaires
-\item Sa capacité à innover et à intégrer les technologies émergentes
-\item Son expérience dans l'accompagnement de la transformation digitale
+    \item Son expertise en d\'eveloppement full-stack (Vue.js, .NET, Django) et en architecture de syst\`emes distribu\'es~;
+    \item Sa ma\^itrise des m\'ethodologies Agile\,/\,Scrum pour structurer la livraison en sprints \'evolutifs~;
+    \item Sa capacit\'e \`a concevoir des solutions maintenables, s\'ecuris\'ees et conformes aux standards de qualit\'e logicielle~;
+    \item Son exp\'erience dans l'accompagnement de projets complexes n\'ecessitant une int\'egration profonde avec des syst\`emes existants.
 \end{itemize}
 
-\subsection{Enjeux et Défis du Projet}
+\subsection{Enjeux et D\'efis du Projet}
 
 \subsubsection{Enjeux Techniques}
 
 \begin{itemize}
-\item \textbf{Robustesse} : Développer une solution fiable capable de gérer de gros volumes de demandes
-\item \textbf{Performance} : Assurer des temps de réponse acceptables même en période de forte charge
-\item \textbf{Sécurité} : Implémenter les mesures de sécurité appropriées pour protéger les données sensibles
-\item \textbf{Évolutivité} : Concevoir une architecture capable de s'adapter aux besoins futurs
+    \item \textbf{Int\'egration}~: concevoir une solution s'int\'egrant nativement avec les syst\`emes CRM (Ga\"ia\,/\,Stargate) et ERP existants via des API REST bien d\'efinies.
+    \item \textbf{Performance}~: garantir la fluidit\'e de l'interface pour des catalogues volumineux et des devis de grande taille, gr\^ace \`a des m\'ecanismes de virtualisation c\^ot\'e frontend.
+    \item \textbf{S\'ecurit\'e}~: contr\^oler finement l'exposition des interfaces selon les environnements et impl\'ementer une authentification robuste via Keycloak.
+    \item \textbf{\'Evolutivit\'e}~: adopter une architecture modulaire permettant d'int\'egrer de nouvelles fonctionnalit\'es (configurateur t\'el\'ecom, observabilit\'e) sans refonte majeure.
 \end{itemize}
 
 \subsubsection{Enjeux Organisationnels}
 
 \begin{itemize}
-\item \textbf{Conduite du changement} : Accompagner les utilisateurs dans l'adoption de la nouvelle solution
-\item \textbf{Formation} : Développer les compétences nécessaires à l'utilisation du système
-\item \textbf{Processus} : Adapter les procédures existantes à la nouvelle solution digitale
-\item \textbf{Gouvernance} : Mettre en place les instances de pilotage et de contrôle appropriées
+    \item \textbf{Adoption utilisateur}~: concevoir une interface suffisamment intuitive pour des agents aux profils vari\'es, minimisant la courbe d'apprentissage~;
+    \item \textbf{Processus}~: formaliser et automatiser les workflows m\'etier existants (validation de devis, gestion des abonnements) au sein de la plateforme~;
+    \item \textbf{Qualit\'e}~: mettre en place des garde-fous techniques (CI/CD, SonarQube, revues de code) garantissant la p\'erennit\'e de la solution dans le temps.
 \end{itemize}
 
-\subsubsection{Enjeux Stratégiques}
+\subsubsection{Enjeux Strat\'egiques}
 
 \begin{itemize}
-\item \textbf{Compétitivité} : Renforcer la position concurrentielle d'OCP par l'innovation
-\item \textbf{Réplicabilité} : Créer une solution déployable sur l'ensemble des sites du groupe
-\item \textbf{Partenariats} : Améliorer l'attractivité d'OCP pour les partenaires et sous-traitants
-\item \textbf{Conformité} : Anticiper l'évolution des exigences réglementaires
+    \item \textbf{Comp\'etitivit\'e commerciale}~: r\'eduire les cycles de production des devis pour am\'eliorer la r\'eactivit\'e commerciale de l'entreprise cliente face \`a ses concurrents~;
+    \item \textbf{R\'eplicabilit\'e}~: cr\'eer une solution architectur\'ee de mani\`ere \`a pouvoir s'adapter \`a d'autres contextes ou clients similaires~;
+    \item \textbf{Observabilit\'e}~: poser les bases d'une supervision applicative compl\`ete, pr\'ealable indispensable \`a la mise en conformit\'e avec les exigences de s\'ecurit\'e de l'entreprise.
 \end{itemize}
 
+% ========================================
 \section*{Conclusion}
+% ========================================
 
-L'analyse approfondie des processus existants de gestion des accès et de sûreté industrielle chez OCP révèle de nombreux dysfonctionnements qui impactent significativement l'efficacité opérationnelle, la sécurité des sites et l'expérience des utilisateurs. Ces limitations, héritées de processus largement manuels, justifient pleinement la nécessité de développer une solution digitale moderne et intégrée.
+L'analyse approfondie des processus existants de gestion des devis et des abonnements t\'el\'ecom au sein de l'entreprise cliente a r\'ev\'el\'e de nombreux dysfonctionnements ayant un impact direct sur l'efficacit\'e op\'erationnelle, la s\'ecurit\'e de l'application et la qualit\'e de l'exp\'erience utilisateur. Ces limitations, h\'erit\'ees d'un outil g\'en\'eraliste inadapt\'e aux sp\'ecificit\'es m\'etier du secteur, ont justifi\'e pleinement la conception d'une solution sur mesure et moderne.
 
-La problématique identifiée dépasse le simple cadre technique pour englober des enjeux organisationnels, sécuritaires et stratégiques majeurs. Le projet JLHUBSECURITY représente ainsi une opportunité unique de transformer en profondeur les pratiques de sûreté industrielle tout en contribuant à la stratégie de transformation digitale du Groupe OCP.
+La probl\'ematique identifi\'ee d\'epasse le simple cadre technique pour englober des enjeux organisationnels, s\'ecuritaires et strat\'egiques majeurs. Le projet Bifr\"ost a ainsi repr\'esent\'e une opportunit\'e de transformer en profondeur les pratiques commerciales de l'entreprise cliente, tout en contribuant \`a la strat\'egie globale de modernisation de son syst\`eme d'information.
 
-Les défis techniques et fonctionnels identifiés dans ce chapitre orienteront les choix de conception et de développement présentés dans les chapitres suivants, en garantissant que la solution développée réponde précisément aux besoins exprimés et aux objectifs stratégiques de l'entreprise.
+Les d\'efis techniques et fonctionnels identifi\'es dans ce chapitre ont orient\'e l'ensemble des choix de conception et de d\'eveloppement pr\'esent\'es dans les chapitres suivants, en garantissant que la solution r\'eponde pr\'ecis\'ement aux besoins exprim\'es et aux objectifs strat\'egiques de l'entreprise.

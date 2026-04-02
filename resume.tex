@@ -1,28 +1,28 @@
+% ========================================
+% RÉSUMÉ
+% ========================================
+
 \chapter*{R\'esum\'e}
 \thispagestyle{empty}
+\addcontentsline{toc}{chapter}{R\'esum\'e}
 
-Dans un contexte o\`u la transformation digitale des outils m\'etier constitue un enjeu strat\'egique majeur pour les entreprises, \textbf{VISEO} s'engage dans l'\'evolution continue de ses produits logiciels au service de ses clients. Ce projet de fin d'\'etudes s'inscrit dans cette dynamique en contribuant au d\'eveloppement et \`a l'am\'elioration de la plateforme \textbf{Bifr\"ost}, un outil de gestion de devis et d'abonnements utilis\'e par les agents du service client.
+Dans un contexte de digitalisation acc\'el\'er\'ee des processus commerciaux, les entreprises du secteur des t\'el\'ecommunications se sont trouv\'ees confront\'ees \`a des exigences croissantes en mati\`ere d'efficacit\'e op\'erationnelle et de modernisation de leurs outils m\'etier. VISEO, soci\'et\'e fran\c{c}aise de conseil en technologies et en transformation digitale, a \'et\'e mandat\'ee par un acteur de r\'ef\'erence du march\'e fran\c{c}ais des services num\'eriques B2B pour r\'epondre \`a un besoin strat\'egique clairement identifi\'e~: doter ses agents commerciaux d'une plateforme web d\'edi\'ee, capable de g\'erer l'int\'egralit\'e du cycle de vie des devis et des modifications de services, en remplacement d'un outil g\'en\'erique inadapt\'e aux sp\'ecificit\'es m\'etier du secteur. C'est dans ce cadre que s'est inscrit le pr\'esent projet de fin d'\'etudes, r\'ealis\'e au sein du centre d'excellence VISEO de Casablanca~: la conception et le d\'eveloppement de la plateforme \textbf{Bifr\"ost}.
 
-\vspace{0.5cm}
+\vspace{0.2cm}
 
-La plateforme Bifr\"ost repose sur une architecture multi-couches compos\'ee d'un backend \textbf{Django REST Framework} (Quoter App), d'une API \textbf{.NET ASP.NET Core} (API Bifr\"ost) faisant office de couche interm\'ediaire, et d'un frontend \textbf{Vue.js / TypeScript}. Cette architecture distribu\'ee pr\'esentait des probl\'ematiques de fiabilit\'e, de s\'ecurit\'e et d'exp\'erience utilisateur qui constituaient l'axe principal de ce stage.
+La probl\'ematique sous-jacente \`a ce projet r\'esidait dans l'inadaptation des outils de devis g\'en\'eriques~--- propos\'es nativement par les ERP du march\'e~--- aux exigences sp\'ecifiques du secteur des t\'el\'ecommunications~: catalogue de plusieurs dizaines de milliers de r\'ef\'erences, logique hi\'erarchique de lignes et sous-lignes, processus d'\'eligibilit\'e d'adresses, gestion de remises et marges complexes, et modifications de services encadr\'ees par des r\`egles m\'etier strictes. La conception d'une solution sur mesure, modulaire et maintenable, s'est impos\'ee comme la r\'eponse la plus adapt\'ee.
 
-\vspace{0.5cm}
+\vspace{0.2cm}
 
-L'objectif principal consistait \`a contribuer activement au d\'eveloppement de nouvelles fonctionnalit\'es, \`a corriger des anomalies identifi\'ees et \`a am\'eliorer la qualit\'e du code existant, tout en respectant les standards de l'\'equipe en mati\`ere de CI/CD, de tests et de qualit\'e logicielle.
+L'objectif principal de ce projet a \'et\'e de concevoir et de d\'evelopper une plateforme web compl\`ete de gestion des devis et des abonnements, offrant aux agents du service client une interface moderne et ergonomique, garantissant la fiabilit\'e des calculs m\'etier, la tra\c{c}abilit\'e des op\'erations et la s\'ecurit\'e des acc\`es selon les environnements de d\'eploiement.
 
-\vspace{0.5cm}
+\vspace{0.2cm}
 
-Le travail r\'ealis\'e couvre plusieurs volets compl\'ementaires~: c\^ot\'e \textbf{frontend}, correction de la logique d'\'edition en masse des devis, refactoring de composants Vue.js (r\'eduction des code smells SonarQube, extraction de helpers), et impl\'ementation d'un syst\`eme d'identification individuelle des erreurs par ligne d'abonnement. C\^ot\'e \textbf{backend .NET}, s\'ecurisation de l'interface Swagger UI en pr\'eprod et production, avec g\'en\'eration automatique de la sp\'ecification OpenAPI en pipeline CI/CD. C\^ot\'e \textbf{backend Django}, impl\'ementation du syst\`eme de persistance des pr\'ef\'erences de colonnes par utilisateur, correction des pipelines CI (linting, formatage, couverture de tests), et initialisation d'une d\'emarche de mise \`a jour des d\'ependances Python.
+La solution con\c{c}ue a repos\'e sur une architecture trois couches. Le frontend a \'et\'e d\'evelopp\'e en \textbf{Vue.js\,3} avec \textbf{TypeScript}. La couche interm\'ediaire a pris la forme d'une \textbf{API ASP.NET Core (.NET\,8)} d\'evelopp\'ee en C\#, s\'ecuris\'ee via Keycloak, dont la sp\'ecification \textbf{OpenAPI} a \'et\'e g\'en\'er\'ee automatiquement en pipeline de livraison via Swashbuckle\,CLI. Le backend m\'etier a \'et\'e construit sur \textbf{Django REST Framework} (Python\,3.12), g\'er\'e avec Poetry, persist\'e sur \textbf{PostgreSQL} au sein d'un cluster CloudNativePG d\'eploy\'e en environnement \textbf{Kubernetes}. La qualit\'e du code a \'et\'e assur\'ee par SonarQube, Ruff et Black, et la livraison continue a \'et\'e orchestr\'ee via des pipelines \textbf{Azure\,DevOps} et \textbf{GitLab\,CI}.
 
-\vspace{0.5cm}
+\vspace{0.2cm}
 
-Les r\'ealisations de ce stage ont permis d'am\'eliorer la fiabilit\'e des calculs de marge, la s\'ecurit\'e de l'application, l'exp\'erience des agents lors des modifications de services, ainsi que la maintenabilit\'e globale du code. Une d\'emarche d'observabilit\'e (int\'egration Splunk, OpenTelemetry) a \'egalement \'et\'e initi\'ee en parall\`ele des tickets fonctionnels.
+Les fonctionnalit\'es d\'evelopp\'ees ont couvert l'int\'egralit\'e du p\'erim\`etre fonctionnel d\'efini~: gestion des devis avec \'edition inline des lignes, calcul automatis\'e des marges et des remises selon les r\`egles m\'etier, persistance des pr\'ef\'erences d'affichage par utilisateur, gestion des modifications de services avec identification granulaire des erreurs par ligne d'abonnement, s\'election globale des lignes filtr\'ees, et v\'erification d'\'eligibilit\'e des adresses. La s\'ecurit\'e de l'application a \'et\'e renforc\'ee par la d\'esactivation conditionnelle de l'interface de documentation selon l'environnement de d\'eploiement, et les bases d'une architecture d'observabilit\'e centr\'ee sur \textbf{Splunk\,Enterprise} ont \'et\'e pos\'ees pour assurer la supervision des logs de s\'ecurit\'e en production.
 
-\vspace{0.5cm}
-
-Ce projet illustre comment une approche rigoureuse -- combinant discipline de changement minimal, qualit\'e de test et culture DevOps -- permet de contribuer efficacement \`a un produit logiciel en production tout en garantissant sa stabilit\'e.
-
-\vspace{0.5cm}
-
-\keywords{Vue.js, Django REST Framework, .NET ASP.NET Core, CI/CD, Azure DevOps, GitLab CI, SonarQube, OpenAPI, Splunk, observabilit\'e, gestion de devis}
+\vspace{0.3cm}
+\keywords{Vue.js\,3, Django REST Framework, ASP.NET Core, TypeScript, PostgreSQL, Kubernetes, OpenAPI, SonarQube, Azure\,DevOps, GitLab\,CI, Splunk, gestion de devis, t\'el\'ecommunications B2B, VISEO}
