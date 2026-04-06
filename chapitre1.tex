@@ -2,7 +2,7 @@
 % CHAPITRE 1 - CONTEXTE GÉNÉRAL DU PROJET
 % ========================================
 
-\chapter{Contexte g\'en\'eral du projet}
+\chapter{Présentationdel’Entreprised’Accueil}
 \label{chap:contexte_general}
 
 \section{Introduction}
@@ -109,6 +109,7 @@ Le centre d'excellence VISEO de Casablanca b\'en\'eficie de plus de 20 ans d'exp
 \textbf{Projets} & Divers secteurs (banque et finance, assurance, t\'el\'ecommunications, distribution, industrie, sant\'e, services publics) \\
 \hline
 \textbf{Localisation} & Nearshore Park 1100 -- boulevard Al Qods -- shore 23 \\F
+\vspace{0.1cm}
 \end{tabular}
 \caption{Fiche technique VISEO.}
 \label{tab:fiche_viseo}
@@ -135,262 +136,154 @@ L'entreprise se distingue par sa capacit\'e \`a accompagner ses clients dans leu
 
 Dans le cadre de sa transition vers un nouvel ERP (Microsoft Dynamics), Adista a constat\'e que l'outil de devis g\'en\'erique propos\'e ne r\'epondait pas \`a ses sp\'ecificit\'es m\'etier. Elle a donc confi\'e \`a VISEO la mission de concevoir et de d\'evelopper une solution d\'edi\'ee~: la plateforme \textbf{Bifr\"ost}.
 
-% ========================================
-\section{Contexte du projet}
-% ========================================
-
-Dans un environnement \'economique marqu\'e par une forte digitalisation et une concurrence accrue dans le secteur des t\'el\'ecommunications, les entreprises sp\'ecialis\'ees dans la fourniture de services B2B font face \`a une complexit\'e croissante dans la gestion de leurs processus commerciaux. La diversit\'e des offres, la multiplicit\'e des cat\'egories d'articles et les sp\'ecificit\'es m\'etier propres aux secteurs des r\'eseaux et des t\'el\'ecommunications rendent l'utilisation d'outils g\'en\'eriques insuffisante pour garantir efficacit\'e et fiabilit\'e.
-
-Face \`a cette r\'ealit\'e, Adista a engag\'e une transition de son syst\`eme ERP de Nova vers Microsoft Dynamics. Or, l'outil de devis propos\'e nativement par Dynamics s'est av\'er\'e trop g\'en\'erique pour prendre en compte les sp\'ecificit\'es m\'etier du secteur des t\'el\'ecommunications~: catalogue de plusieurs dizaines de milliers de r\'ef\'erences, logique de lignes et sous-lignes dans les devis, processus d'\'eligibilit\'e des adresses, et modifications de services complexes.
-
-Pour r\'esoudre cette probl\'ematique, Adista a choisi de r\'eutiliser et d'\'etendre la solution \textbf{Atlas} d\'evelopp\'ee par Unyc, une entreprise affili\'ee au groupe Inh\'erent. C'est dans ce cadre que VISEO a \'et\'e mandat\'e pour d\'evelopper \textbf{Bifr\"ost}~: une plateforme web d\'edi\'ee \`a la gestion des devis et des abonnements, destin\'ee aux agents du service client d'Adista.
-
-La plateforme Bifr\"ost s'appuie sur une architecture trois couches~:
-\begin{itemize}
-    \item Un \textbf{backend Django REST Framework} (Quoter App), d\'evelopp\'e en Python avec PostgreSQL, g\'erant la logique m\'etier des devis et des configurations ;
-    \item Une \textbf{API .NET ASP.NET Core} (API Bifr\"ost), d\'evelopp\'ee en C\#, servant de pont entre les r\'ef\'erentiels ERP et l'interface utilisateur ;
-    \item Un \textbf{frontend Vue.js\,/\,TypeScript}, offrant une interface moderne et ergonomique aux agents du service client.
-\end{itemize}
-
-Mon stage au sein de VISEO s'inscrit dans la phase de TMA (Tierce Maintenance Applicative) du projet Bifr\"ost, soit la phase d'\'evolution continue et de correction de la plateforme apr\`es son premier d\'eploiement en production.
-
-% ========================================
-\section{Probl\'ematique}
-% ========================================
-
-La mise en production d'une plateforme de gestion de devis au sein d'un environnement t\'el\'ecom complexe soul\`eve des d\'efis sp\'ecifiques. La diversit\'e des types d'articles, la logique de calcul des marges et des remises, la n\'ecessit\'e de s\'ecuriser les interfaces expos\'ees, et l'exigence de fiabilit\'e vis-\`a-vis des agents utilisateurs forment un ensemble de contraintes qui ne peuvent \^etre ignor\'ees une fois la solution en production.
-
-Comment contribuer efficacement \`a l'am\'elioration d'une plateforme logicielle en production~--- en corrigeant ses anomalies, en impl\'ementant de nouvelles fonctionnalit\'es et en renfor\c{c}ant sa qualit\'e~--- tout en garantissant la stabilit\'e du syst\`eme et sans introduire de r\'egressionsnieur~?
-
-C'est \`a cette question que le pr\'esent projet de fin d'\'etudes vise \`a r\'epondre, en proposant une contribution cibl\'ee et rigoureuse au d\'eveloppement de la plateforme Bifr\"ost, selon une discipline de changement minimal et une culture DevOps structur\'ee.
-
-% ========================================
-\section{Les objectifs du projet}
-% ========================================
-
-L'objectif principal de ce projet est de contribuer au d\'eveloppement, \`a la correction et \`a l'am\'elioration de la plateforme Bifr\"ost, en intervenant sur les trois couches de son architecture~: frontend Vue.js, API .NET et backend Django.
-
-De mani\`ere plus sp\'ecifique, les objectifs poursuivis sont les suivants~:
-
-\begin{itemize}
-    \item \textbf{Corriger les anomalies fonctionnelles identifi\'ees}~: notamment la logique de calcul des marges en masse, la persistance des colonnes et les comportements erron\'es de l'\'edition inline.
-    \item \textbf{Impl\'ementer de nouvelles fonctionnalit\'es}~: persistance des pr\'ef\'erences de colonnes par utilisateur, identification individuelle des erreurs lors des modifications de services, s\'election globale des lignes filtr\'ees.
-    \item \textbf{S\'ecuriser l'application}~: d\'esactivation de Swagger\,UI en pr\'eprod et production, avec g\'en\'eration automatique de la sp\'ecification OpenAPI en pipeline CI/CD.
-    \item \textbf{Am\'eliorer la qualit\'e du code}~: r\'eduction des code smells d\'etect\'es par SonarQube, extraction de helpers m\'etier, refactoring de composants Vue.js complexes.
-    \item \textbf{Fiabiliser les pipelines CI}~: correction des erreurs de linting, formatage et couverture de tests dans les pipelines GitLab CI et Azure DevOps.
-    \item \textbf{Initier une d\'emarche d'observabilit\'e}~: \'etude et planification de l'int\'egration Splunk pour la centralisation des logs de s\'ecurit\'e.
-\end{itemize}
-
-En r\'esum\'e, le projet vise \`a renforcer la fiabilit\'e, la s\'ecurit\'e et la maintenabilit\'e de la plateforme Bifr\"ost, tout en contribuant \`a l'exp\'erience des agents du service client d'Adista.
-
-% ========================================
-\section{Description du besoin}
-% ========================================
-
-La plateforme Bifr\"ost est utilis\'ee au quotidien par les agents du service client d'Adista pour cr\'eer, modifier et g\'erer les devis commerciaux. Elle doit r\'epondre \`a des exigences fonctionnelles strictes dict\'ees par les sp\'ecificit\'es du secteur t\'el\'ecom~: gestion de pr\'efixes de lignes, calcul de marges et de remises, modification de services (r\'esiliation, d\'em\'enagement, upgrade\,/\,downgrade), et v\'erification d'\'eligibilit\'e des adresses.
-
-Lors de mon int\'egration dans l'\'equipe, plusieurs besoins ont \'et\'e identifi\'es~:
-
-\begin{itemize}
-    \item La \textbf{logique de calcul des marges en masse} \'etait incorrecte~: le syst\`eme n'appliquait pas correctement la r\`egle m\'etier (si marge inf\'erieure \`a la marge de base, utiliser le prix remis\'e~; sinon, utiliser le prix de vente).
-    \item La \textbf{configuration des colonnes} (visibilit\'e, ordre) n'\'etait pas persist\'ee entre les sessions~: les agents devaient reconfigurer leur vue \`a chaque connexion.
-    \item Les \textbf{erreurs lors des modifications de services} \'etaient affich\'ees de mani\`ere globale, sans permettre d'identifier quelle ligne d'abonnement \'etait concern\'ee.
-    \item L'interface \textbf{Swagger\,UI} \'etait accessible en environnements pr\'eprod et production, exposant les sp\'ecifications de l'API \`a des risques de s\'ecurit\'e.
-    \item Plusieurs \textbf{pipelines CI} \'etaient en \'echec en raison de probl\`emes de formatage, de linting et de couverture de tests insuffisante.
-\end{itemize}
-
-La soci\'et\'e VISEO a donc assign\'e \`a mon p\'erim\`etre de stage la correction de ces anomalies, l'impl\'ementation des fonctionnalit\'es manquantes et l'am\'elioration continue de la base de code, en collaboration avec l'\'equipe projet.
-
-% ========================================
-\section{\'Etude fonctionnelle}
-% ========================================
-
-L'\'etude fonctionnelle est une \'etape cruciale dans la conception et l'\'evolution d'un syst\`eme d'information. Elle consiste \`a analyser les besoins des utilisateurs, \`a identifier les fonctionnalit\'es attendues et \`a d\'efinir les sp\'ecifications fonctionnelles servant de r\'ef\'erence au d\'eveloppement.
-
-\subsection{Capture des besoins fonctionnels}
-
-\begin{itemize}
-    \item \textbf{Gestion des devis}~: cr\'eation, modification et suppression de lignes de devis~; \'edition des quantit\'es, prix et remises~; regroupement d'articles~; duplication de devis.
-
-    \item \textbf{\'Edition inline du pr\'efixe}~: permettre la modification directe du pr\'efixe d'une ligne dans la grille, avec validation en temps r\'eel (40 caract\`eres maximum, trim automatique, interdiction des retours \`a la ligne).
-
-    \item \textbf{Persistance de la configuration des colonnes}~: conservation par utilisateur des colonnes visibles, masqu\'ees et de leur ordre entre les sessions et les devis~; r\'einitialisation possible aux valeurs par d\'efaut.
-
-    \item \textbf{Correction de la logique de marge en masse}~: appliquer correctement la r\`egle m\'etier~: si la marge souhait\'ee est inf\'erieure \`a la marge de base, utiliser le prix remis\'e~; sinon, utiliser le prix de vente. Validation ligne par ligne pour pr\'evenir les devis sous-\'evalu\'es.
-
-    \item \textbf{Identification des erreurs par modification de service}~: lors d'une modification de service (r\'esiliation, d\'em\'enagement, etc.), afficher un bloc d'erreur individuel par ligne d'abonnement concern\'ee, avec un message explicite traduit en fran\c{c}ais, tout en conservant les modifications valides.
-
-    \item \textbf{S\'election globale des lignes filtr\'ees}~: permettre la s\'election en une action de toutes les lignes filtr\'ees, m\^eme multi-pages, avec un bandeau d'information indiquant le nombre de lignes s\'electionn\'ees.
-
-    \item \textbf{S\'ecurisation de Swagger\,UI}~: d\'esactivation conditionnelle de l'interface Swagger en pr\'eprod et production~; g\'en\'eration de la sp\'ecification OpenAPI \`a la compilation via Swashbuckle CLI et publication en artefact de pipeline.
-
-    \item \textbf{V\'erification de l'\'eligibilit\'e des adresses}~: r\'ealisation d'\'eligibilit\'es proposant la liste des fournisseurs disponibles et leurs options associ\'ees.
-\end{itemize}
-
-\subsection{Capture des besoins non fonctionnels}
-
-\begin{itemize}
-    \item \textbf{Fiabilit\'e}~: l'application doit fonctionner sans interruption~; les corrections apport\'ees ne doivent pas introduire de r\'egressions dans les fonctionnalit\'es existantes.
-    \item \textbf{S\'ecurit\'e}~: les interfaces expos\'ees (Swagger, endpoints API) doivent \^etre prot\'eg\'ees selon l'environnement d'ex\'ecution~; les logs ne doivent contenir aucune donn\'ee personnelle ni identifiant.
-    \item \textbf{Maintenabilit\'e}~: le code produit doit respecter les standards de l'\'equipe (Black, Pylama, SonarQube)~; la couverture de tests doit rester au-dessus du seuil d\'efini en CI.
-    \item \textbf{Facilit\'e d'utilisation}~: l'interface doit \^etre intuitive pour les agents~; les messages d'erreur doivent \^etre clairs, en fran\c{c}ais et actionables.
-    \item \textbf{Performance}~: le syst\`eme doit assurer la fluidit\'e de l'affichage m\^eme pour des devis volumineux (plus de 3\,000 lignes), gr\^ace au virtualisation (TanStack Virtual).
-\end{itemize}
-
-% ========================================
-\section{Solutions propos\'ees}
-% ========================================
-
-Pour r\'epondre aux besoins identifi\'es, la strat\'egie adopt\'ee repose sur trois principes directeurs~:
-
-\textbf{Discipline de changement minimal}~: chaque modification est la plus chirurgicale possible. Aucun refactoring large n'est engag\'e sans \^etre explicitement dans le p\'erim\`etre du ticket. Cela garantit la stabilit\'e du syst\`eme en production et facilite les revues de code.
-
-\textbf{Correction c\^ot\'e pipeline plut\^ot que c\^ot\'e application}~: lorsqu'un probl\`eme touche des fichiers partag\'es ou de production, la correction est r\'ealise\'ee dans la configuration CI/CD plut\^ot que dans le code applicatif.
-
-\textbf{Architecture s\'ecuris\'ee par le code}~: la s\'ecurisation de Swagger\,UI est impl\'ement\'ee directement dans le code applicatif .NET via une condition sur la variable d'environnement \texttt{ASPNETCORE\_ENVIRONMENT}, sans se reposer uniquement sur des couches r\'eseau ou proxy.
-
-Sur le plan technique, les solutions impl\'ement\'ees s'appuient sur les stacks existantes~: Vue.js\,/\,TypeScript pour le frontend, .NET ASP.NET Core pour l'API, Django REST Framework pour le backend m\'etier, et les pipelines Azure DevOps\,/\,GitLab CI pour la livraison continue.
-
-% ========================================
-\section{Gestion de projet}
-% ========================================
-
-\subsection{La m\'ethode AGILE SCRUM}
-
-La m\'ethodologie de gestion de projet utilis\'ee est la m\'ethodologie \textbf{AGILE SCRUM}. Elle permet d'avancer progressivement, d'ajuster au fur et \`a mesure, d'impliquer davantage le client et d'\'echanger efficacement. La m\'ethode AGILE SCRUM transforme le projet en un processus it\'eratif et incr\'emental, structur\'e en cycles de travail appel\'es \og{}Sprint\fg{}.
-
-En parall\`ele, des r\'eunions entre les membres de l'\'equipe sont organis\'ees r\'eguli\`erement~: une r\'eunion de planification de sprint, des stand-ups quotidiens de 15 minutes permettant \`a chaque d\'eveloppeur de faire le point sur l'avanc\'ee, les blocages rencontr\'es et les objectifs de la journ\'ee.
-
+\section{Contexte du Projet Bifröst}
+\label{sec:contexte_bifrost_ch1}
+% ==============================
+ 
+\subsection{Positionnement Stratégique dans l'Écosystème VISEO}
+ 
+Le projet Bifröst s'inscrivait dans le cadre d'une mission de conseil et de développement conduite par VISEO pour le compte d'un opérateur télécom français. Ce client avait engagé, au moment du démarrage du projet, une vaste transformation de son système d'information, consistant notamment à migrer son outil de gestion commerciale vers une nouvelle plateforme ERP. Cette migration avait fait apparaître un manque fonctionnel critique : l'outil de devis générique proposé par le nouvel ERP ne répondait pas aux exigences métier spécifiques au secteur des télécommunications, caractérisé par des catalogues d'offres complexes, des règles tarifaires évolutives et des processus de validation multi-niveaux.
+ 
+C'est dans ce contexte que VISEO avait été mandaté pour concevoir et développer une solution dédiée, Bifröst, destinée à combler ce manque fonctionnel tout en s'intégrant harmonieusement dans l'écosystème applicatif existant du client. Le projet représentait ainsi un engagement majeur pour l'entité casablancaise, mobilisant des compétences transverses en développement .NET, en ingénierie frontend Vue.js et en architecture d'API.
+ 
+\subsection{Opportunités et Bénéfices Attendus}
+ 
+La réalisation du projet Bifröst avait représenté une opportunité significative à plusieurs titres. Pour le client, elle avait permis de disposer d'un outil de devis sur mesure, parfaitement adapté aux spécificités de son activité télécom, en rupture avec les limitations de l'outil générique initialement envisagé. Pour VISEO, le projet avait constitué un vecteur de valorisation et d'approfondissement des compétences de ses équipes sur un périmètre technologique stratégique — notamment les architectures microservices .NET, les interfaces Vue.js avancées et les infrastructures Kubernetes.
+ 
+À l'échelle individuelle, le projet avait offert un cadre d'apprentissage exceptionnel, permettant une montée en compétences accélérée sur l'ensemble du cycle de vie d'une application d'entreprise, depuis la conception architecturale jusqu'au déploiement en environnement de production, en passant par l'assurance qualité et la mise en place de pratiques DevOps modernes.
+ 
+% ==============================
+\section{Dossier de Pilotage}
+\label{sec:dossier_pilotage}
+% ==============================
+ 
+\subsection{Environnement et Méthodologie de Travail}
+ 
+La conduite du projet Bifröst s'était appuyée sur un cadre méthodologique agile, dont l'adoption avait été motivée par la nature évolutive des exigences fonctionnelles et la nécessité d'une collaboration étroite et continue avec les parties prenantes côté client. En ingénierie logicielle, les pratiques agiles mettent en avant la collaboration entre des équipes auto-organisées et pluridisciplinaires, en s'appuyant sur un cadre méthodologique centré sur la communication, l'adaptation et la livraison de valeur incrémentale.
+ 
+\subsection{La Méthode Agile}
+ 
+Les méthodes agiles regroupent différentes approches de gestion de projet qui mettent l'accent sur la flexibilité, l'adaptabilité et la réactivité face aux changements. Leur principe fondateur repose sur le constat que planifier la totalité d'un projet dans les moindres détails avant d'en entamer le développement est contre-productif dans un contexte où les besoins évoluent et où les priorités peuvent se redéfinir au fil du temps. Le projet était ainsi découpé en sous-objectifs successifs, chaque étape franchie ouvrant la voie à la suivante, jusqu'à l'accomplissement de l'objectif final.
+ 
+Un autre pilier essentiel de l'approche agile réside dans la relation de proximité qu'elle instaure entre l'équipe de développement et le client. La satisfaction de l'utilisateur final constituait en permanence la priorité autour de laquelle s'articulaient les décisions de planification, d'arbitrage fonctionnel et d'allocation des ressources. Cette orientation client avait été particulièrement déterminante dans le projet Bifröst, où les retours de la product owner et des commerciaux utilisateurs avaient influencé de manière substantielle les choix de conception et d'implémentation retenus.
+ 
+\subsection{La Méthode Scrum}
+ 
+Parmi les différents cadres agiles disponibles, la méthode Scrum avait été retenue pour structurer la conduite du projet. Scrum est un framework empirique dans lequel les équipes abordent des problèmes d'adaptation complexes tout en livrant de manière productive et créative des produits de la plus haute valeur possible. Il repose sur trois piliers : la transparence, l'inspection et l'adaptation, qui ensemble permettent de maintenir un niveau élevé de maîtrise du projet malgré l'incertitude inhérente au développement logiciel.
+ 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=16cm]{image/chapitre1/agile.png}
-    \caption{M\'ethode Agile SCRUM.}
-    \label{fig:agile}
+\centering
+ \includegraphics[width=0.75\textwidth]{image/chapitre1/agile.png}
+\caption{Vue globale de la méthode Scrum}
+\label{fig:scrum}
 \end{figure}
-
-Les points cl\'es de la m\'ethode Scrum appliqu\'ee dans ce projet sont les suivants~:
-
-\begin{itemize}
-    \item \textbf{\'Equipes auto-organis\'ees}~: l'\'equipe Bifr\"ost est autonome et responsable de la planification, de la r\'ealisation et de la livraison du travail.
-    \item \textbf{Sprints de deux semaines}~: chaque sprint a un objectif clair et produit un incr\'ement potentiellement livrable.
-    \item \textbf{Product Backlog}~: g\'er\'e dans Azure DevOps, il recense les User Stories, bugs et t\^aches techniques prioris\'es par le Product Owner.
-    \item \textbf{Sprint Planning}~: s\'election des items du backlog en d\'ebut de sprint, estimation en points d'effort.
-    \item \textbf{Daily Scrum}~: synchronisation quotidienne de l'\'equipe sur l'avancement et les impediments.
-    \item \textbf{Sprint Review et R\'etrospective}~: d\'emonstration du travail accompli et identification des axes d'am\'elioration du processus.
-    \item \textbf{Transparence et adaptation continue}~: utilisation de tableaux Kanban Azure DevOps pour une visibilit\'e permanente de l'\'etat des tickets.\cite{scrum}
-\end{itemize}
-
-\subsection{Planification du projet}
-
-Mon stage au sein de VISEO s'est d\'eroul\'e du \textbf{4 mars 2025} au \textbf{4 septembre 2025}. Il a d\'ebut\'e par une phase d'int\'egration comportant des formations sur les technologies .NET et Vue.js, les pratiques organisationnelles SCRUM, et les principes du clean code appliqu\'es chez VISEO.
-
-Apr\`es cette mont\'ee en comp\'etence initiale, j'ai rejoint l'\'equipe de d\'eveloppement Bifr\"ost pour contribuer activement aux sprints en cours.
-
-\textbf{\'Equipe Scrum~:}
-
-\begin{table}[H]
-
-\centering
-\begin{tabular}{|c|l|}
-\hline
-\rowcolor{black}
-\textbf{\textcolor{white}{R\^ole}} & \textbf{\textcolor{white}{Personne en charge}} \\
-\hline
-\cellcolor[rgb]{0.871,0.902,0.937}\textbf{Product Owner} & Aur\'elie (VISEO) \\
-\hline
-\cellcolor[rgb]{0.871,0.902,0.937}\textbf{Scrum Master / Tech Lead} & ZOUHDI Youness \\
-\hline
-\cellcolor[rgb]{0.871,0.902,0.937}\textbf{Scrum Development Team} & BENDAOUD Adil \\
-\cline{2-2}
-\cellcolor[rgb]{0.871,0.902,0.937} & EL ABDIOUI Haitham \\
-\hline
-\end{tabular}
-\caption{\'Equipe Scrum du projet Bifr\"ost.}
-\label{tab:scrum-equipe}
-\end{table}
-
-\textbf{Sprints~:}
-
-Les sprints \'etaient d'une dur\'ee de deux semaines, int\'egrant les phases de d\'eveloppement, de revue de code et de tests pour chaque fonctionnalit\'e. La mise en recette est effectu\'ee \`a chaque fin de sprint dans les environnements de test et de pr\'eprod.
-
-\begin{table}[H]
-
-\centering
-\begin{tabular}{|c|l|c|c|}
-\hline
-\rowcolor{black}
-\textbf{\textcolor{white}{Sprint}} &
-\multicolumn{1}{c|}{\textbf{\textcolor{white}{Incr\'ement (Objectif du sprint)}}} &
-\textbf{\textcolor{white}{Estimation}} &
-\textbf{\textcolor{white}{Statut}} \\
-\hline
-\cellcolor[rgb]{0.871,0.902,0.937}\textbf{Sprint 0} &
-  \footnotesize{Installation de l'environnement de d\'eveloppement} &
-  \footnotesize{10 jours} & \footnotesize{Termin\'e} \\
-\hline
-\cellcolor[rgb]{0.871,0.902,0.937}\textbf{Sprint 1} &
-  \footnotesize{Formation VISEO, prise en main du projet Bifr\"ost} &
-  \footnotesize{10 jours} & \footnotesize{Termin\'e} \\
-\hline
-\cellcolor[rgb]{0.871,0.902,0.937}\textbf{Sprint 2} &
-  \footnotesize{\'Edition inline du pr\'efixe (US-2260)} &
-  \footnotesize{10 jours} & \footnotesize{Termin\'e} \\
-\hline
-\cellcolor[rgb]{0.871,0.902,0.937}\textbf{Sprint 3} &
-  \footnotesize{Correction persistance colonnes fixes (US-2261)} &
-  \footnotesize{10 jours} & \footnotesize{Termin\'e} \\
-\hline
-\cellcolor[rgb]{0.871,0.902,0.937}\textbf{Sprint 4} &
-  \footnotesize{Correction virtual scroll -- loading infini (US-2262)} &
-  \footnotesize{10 jours} & \footnotesize{Termin\'e} \\
-\hline
-\cellcolor[rgb]{0.871,0.902,0.937}\textbf{Sprint 5} &
-  \footnotesize{D\'esactivation Swagger UI en pr\'eprod/prod -- .NET (US-4873)} &
-  \footnotesize{10 jours} & \footnotesize{Termin\'e} \\
-\hline
-\cellcolor[rgb]{0.871,0.902,0.937}\textbf{Sprint 6} &
-  \footnotesize{Persistance configuration colonnes -- Django (US-4874)} &
-  \footnotesize{10 jours} & \footnotesize{En cours} \\
-\hline
-\cellcolor[rgb]{0.871,0.902,0.937}\textbf{Sprint 7} &
-  \footnotesize{Correction logique marge en masse (US-4875)} &
-  \footnotesize{10 jours} & \footnotesize{En cours} \\
-\hline
-\cellcolor[rgb]{0.871,0.902,0.937}\textbf{Sprint 8} &
-  \footnotesize{Refactor \& correction SonarQube (US-4876)} &
-  \footnotesize{10 jours} & \footnotesize{En cours} \\
-\hline
-\cellcolor[rgb]{0.871,0.902,0.937}\textbf{Sprint 9} &
-  \footnotesize{S\'election globale lignes filtr\'ees (US-4878)} &
-  \footnotesize{10 jours} & \footnotesize{Termin\'e} \\
-\hline
-\cellcolor[rgb]{0.871,0.902,0.937}\textbf{Sprint 10} &
-  \footnotesize{Identification erreurs modification service (US-4879)} &
-  \footnotesize{10 jours} & \footnotesize{Termin\'e} \\
-\hline
-\cellcolor[rgb]{0.871,0.902,0.937}\textbf{Sprint 11} &
-  \footnotesize{Tests, corrections de bugs et finalisation} &
-  \footnotesize{10 jours} & \footnotesize{En cours} \\
-\hline
-\end{tabular}
-\caption{Tableau des sprints du projet Bifr\"ost.}
-\label{tab:sprints}
-\end{table}
-
-\clearpage
-\textbf{Diagramme de GANTT~:}
-
-Un diagramme de Gantt est un outil pratique pour planifier des projets. Gr\^ace \`a une vue d'ensemble des t\^aches planifi\'ees, toutes les personnes impliqu\'ees savent quelle activit\'e doit \^etre effectu\'ee et \`a quelle date. La figure~\ref{fig:gantt} repr\'esente le planning de notre projet depuis la phase d'int\'egration jusqu'au dernier sprint.\cite{gantt}
-
+ 
+\subsection{Pourquoi Scrum ?}
+ 
+Le choix de Scrum pour le projet Bifröst avait été motivé par plusieurs considérations convergentes. En premier lieu, la nature itérative et incrémentale du framework correspondait parfaitement au mode de fonctionnement du client, qui avait exprimé le souhait de disposer de livraisons fonctionnelles régulières, permettant de valider progressivement les orientations prises et d'ajuster le backlog en conséquence. En second lieu, Scrum offrait un cadre de collaboration structuré, avec des rituels définis — sprint planning, daily stand-up, sprint review, rétrospective — qui avaient facilité la coordination entre les équipes VISEO et les parties prenantes côté client, malgré la distribution géographique des intervenants.
+ 
+Enfin, la transparence inhérente à Scrum — matérialisée par la visibilité permanente sur l'avancement du backlog et la vélocité de l'équipe — avait constitué un levier de confiance important dans la relation avec le client, en lui permettant de disposer à tout moment d'une vision claire et actualisée de l'état d'avancement du projet.
+ 
+\subsection{Planification du Projet}
+ 
+\subsubsection{Suivi des Sprints}
+ 
+L'avancement des travaux avait été formalisé et suivi à travers un outil de pilotage \textbf{Azure Devops} centralisant l'ensemble des tickets, organisés par sprint, avec pour chaque tâche une description fonctionnelle, une estimation d'effort et un statut d'avancement. Cet outil de suivi avait permis de maintenir une vision consolidée du travail accompli et du travail restant à réaliser, facilitant ainsi les décisions de priorisation lors des cérémonies de sprint planning.
+ 
 \begin{figure}[H]
 \centering
-\includegraphics[width=17cm]{figures/diagrammes/GANTT11.png}
-\caption{Diagramme de Gantt -- Projet Bifr\"ost.}
+ \includegraphics[width=0.9\textwidth]{image/chapitre1/boards.png}
+\caption{Suivi des sprints par fichier de pilotage}
+\label{fig:tickets_excel}
+\end{figure}
+ 
+\subsubsection{Diagramme de Gantt}
+ 
+En complément du suivi opérationnel par sprints, un diagramme de Gantt avait été élaboré pour offrir une vue macroscopique de la planification du projet. Cet outil, largement reconnu en gestion de projet pour sa capacité à représenter visuellement l'état d'avancement des activités, avait permis d'identifier les différentes phases du projet, de visualiser les dates de début et de fin de chaque tâche, d'estimer les durées prévisionnelles et de repérer les éventuels chevauchements susceptibles d'affecter la trajectoire globale du projet. Grâce à cette représentation graphique claire, la planification, la coordination et le suivi des livrables avaient pu être assurés de manière rigoureuse tout au long du cycle de développement.
+ 
+\begin{figure}[H]
+\centering
+
+ 
+\begin{ganttchart}[
+    hgrid,
+    vgrid={*5{draw=none}, dotted},
+    x unit=0.48cm,
+    y unit title=0.5cm,
+    y unit chart=0.45cm,
+    title height=1,
+    bar height=0.55,
+    group right shift=0,
+    group top shift=0.7,
+    group height=0.3,
+    bar/.style={fill=blue!45, rounded corners=1pt},
+    group/.style={fill=gray!40},
+    milestone/.style={fill=red!70},
+    title label font=\scriptsize,
+    bar label font=\scriptsize,
+    group label font=\scriptsize\bfseries,
+    milestone label font=\scriptsize,
+    canvas/.append style={fill=none},
+]{1}{26}
+ 
+%% TITRES SEMAINES / MOIS
+\gantttitle{Mois 1}{4}
+\gantttitle{Mois 2}{4}
+\gantttitle{Mois 3}{5}
+\gantttitle{Mois 4}{5}
+\gantttitle{Mois 5}{4}
+\gantttitle{Mois 6}{4} \\
+ 
+\gantttitlelist{1,...,26}{1} \\
+ 
+%% ─── PHASE 1 : Prise en main ────────────────────────────
+\ganttgroup{1. Prise en main}{1}{4} \\
+\ganttbar{Intégration équipe / outils}{1}{2} \\
+\ganttbar{Lecture doc. technique \& SFD}{2}{4} \\
+\ganttbar{Setup environnement local}{1}{3} \\
+ 
+%% ─── PHASE 2 : Analyse \& Conception ───────────────────
+\ganttgroup{2. Analyse \& Conception}{4}{8} \\
+\ganttbar{Analyse des besoins fonctionnels}{4}{6} \\
+\ganttbar{Conception architecture API .NET}{5}{7} \\
+\ganttbar{Modélisation base de données}{6}{8} \\
+\ganttbar{Maquettes UI Vue.js}{5}{8} \\
+ 
+%% ─── PHASE 3 : Développement Backend ───────────────────
+\ganttgroup{3. Développement Backend}{8}{17} \\
+\ganttbar{API devis (CRUD, lignes, remises)}{8}{12} \\
+\ganttbar{API abonnements \& modifications}{11}{15} \\
+\ganttbar{Intégration Keycloak (auth)}{9}{11} \\
+\ganttbar{Sécurité \& Swagger / OpenAPI}{12}{14} \\
+\ganttbar{Tests unitaires backend}{13}{17} \\
+ 
+%% ─── PHASE 4 : Développement Frontend ──────────────────
+\ganttgroup{4. Développement Frontend}{10}{20} \\
+\ganttbar{Composants Vue.js (tables, éditeurs)}{10}{14} \\
+\ganttbar{Préférences colonnes utilisateur}{14}{16} \\
+\ganttbar{Gestion erreurs modifications}{15}{18} \\
+\ganttbar{Édition marges en masse}{17}{20} \\
+ 
+%% ─── PHASE 5 : DevOps \& Qualité ────────────────────────
+\ganttgroup{5. DevOps \& Qualité}{12}{22} \\
+\ganttbar{Pipeline CI/CD Azure DevOps}{12}{15} \\
+\ganttbar{SonarQube \& refactoring qualité}{15}{18} \\
+\ganttbar{Mises à jour dépendances (CVE)}{16}{19} \\
+\ganttbar{Intégration Splunk (observabilité)}{19}{22} \\
+ 
+%% ─── PHASE 6 : Tests \& Livraison ───────────────────────
+\ganttgroup{6. Tests \& Livraison}{20}{26} \\
+\ganttbar{Tests d'intégration \& recette}{20}{23} \\
+\ganttbar{Corrections \& ajustements}{22}{24} \\
+\ganttbar{Documentation \& rapport PFE}{23}{26} \\
+\ganttmilestone{Soutenance}{26}
+ 
+\end{ganttchart}
+\caption{Diagramme de Gantt — Projet Bifröst}
 \label{fig:gantt}
 \end{figure}
-
-% ========================================
-\section{Conclusion}
-% ========================================
-
-Dans ce chapitre, nous avons pr\'esent\'e le contexte g\'en\'eral du projet en introduisant l'organisme d'accueil VISEO et le client Adista. Nous avons ensuite d\'efini le cadre du projet Bifr\"ost~: son architecture trois couches (Vue.js\,/\,.NET\,/\,Django), ses objectifs de d\'eveloppement et d'am\'elioration continue, ainsi que les besoins fonctionnels et non fonctionnels identifi\'es. Enfin, nous avons d\'ecrit l'organisation agile de l'\'equipe et la planification en sprints. Ces \'el\'ements constituent la fondation sur laquelle s'appuient les chapitres suivants, d\'edi\'es \`a l'analyse de l'existant et aux r\'ealisations techniques du stage.
+ 
+\section*{Conclusion}
+ 
+Ce chapitre a permis de dresser un portrait complet de l'environnement professionnel dans lequel s'est ancré ce projet de fin d'études. La présentation du groupe VISEO et de son entité casablancaise a mis en lumière les atouts organisationnels et techniques qui ont constitué le socle du projet Bifröst, tandis que la description du cadre méthodologique adopté — la méthode Scrum — a illustré la rigueur avec laquelle la conduite du projet a été appréhendée. Le chapitre suivant sera consacré à l'analyse approfondie de la problématique à l'origine du projet et au contexte fonctionnel dans lequel il a pris naissance.
+ 

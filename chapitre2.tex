@@ -1,320 +1,160 @@
 % ========================================
-% CHAPITRE 2 - PROBLÉMATIQUE ET CONTEXTE DU PROJET
+% CHAPITRE 2 — PROBLÉMATIQUE ET CONTEXTE DU PROJET
 % ========================================
 
-\chapter{Probl\'ematique et Contexte du Projet}
+\chapter{Problématique et Contexte du Projet}
 \label{chap:problematique_contexte}
 
 \section*{Introduction}
 
-Ce chapitre pr\'esente de mani\`ere d\'etaill\'ee la probl\'ematique rencontr\'ee dans la gestion commerciale des offres t\'el\'ecom au sein de l'entreprise cliente, ainsi que le contexte sp\'ecifique qui a motiv\'e la conception et le d\'eveloppement de la plateforme Bifr\"ost. \`A travers une analyse approfondie des processus existants, nous identifierons les d\'efis majeurs, les points de douleur et les opportunit\'es d'am\'elioration qui ont justifi\'e la n\'ecessit\'e d'une solution sur mesure, moderne et int\'egr\'ee.
+Ce chapitre présente de manière approfondie la problématique qui avait motivé le lancement du projet Bifröst, ainsi que le contexte fonctionnel et organisationnel dans lequel celui-ci avait pris naissance. Une attention particulière est portée à la genèse historique du projet, issu d'un écosystème applicatif plus large dont Bifröst avait été extrait pour répondre aux besoins spécifiques de l'opérateur client, ainsi qu'à la migration vers Microsoft Dynamics qui avait constitué le déclencheur stratégique de l'ensemble de la démarche. À travers une analyse des processus de gestion commerciale existants, nous avons identifié les principales difficultés rencontrées par les équipes commerciales, évalué leur impact sur l'activité de l'entreprise et défini la réponse technique et fonctionnelle que le projet Bifröst avait vocation à apporter.
 
-Cette analyse permet de comprendre les enjeux op\'erationnels, techniques et strat\'egiques qui sous-tendent le projet, tout en d\'efinissant clairement les objectifs \`a atteindre et les b\'en\'efices attendus de la mise en place d'une plateforme d\'edi\'ee \`a la gestion des devis et des abonnements B2B.
+% ==============================
+\section{Genèse et Historique du Projet Bifröst}
+% ==============================
 
-% ========================================
+\subsection{Un Écosystème Applicatif Préexistant}
+
+Pour comprendre pleinement la nature du projet Bifröst, il était indispensable de replacer celui-ci dans le contexte de l'écosystème applicatif au sein duquel il avait été conçu. L'opérateur client appartenait à un groupe intégrant plusieurs entités affiliées partageant un socle technologique commun. Ce socle reposait sur une plateforme centrale — ci-après désignée comme la plateforme commune — qui avait été développée par l'une des entités du groupe et proposait notamment un service de devis générique, conçu pour être exploité par l'ensemble des membres du groupe dans le cadre d'une logique de mutualisation des développements.
+
+Cette plateforme s'articulait autour de plusieurs composants interconnectés : un service de devis exposant une API consommée par les différentes applications clientes, un référentiel centralisé gérant les données de catalogue, de contacts et d'entreprises, ainsi qu'une passerelle d'intégration assurant le transit des flux entre les systèmes d'information des entités du groupe et la plateforme commune.
+
+Bifröst occupait une position centrale dans cet écosystème. Il avait été conçu comme l'interface de devis propre à l'opérateur client, intégrant à la fois une couche de personnalisation métier — la \textit{Toolkit Deviseur} — et un composant de configuration avancée des offres. Bifröst communiquait avec la plateforme commune via son API pour accéder aux fonctionnalités de devis de base, tout en consommant les référentiels partagés du groupe pour alimenter ses propres données de catalogue, de contacts et de structures commerciales.
+
+\subsection{L'Extraction de Bifröst comme Projet Autonome}
+
+À l'origine, les fonctionnalités de devis destinées à l'opérateur client étaient partiellement couvertes par la plateforme commune du groupe, dont l'outil avait été conçu dans une optique de mutualisation et non de spécialisation métier. Cette approche avait rapidement montré ses limites : la richesse fonctionnelle requise par les processus commerciaux de l'opérateur — en particulier la gestion des modifications d'abonnements télécom, les règles tarifaires sectorielles et les flux d'éligibilité réseau — dépassait largement ce que la plateforme commune était en mesure d'offrir sans développements spécifiques lourds.
+
+C'est dans ce contexte qu'avait émergé la décision de créer Bifröst comme projet applicatif autonome, dédié exclusivement aux besoins de l'opérateur client. Bifröst n'avait toutefois pas été conçu de manière isolée : il maintenait des interfaces de communication avec la plateforme commune pour les fonctions de devis de base, avec la passerelle d'intégration pour l'accès aux abonnements et aux données contractuelles, et avec le service d'éligibilité réseau pour la validation des adresses d'installation. Cette architecture distribuée, composée de plusieurs projets communiquant entre eux, avait constitué l'un des défis techniques fondamentaux du développement de Bifröst.
+
+\subsection{L'Architecture Multi-Projets et les Flux d'Intégration}
+
+Les principaux blocs applicatifs avec lesquels Bifröst interagissait étaient les suivants : la passerelle d'intégration (\textit{Stargate}) servant de point d'entrée vers les référentiels de données, le service d'authentification centralisé (\textit{Keycloak}) gérant les identités et les droits d'accès, le service d'éligibilité réseau pour la vérification des adresses, le service de journalisation applicative (\textit{Stackify}), ainsi que le service de pricing (\textit{Spikee}) pour le calcul des tarifs. Bifröst se positionnait au cœur de cet écosystème, orchestrant les appels vers ces différents services pour alimenter ses fonctionnalités métier.
+
+L'architecture de Bifröst avait été conçue selon les principes suivants : Bifröst constituait le point d'entrée principal des flux émanant des applications clientes, qu'il transmettait ensuite aux services spécialisés selon la nature de chaque opération métier.  Cette topologie avait imposé des exigences fortes en termes de gestion des erreurs distribuées, de cohérence transactionnelle et de performance des échanges inter-services.
+
+Deux flux d'intégration spécifiques méritaient une attention particulière. Le premier concernait la récupération des abonnements existants d'un client : Bifröst adressait une requête à Stargate, qui se chargeait de l'interroger le référentiel contractuel (ICMA) avant de retourner les données consolidées à Bifröst pour affichage et modification.
+
+Le second flux portait sur la récupération des données tarifaires de référence (POMT et POCAT), indispensables au calcul des prix de revient et des marges commerciales dans l'interface de devis. Ce flux suivait la même topologie Bifröst → Stargate → ICMA, confirmant la place structurante de la passerelle d'intégration dans l'architecture globale du projet.
+\subsection{Architecture Multi-Environnements et Multi-Tenants}
+
+La plateforme se caractérisait par une nature multi-environnements et multi-tenants : le service de devis était déployé dans trois environnements distincts — production, pré-production sandbox et sandbox de la plateforme commune — chacun connecté à son propre référentiel de données et hébergeant plusieurs tenants correspondant aux différentes entités clientes du groupe. Cette organisation avait imposé des contraintes rigoureuses en termes de gestion des configurations, d'isolation des données entre tenants et de cohérence des déploiements entre environnements.
+% ==============================
+\section{Le Contexte de Migration vers Microsoft Dynamics}
+% ==============================
+
+\subsection{La Transformation du Système d'Information de l'Opérateur}
+
+La migration du système d'information de gestion de l'opérateur client vers la plateforme Microsoft Dynamics avait constitué le déclencheur stratégique direct du projet Bifröst. L'opérateur avait en effet engagé une refonte profonde de son système d'information commercial, motivée par la volonté d'unifier ses outils de gestion autour d'une plateforme ERP moderne, capable de couvrir l'ensemble du cycle de vie client — de la prospection commerciale jusqu'à la facturation — au sein d'un environnement technologique cohérent.
+
+Ce projet de transformation s'était articulé autour de la migration de plusieurs composants critiques : le catalogue d'offres, le système de gestion de la relation client (CRM), la gestion des contacts et structures commerciales, ainsi que le module de devis et de commandes. C'est sur ce dernier point que la migration vers Dynamics avait révélé ses limites les plus significatives.
+
+\subsection{Les Limites de l'Outil de Devis Natif de Dynamics}
+
+L'outil de devis natif proposé par Microsoft Dynamics avait été conçu pour répondre à des besoins génériques de gestion commerciale, applicables à un large spectre de secteurs d'activité. Cette généricité, qui constituait un atout dans des contextes standards, représentait en revanche un handicap majeur pour un opérateur télécom dont les processus de devis présentaient des spécificités sectorielles profondes.
+
+Parmi les limitations les plus critiques identifiées lors de l'analyse des besoins, trois catégories s'étaient distinguées. La première concernait la gestion des catalogues d'offres complexes : l'outil natif de Dynamics n'avait pas été conçu pour gérer des catalogues de plusieurs dizaines de milliers de références structurées selon des règles de compatibilité et de configuration spécifiques au secteur télécom. La deuxième limitation portait sur l'absence de gestion native des abonnements et de leurs cycles de vie : création, modification, déménagement, résiliation et remplacement constituaient des scénarios métier impossibles à modéliser directement dans le module de devis standard de Dynamics. Enfin, la troisième limitation concernait l'intégration avec les référentiels d'éligibilité réseau, fonctionnalité inexistante dans Dynamics et pourtant indispensable à tout processus de devis télécom.
+
+Face à ce constat, l'opérateur avait étudié trois options. La première consistait à maintenir l'outil de devis hérité, option écartée en raison de son incompatibilité avec la nouvelle architecture SI. La deuxième envisageait un développement entièrement from scratch d'un module de devis, option jugée trop coûteuse en temps et en ressources. La troisième, finalement retenue, consistait à adapter et étendre la plateforme de devis partagée au sein du groupe, en y adjoignant les développements spécifiques nécessaires pour couvrir les besoins de l'opérateur. C'est cette troisième option qui avait donné naissance au projet Bifröst.
+
+% ==============================
 \section{Analyse des Processus Existants}
-% ========================================
+% ==============================
 
 \subsection{Vue d'Ensemble des Processus Actuels}
 
-Avant le d\'eveloppement de Bifr\"ost, la gestion des devis commerciaux au sein de l'entreprise cliente reposait sur des processus partiellement automatis\'es, intimement li\'es \`a un ERP g\'en\'eraliste inadapt\'e aux sp\'ecificit\'es m\'etier du secteur des t\'el\'ecommunications. Ces processus couvraient diff\'erentes \'etapes du cycle commercial~: la cr\'eation d'une opportunit\'e, la r\'edaction du devis, la n\'egociation commerciale, la validation et enfin la g\'en\'eration du bon de commande. Chacune de ces \'etapes mobilisait plusieurs acteurs et g\'en\'erait des interactions manuelles co\^uteuses en temps et en fiabilit\'e.
+L'entreprise cliente exerçait son activité dans le secteur des télécommunications en tant qu'opérateur proposant à ses clients professionnels et entreprises un catalogue de services complexe, composé de plusieurs dizaines de milliers de références. La gestion commerciale de ces offres — depuis la création d'un devis jusqu'à l'activation d'un abonnement — mobilisait un ensemble de processus métier dont la maîtrise conditionnait directement la performance commerciale de l'organisation.
 
-\subsubsection{Acteurs Impliqu\'es dans les Processus}
-
-La cha\^ine de traitement des devis impliquait plusieurs profils d'utilisateurs aux r\^oles et responsabilit\'es distincts~:
-
-\begin{itemize}
-    \item \textbf{Agents commerciaux}~: responsables de la cr\'eation et de l'\'edition des devis \`a partir du catalogue d'offres.
-    \item \textbf{Superviseurs ADV}~: charg\'es de la validation des devis avant transmission au client.
-    \item \textbf{\'Equipes de production}~: destinataires des lignes de devis apr\`es validation, en charge de la mise en \oe{}uvre des services vendus.
-    \item \textbf{Syst\`emes tiers (CRM, ERP)}~: syst\`emes sources et cibles des donn\'ees de devis, n\'ecessitant des \'echanges structur\'es et fiables.
-\end{itemize}
-
-\subsubsection{Flux du Processus Commercial Existant}
-
-Le processus commercial suivait un enchaînement s\'equentiel rigide~:
-
-\begin{enumerate}
-    \item \textbf{Cr\'eation de l'opportunit\'e}~: le CRM g\'en\`ere une opportunit\'e commerciale et la transmet au syst\`eme de devis.
-    \item \textbf{S\'election des articles}~: le commercial parcourt manuellement un catalogue de pr\`es de 45\,000 r\'ef\'erences pour s\'electionner les articles un par un.
-    \item \textbf{\'Edition du devis}~: les lignes sont ajout\'ees, configur\'ees et valid\'ees manuellement, sans assistance de configurateur.
-    \item \textbf{Validation}~: le superviseur ADV examine et valide le devis, sans interface d\'edi\'ee ni workflow automatis\'e.
-    \item \textbf{Transmission}~: le devis valid\'e est transmis au client et aux \'equipes de production par des canaux non unifi\'es.
-    \item \textbf{Archivage}~: le devis est archiv\'e manuellement lorsque son \'etat passe \`a inactif dans le syst\`eme source.
-\end{enumerate}
+Au moment du démarrage du projet, ces processus étaient gérés au travers d'un outil ERP hérité, dont la migration vers la plateforme Microsoft Dynamics était en cours. Cette transition avait cependant mis en évidence une lacune fonctionnelle majeure : l'outil de devis natif proposé par Dynamics s'était révélé trop générique pour répondre aux exigences spécifiques de l'activité télécom, conduisant l'entreprise à rechercher une solution complémentaire adaptée à ses besoins.
 
 \subsection{Processus de Gestion des Devis}
 
-\subsubsection{\'Etape de Cr\'eation et de Configuration}
+Le processus de création et de gestion des devis constituait l'activité centrale des équipes commerciales de l'opérateur. Un devis y désignait un document contractuel structuré, regroupant un ensemble de lignes correspondant à des services du catalogue — accès réseau, liaisons dédiées, solutions cloud, services managés — assortis de quantités, de prix unitaires et de conditions tarifaires spécifiques à chaque client.
 
-La phase de cr\'eation d'un devis constituait l'\'etape la plus chronophage et la plus source d'erreurs du processus existant. L'agent commercial devait~:
-
-\begin{enumerate}
-    \item Rechercher les articles adapt\'es parmi un catalogue de plusieurs dizaines de milliers de r\'ef\'erences, sans filtrage intelligents ni assistant de configuration~;
-    \item Saisir manuellement chaque ligne avec ses param\`etres (quantit\'e, prix, remise, dur\'ee d'engagement)~;
-    \item G\'erer manuellement la hi\'erarchie lignes\,/\,sous-lignes pour les offres complexes~;
-    \item V\'erifier la coh\'erence des donn\'ees sans outil de validation automatis\'e.
-\end{enumerate}
-
-\subsubsection{\'Etape de Validation et de Transmission}
-
-La validation des devis s'op\'erait de mani\`ere informelle, sans workflow d\'efini~:
-
-\begin{enumerate}
-    \item Le commercial soumettait le devis au superviseur ADV par email ou via un outil g\'en\'eraliste~;
-    \item Le superviseur effectuait une relecture manuelle sans vue consolid\'ee des modifications~;
-    \item Les retours \'etaient communiqu\'es de mani\`ere non structur\'ee, rallongeant les cycles de validation~;
-    \item La transmission aux \'equipes de production se faisait sans correspondance automatique entre les lignes commerciales et les lignes de production.
-\end{enumerate}
-
-\subsubsection{\'Etape de Modification des Services Existants}
-
-La gestion des modifications de services en cours de vie (r\'esiliation, d\'em\'enagement, upgrade\,/\,downgrade) \'etait particuli\`erement probl\'ematique~:
-
-\begin{enumerate}
-    \item L'agent devait identifier manuellement les lignes concern\'ees parmi les abonnements existants~;
-    \item Les types de modification (r\'esiliation, remplacement, cr\'eation administrative) n'\'etaient pas encadr\'es par des workflows distincts~;
-    \item Les erreurs de saisie sur une ligne \'etaient difficiles \`a identifier, aucun m\'ecanisme de notification granulaire n'existant~;
-    \item La tra\c{c}abilit\'e des changements d'\'etat des abonnements \'etait assur\'ee manuellement, avec un risque \'elev\'e de perte d'information.
-\end{enumerate}
+La complexité de ce processus tenait à plusieurs facteurs. D'une part, le catalogue de l'opérateur comprenait près de quarante-cinq mille références, rendant la sélection manuelle des articles fastidieuse et propice aux erreurs. D'autre part, la construction d'un devis nécessitait la vérification préalable de l'éligibilité des adresses d'installation, c'est-à-dire la confirmation de la disponibilité des fournisseurs d'accès et des technologies de raccordement pour chaque site client. Cette étape, réalisée manuellement ou via des outils disparates, représentait une source de délais et d'incertitudes significative dans le cycle de vente.
 
 \subsection{Processus de Gestion des Abonnements}
 
-\subsubsection{Suivi du Cycle de Vie des Abonnements}
+En complément de la gestion des devis, le processus de gestion des abonnements couvrait le cycle de vie des services souscrits par les clients, depuis leur activation initiale jusqu'à leur résiliation éventuelle, en passant par les différentes modifications susceptibles d'intervenir en cours de contrat. Ces modifications pouvaient prendre la forme de déménagements de site, d'upgrades ou de downgrades de débit, de remplacements de liens ou encore de modifications tarifaires administratives.
 
-Le suivi des abonnements post-vente pr\'esentait \'egalement de nombreuses lacunes~:
+Chacun de ces scénarios impliquait des règles métier spécifiques, des validations croisées entre plusieurs référentiels et une traçabilité rigoureuse des changements apportés. L'absence d'un outil dédié capable de gérer cette complexité conduisait les équipes commerciales à recourir à des procédés manuels — fichiers tabulaires, courriers électroniques, saisies successives dans plusieurs systèmes — qui multipliaient les risques d'erreur et allongeaient les délais de traitement.
 
-\begin{enumerate}
-    \item L'\'etat des abonnements (actif, suspendu, r\'esili\'e) n'\'etait pas visible en temps r\'eel depuis l'interface de devis~;
-    \item Les modifications d'abonnements d\'eclenchaient des interventions manuelles dans plusieurs syst\`emes~;
-    \item L'historique des changements n'\'etait pas consolid\'e, rendant les audits et les contr\^oles difficiles~;
-    \item La facturation associ\'ee aux modifications n'\'etait pas automatis\'ee, engendrant des risques d'\'ecarts.
-\end{enumerate}
-
-% ========================================
+% ==============================
 \section{Identification des Points de Douleur}
-% ========================================
+% ==============================
 
-\subsection{Probl\`emes Li\'es \`a la Cr\'eation et l'\'Edition des Devis}
+\subsection{Problèmes Liés à la Création des Devis}
 
-\subsubsection{Complexit\'e du Catalogue et Lenteur de Recherche}
+Le premier ensemble de difficultés identifié concernait la phase de création des devis. La navigation dans un catalogue de quarante-cinq mille références sans outil de structuration ni d'assistance à la sélection avait engendré des processus de construction de devis lents et peu fiables. Les commerciaux devaient parcourir manuellement de vastes listes d'articles pour identifier les références pertinentes, sans bénéficier de regroupements logiques par famille d'offres ni d'assistants de configuration guidés — fonctionnalités que l'opérateur désignait en interne sous le terme de « configurateurs ».
 
-\begin{itemize}
-    \item \textbf{Catalogue trop vaste}~: avec pr\`es de 45\,000 r\'ef\'erences disponibles, la recherche manuelle d'un article adapt\'e repr\'esentait une charge cognitive et temporelle consid\'erable pour les agents commerciaux.
-    \item \textbf{Absence de configurateur}~: aucun assistant de type wizard ne guidait le commercial dans la s\'election des offres, l'obligeant \`a construire chaque devis article par article.
-    \item \textbf{Gestion manuelle de la hi\'erarchie}~: la structure lignes\,/\,sous-lignes des devis t\'el\'ecom n'\'etait pas support\'ee nativement, n\'ecessitant des manipulations fastidieuses.
-\end{itemize}
+Par ailleurs, la vérification de l'éligibilité des adresses, étape préalable indispensable à la finalisation de tout devis impliquant un raccordement réseau, était réalisée en dehors du flux principal de création du devis, via des outils tiers non intégrés. Cette fragmentation avait pour conséquence directe des allers-retours chronophages entre plusieurs interfaces, des risques de désynchronisation et une expérience utilisateur dégradée pour les équipes commerciales.
 
-\subsubsection{Fiabilit\'e des Calculs et des Remises}
+\subsection{Problèmes Liés à la Gestion des Modifications d'Abonnements}
 
-\begin{itemize}
-    \item \textbf{Calculs de marges non contr\^ol\'es}~: en l'absence de r\`egles m\'etier automatis\'ees, les commerciaux appliquaient des remises pouvant conduire \`a des devis sous-\'evalu\'es, avec un impact direct sur la rentabilit\'e.
-    \item \textbf{Absence de validation en temps r\'eel}~: aucun m\'ecanisme d'alerte n'existait pour signaler qu'une remise appliqu\'ee d\'epassait le seuil de marge acceptable.
-    \item \textbf{Inconsistance des donn\'ees}~: les prix et quantit\'es saisis manuellement n'\'etaient pas v\'erifi\'es automatiquement, g\'en\'erant r\'eguli\`erement des \'ecarts entre le devis et le bon de commande.
-\end{itemize}
+Le second axe de difficultés portait sur la gestion des modifications d'abonnements en cours de contrat. En l'absence d'un outil centralisant les règles métier propres à chaque type de modification, les commerciaux ne disposaient pas de garde-fous systématiques pour détecter les erreurs de saisie ou les incohérences entre les modifications demandées et les contraintes contractuelles en vigueur. Les erreurs, lorsqu'elles étaient identifiées, l'étaient souvent tardivement dans le processus, à un stade où leur correction impliquait des reprises coûteuses et des communications multiples avec les équipes techniques et administratives.
 
-\subsection{Probl\`emes Li\'es \`a la Gestion des Configurations Utilisateur}
+La gestion des marges commerciales constituait un autre point de friction notable. L'absence d'un mécanisme de calcul et de visualisation des marges directement intégré dans l'outil de devis contraignait les commerciaux à réaliser ces calculs de manière externe, avec les risques d'erreur et de désalignement que cela impliquait par rapport aux objectifs tarifaires de l'entreprise.
 
-\subsubsection{Absence de Persistance des Pr\'ef\'erences}
+\subsection{Problèmes Transversaux}
 
-\begin{itemize}
-    \item \textbf{Reconfiguration syst\'ematique}~: les agents devaient reconfigurer manuellement l'affichage des colonnes (visibles, masqu\'ees, ordre) \`a chaque nouvelle session, sans m\'emorisation des pr\'ef\'erences individuelles.
-    \item \textbf{Productivit\'e r\'eduite}~: cette contrainte r\'ep\'etitive entra\^inait une perte de temps quotidienne non n\'egligeable pour des \'equipes g\'erant de nombreux devis.
-    \item \textbf{Exp\'erience utilisateur d\'egrad\'ee}~: l'interface ne s'adaptait pas au profil de l'utilisateur, rendant l'outil moins intuitif qu'attendu.
-\end{itemize}
+Au-delà des difficultés spécifiques à chaque processus, plusieurs problèmes de nature transversale avaient été identifiés. L'hétérogénéité des outils utilisés — ERP, tableurs, applications de vérification d'éligibilité, messagerie électronique — avait conduit à une fragmentation de l'information commerciale, rendant difficile l'obtention d'une vue consolidée et à jour du portefeuille de devis et d'abonnements d'un client donné. Cette dispersion avait également compliqué le pilotage de l'activité commerciale par les managers, qui ne disposaient pas d'indicateurs fiables et centralisés pour suivre l'évolution du pipeline de ventes.
 
-\subsubsection{Performances Insuffisantes sur les Devis Volumineux}
+La question des préférences utilisateur représentait également une source de friction récurrente. Les interfaces mises à disposition des commerciaux ne permettaient pas de mémoriser les configurations d'affichage personnalisées — colonnes visibles, tris, filtres — que chaque utilisateur souhaitait appliquer à ses listes de devis et d'abonnements, l'obligeant à reconfigurer manuellement son environnement de travail à chaque session.
 
-\begin{itemize}
-    \item \textbf{Ralentissements importants}~: les devis comportant plusieurs centaines ou milliers de lignes g\'en\'eraient des comportements anormaux de l'interface (chargement infini, blocages de navigation).
-    \item \textbf{Absence de virtualisation}~: le rendu de l'int\'egralit\'e des lignes sans m\'ecanisme de virtualisation \'epuisait les ressources du navigateur et d\'egrad\'ait significativement la r\'eactivit\'e de l'application.
-\end{itemize}
-
-\subsection{Probl\`emes Li\'es \`a la Gestion des Modifications de Services}
-
-\subsubsection{Opacit\'e des Erreurs et Difficult\'e de D\'ebogage}
-
-\begin{itemize}
-    \item \textbf{Messages d'erreur globaux}~: en cas d'\'echec d'une modification de service, l'interface affichait un message g\'en\'erique sans indiquer quelle ligne d'abonnement \'etait concern\'ee, obligeant l'agent \`a inspecter manuellement l'ensemble du devis.
-    \item \textbf{Perte des modifications valides}~: une erreur sur une seule ligne annulait l'ensemble des modifications en cours, y compris celles correctement saisies sur les autres lignes.
-    \item \textbf{Absence de feedback actionnable}~: les agents ne disposaient pas d'information suffisante pour corriger l'erreur sans l'intervention d'un support technique.
-\end{itemize}
-
-\subsubsection{Absence de S\'election Globale sur Filtres}
-
-\begin{itemize}
-    \item \textbf{S\'election page par page}~: lors d'op\'erations en masse sur des listes filtr\'ees, les agents ne pouvaient s\'electionner que les lignes visibles sur la page courante, rendant les traitements multi-pages laborieux.
-    \item \textbf{Manque d'information contextuelle}~: aucun indicateur ne signalait combien de lignes correspondaient au filtre actif en dehors de la page visible.
-\end{itemize}
-
-\subsection{Probl\`emes Transversaux}
-
-\subsubsection{S\'ecurit\'e et Exposition des Interfaces Techniques}
-
-\begin{itemize}
-    \item \textbf{Interface Swagger accessible en production}~: la documentation interactive de l'API .NET \'etait accessible dans les environnements de pr\'e-production et de production, exposant la totalit\'e des endpoints et leurs param\`etres \`a tout utilisateur disposant d'un acc\`es r\'eseau, en contradiction avec les exigences de s\'ecurit\'e de l'entreprise.
-    \item \textbf{Absence de g\'en\'eration automatis\'ee de la sp\'ecification}~: la sp\'ecification OpenAPI n'\'etait pas g\'en\'er\'ee automatiquement en pipeline, ce qui imposait des mises \`a jour manuelles et introduisait des risques de d\'esynchronisation entre la documentation et l'impl\'ementation r\'eelle.
-\end{itemize}
-
-\subsubsection{Qualit\'e du Code et Maintenabilit\'e}
-
-\begin{itemize}
-    \item \textbf{Dette technique accumul\'ee}~: l'analyse SonarQube r\'ev\'elait un nombre significatif de code smells, de duplications et de complexit\'es cyclomatiques \'elev\'ees dans les composants Vue.js, rendant la base de code difficile \`a faire \'evoluer sans risque de r\'egression.
-    \item \textbf{Pipelines CI instables}~: les pipelines d'int\'egration continue \'echouaient r\'eguli\`erement en raison de probl\`emes de linting, de formatage non conform et de d\'ependances incompatibles, fragilisant la cha\^ine de livraison.
-    \item \textbf{D\'ependances obsol\`etes}~: plusieurs biblioth\`eques Python pr\'esentaient des vuln\'erabilit\'es connues ou des versions d\'epass\'ees, sans proc\'edure structur\'ee de mise \`a jour.
-\end{itemize}
-
-% ========================================
+% ==============================
 \section{Impact des Dysfonctionnements}
-% ========================================
+% ==============================
 
-\subsection{Impact Op\'erationnel}
+\subsection{Impact Opérationnel}
 
-\subsubsection{Inefficacit\'e des Processus Commerciaux}
+Les dysfonctionnements identifiés dans les processus de gestion des devis et des abonnements avaient engendré des inefficacités opérationnelles significatives. Le temps consacré par les commerciaux à des tâches à faible valeur ajoutée — navigation laborieuse dans le catalogue, vérifications manuelles d'éligibilité, corrections d'erreurs de saisie — réduisait d'autant le temps disponible pour des activités à forte valeur commerciale, telles que le développement de la relation client et la prospection de nouveaux comptes.
 
-Les dysfonctionnements identifi\'es ont g\'en\'er\'e plusieurs impacts n\'egatifs sur l'efficacit\'e des \'equipes~:
+La lenteur des cycles de devis avait également eu des répercussions sur la réactivité commerciale de l'opérateur vis-à-vis de ses clients. Dans un secteur aussi concurrentiel que les télécommunications d'entreprise, la capacité à produire des propositions commerciales précises et rapidement était un facteur différenciant de premier ordre.
 
-\begin{itemize}
-    \item \textbf{Perte de temps}~: la recherche manuelle dans un catalogue de 45\,000 r\'ef\'erences et la reconfiguration syst\'ematique de l'interface repr\'esentaient une charge quotidienne injustifi\'ee pour les agents.
-    \item \textbf{Cycles de validation prolong\'es}~: l'absence de workflow structur\'e allongeait consid\'erablement les d\'elais de validation et de transmission des devis aux clients.
-    \item \textbf{Difficult\'e de traitement en masse}~: l'impossibilit\'e de s\'electionner globalement des lignes filtr\'ees contraignait les agents \`a des op\'erations p\'enibles et r\'ep\'etitives sur les grands portefeuilles de devis.
-\end{itemize}
+\subsection{Impact sur la Qualité et la Fiabilité}
 
-\subsubsection{Qualit\'e de Service D\'egrad\'ee}
+Sur le plan de la qualité, la multiplicité des saisies manuelles et la fragmentation des outils avaient multiplié les occasions d'introduction d'erreurs dans les devis et les données d'abonnement. Des erreurs sur les références de services, les conditions tarifaires ou les informations d'adresse pouvaient avoir des conséquences importantes sur la satisfaction des clients, sur la facturation et, in fine, sur la relation contractuelle avec ces derniers.
 
-\begin{itemize}
-    \item \textbf{Exp\'erience utilisateur m\'ediocre}~: les ralentissements sur les devis volumineux, les messages d'erreur opaques et les reconfigurations r\'ep\'etitives nuisaient \`a l'adoption de l'outil par les agents.
-    \item \textbf{Frustration des \'equipes}~: la complexit\'e des proc\'edures et l'absence d'automatisations \'el\'ementaires g\'en\'eraient un sentiment de charge inutile chez les utilisateurs.
-    \item \textbf{Risque d'erreur humaine \'elev\'e}~: la multiplication des saisies manuelles augmentait m\'ecaniquement la probabilit\'e d'erreurs dans les devis transmis aux clients.
-\end{itemize}
+L'absence de mécanismes de validation systématique intégrés dans le flux de traitement des devis avait en outre rendu difficile le contrôle de la conformité des propositions commerciales aux politiques tarifaires et aux règles de marge définies par la direction commerciale.
 
-\subsection{Impact S\'ecuritaire et Technique}
+\subsection{Impact Économique}
 
-\subsubsection{Risques de S\'ecurit\'e}
+À l'échelle macroéconomique, l'ensemble de ces dysfonctionnements avait eu un impact mesurable sur la performance commerciale de l'opérateur. La perte de temps engendrée par les processus manuels représentait un coût direct en termes de productivité des équipes commerciales. Les erreurs de devis et de facturation, lorsqu'elles conduisaient à des litiges ou à des rectifications, généraient des coûts indirects supplémentaires, difficiles à quantifier précisément mais dont l'ordre de grandeur avait été reconnu comme significatif par les parties prenantes du projet.
 
-\begin{itemize}
-    \item \textbf{Exposition de la documentation API}~: l'accessibilit\'e de Swagger\,UI en environnements sensibles constituait un vecteur de reconnaissance pour tout acteur malveillant disposant d'un acc\`es r\'eseau, en permettant d'inventorier l'ensemble des endpoints, des types de param\`etres et des r\'eponses attendues.
-    \item \textbf{Vuln\'erabilit\'es de d\'ependances}~: des biblioth\`eques Python pr\'esentant des CVE connues \'etaient utilis\'ees en production sans processus de mise \`a jour formalis\'e.
-\end{itemize}
+% ==============================
+\section{Définition de la Problématique}
+% ==============================
 
-\subsubsection{Risques de Maintenabilit\'e}
+\subsection{Problématique Principale}
 
-\begin{itemize}
-    \item \textbf{Dette technique croissante}~: sans processus de revue de code syst\'ematique ni seuil de qualit\'e appliqu\'e en CI, la base de code se d\'egrad\'ait progressivement, augmentant le co\^ut des \'evolutions futures.
-    \item \textbf{Observabilit\'e inexistante}~: l'absence de centralisation des logs applicatifs rendait le diagnostic des incidents en production lent et incomplet, sans possibilit\'e de corr\'elation entre les \'ev\'enements survenus sur les diff\'erentes couches de l'application.
-\end{itemize}
+L'analyse des processus existants et des points de douleur associés avait conduit à formuler la problématique centrale du projet dans les termes suivants : comment concevoir et développer une plateforme logicielle intégrée, s'inscrivant dans un écosystème multi-applications complexe et en complémentarité avec Microsoft Dynamics, permettant aux équipes commerciales d'un opérateur télécom de gérer l'intégralité du cycle de vie de leurs devis et abonnements — de la création à la modification, en passant par la vérification d'éligibilité et le calcul des marges —, avec une expérience utilisateur intuitive, des mécanismes de validation robustes et une intégration transparente dans l'écosystème applicatif existant ?
 
-\subsection{Impact Strat\'egique}
+\subsection{Sous-problématiques Techniques}
 
-\subsubsection{Comp\'etitivit\'e et Image}
+La problématique principale s'était déclinée en plusieurs sous-problématiques techniques. La première concernait l'architecture de l'API centrale : comment concevoir un service backend en ASP.NET Core capable de servir de pont entre les référentiels de données — catalogue d'articles, données d'abonnement, résultats d'éligibilité — et l'interface utilisateur, tout en orchestrant les appels vers les multiples services tiers de l'écosystème ?
 
-\begin{itemize}
-    \item \textbf{Lenteur des r\'eponses commerciales}~: des cycles de devis prolong\'es r\'eduisaient la r\'eactivit\'e commerciale de l'entreprise face \`a ses concurrents.
-    \item \textbf{Image de l'outil}~: une interface peu performante et peu ergonomique nuisait \`a l'image interne de la solution et freinerait son adoption \`a plus grande \'echelle.
-    \item \textbf{Difficult\'e d'\'evolution}~: une base de code de faible qualit\'e et des pipelines instables rendaient co\^uteuse l'introduction de nouvelles fonctionnalit\'es, limitant la capacit\'e \`a r\'epondre aux \'evolutions du march\'e.
-\end{itemize}
+La deuxième sous-problématique portait sur l'expérience utilisateur : comment concevoir une interface Vue.js permettant aux commerciaux de naviguer efficacement dans un catalogue de plusieurs dizaines de milliers de références, de composer des devis complexes avec des règles de validation multi-niveaux, et de modifier des abonnements existants en identifiant clairement les erreurs potentielles associées à chaque service ?
 
-% ========================================
-\section{D\'efinition de la Probl\'ematique}
-% ========================================
+La troisième sous-problématique concernait la sécurité et l'intégration dans un environnement multi-tenants : comment garantir que l'application respecte les exigences de sécurité de l'opérateur en matière d'authentification et d'autorisation, tout en maintenant une isolation stricte des données entre tenants et en s'intégrant dans les pratiques DevOps de l'organisation ?
 
-\subsection{Probl\'ematique Principale}
+% ==============================
+\section{Contexte du Projet Bifröst}
+% ==============================
 
-Au regard de l'analyse des processus existants et des dysfonctionnements identifi\'es, la probl\'ematique principale peut \^etre formul\'ee ainsi~:
+\subsection{Positionnement Stratégique}
 
-\begin{quote}
-\textit{Comment concevoir et d\'evelopper une plateforme web sp\'ecialis\'ee qui permette de moderniser l'ensemble du processus de gestion des devis et des abonnements dans le secteur des t\'el\'ecommunications B2B~--- en int\'egrant un configurateur d'offres, un moteur de calcul des marges fiable, une gestion granulaire des modifications de services et une exp\'erience utilisateur adapt\'ee aux contraintes des agents commerciaux~--- tout en garantissant la s\'ecurit\'e, la performance et la maintenabilit\'e de la solution dans un environnement distribu\'e et conteneuris\'e~?}
-\end{quote}
+Le projet Bifröst avait été positionné par l'opérateur client comme un composant stratégique de sa transformation numérique, directement articulé avec sa migration ERP vers Microsoft Dynamics. La solution avait été conçue pour fonctionner en complémentarité avec Dynamics, en comblant le vide fonctionnel laissé par l'outil de devis natif et en assurant une intégration bidirectionnelle avec les référentiels de données partagés au niveau du groupe. L'objectif était que Dynamics demeure le système de référence pour les données clients, les commandes et la facturation, tandis que Bifröst assurait la couche métier spécialisée dédiée à la construction et à la gestion des devis télécom.
 
-\subsection{Sous-probl\'ematiques Techniques}
+Au-delà de sa dimension fonctionnelle immédiate, Bifröst avait vocation à constituer une brique pérenne du système d'information commercial de l'opérateur, destinée à évoluer au fil des besoins métier et à accueillir des fonctionnalités complémentaires, notamment les configurateurs guidés évoqués précédemment.
 
-Cette probl\'ematique principale se d\'ecline en plusieurs sous-probl\'ematiques sp\'ecifiques~:
+\subsection{Enjeux et Défis du Projet}
 
-\subsubsection{Conception de l'Architecture et des Flux}
+Le projet Bifröst présentait plusieurs enjeux majeurs. Le premier était fonctionnel : la solution devait couvrir l'ensemble des scénarios métier identifiés — création et modification de devis, gestion des abonnements, vérification d'éligibilité, calcul de marges, persistance des préférences utilisateur — tout en restant suffisamment ergonomique pour être adoptée sans résistance par les équipes commerciales.
 
-\begin{itemize}
-    \item Comment architecturer une solution trois couches (frontend, API, backend m\'etier) capable de s'int\'egrer nativement avec les syst\`emes CRM et ERP existants~?
-    \item Comment mod\'eliser les flux d'appels entre les composants (cr\'eation, \'edition, validation, archivage) de mani\`ere \`a garantir la coh\'erence des donn\'ees \`a chaque \'etape~?
-    \item Comment g\'erer la s\'eparation entre services \`a vendre, services \`a produire et services \`a exploiter au sein d'une m\^eme structure de devis~?
-\end{itemize}
+Le deuxième enjeu était technique : l'application devait s'intégrer dans une infrastructure Kubernetes existante, respecter les standards de sécurité de l'opérateur, s'interfacer avec plusieurs services tiers hétérogènes dans un contexte multi-tenants, et être déployée via des pipelines CI/CD conformes aux pratiques DevOps de l'organisation.
 
-\subsubsection{Performance et Ergonomie}
+Enfin, le troisième enjeu était organisationnel : la conduite du projet dans le cadre d'une collaboration distribuée, associant des équipes VISEO à Casablanca et des parties prenantes côté client en France, avait nécessité une communication structurée, une documentation soignée et une discipline rigoureuse dans la gestion des livraisons, afin de maintenir la confiance du client et d'assurer la cohérence des développements réalisés à distance.
 
-\begin{itemize}
-    \item Comment assurer la fluidit\'e de l'interface pour des devis comportant plusieurs milliers de lignes, tout en maintenant la r\'eactivit\'e des interactions utilisateur~?
-    \item Comment concevoir un syst\`eme de persistance des pr\'ef\'erences d'affichage par utilisateur, compatible avec un environnement multi-sessions et multi-tenants~?
-    \item Comment r\'eduire la charge cognitive des agents commerciaux en proposant un acc\`es structur\'e au catalogue d'offres, via des configurateurs adapt\'es aux types de services propos\'es~?
-\end{itemize}
-
-\subsubsection{S\'ecurit\'e et Observabilit\'e}
-
-\begin{itemize}
-    \item Comment contr\^oler finement l'exposition des interfaces techniques (documentation API, endpoints sensibles) selon l'environnement de d\'eploiement~?
-    \item Comment mettre en place une strat\'egie de qualit\'e logicielle automatised (linting, formatage, couverture de tests) int\'egr\'ee aux pipelines de livraison continue~?
-    \item Comment poser les fondations d'une architecture d'observabilit\'e centr\'ee sur la collecte et l'analyse des logs applicatifs et de s\'ecurit\'e \`a l'\'echelle des environnements Kubernetes~?
-\end{itemize}
-
-% ========================================
-\section{Contexte du Projet Bifr\"ost}
-% ========================================
-
-\subsection{Positionnement Strat\'egique}
-
-\subsubsection{Alignement avec la Strat\'egie de l'Entreprise Cliente}
-
-Le projet Bifr\"ost s'inscrit dans la strat\'egie de transformation digitale de l'entreprise cliente, qui vise \`a~:
-
-\begin{itemize}
-    \item Moderniser les outils commerciaux internes pour am\'eliorer la r\'eactivit\'e et la fiabilit\'e des processus de vente~;
-    \item R\'eduire la d\'ependance aux manipulations manuelles sources d'erreurs et de lenteurs~;
-    \item Am\'eliorer l'exp\'erience des agents du service client, qui constituent les utilisateurs quotidiens de la plateforme~;
-    \item Cr\'eer les conditions d'une \'evolution continue de la solution, adapt\'ee aux \'evolutions du march\'e t\'el\'ecom.
-\end{itemize}
-
-\subsubsection{R\^ole de VISEO dans le Projet}
-
-VISEO, en tant que soci\'et\'e de conseil et d'int\'egration num\'erique, a jou\'e un r\^ole central dans ce projet en apportant~:
-
-\begin{itemize}
-    \item Son expertise en d\'eveloppement full-stack (Vue.js, .NET, Django) et en architecture de syst\`emes distribu\'es~;
-    \item Sa ma\^itrise des m\'ethodologies Agile\,/\,Scrum pour structurer la livraison en sprints \'evolutifs~;
-    \item Sa capacit\'e \`a concevoir des solutions maintenables, s\'ecuris\'ees et conformes aux standards de qualit\'e logicielle~;
-    \item Son exp\'erience dans l'accompagnement de projets complexes n\'ecessitant une int\'egration profonde avec des syst\`emes existants.
-\end{itemize}
-
-\subsection{Enjeux et D\'efis du Projet}
-
-\subsubsection{Enjeux Techniques}
-
-\begin{itemize}
-    \item \textbf{Int\'egration}~: concevoir une solution s'int\'egrant nativement avec les syst\`emes CRM (Ga\"ia\,/\,Stargate) et ERP existants via des API REST bien d\'efinies.
-    \item \textbf{Performance}~: garantir la fluidit\'e de l'interface pour des catalogues volumineux et des devis de grande taille, gr\^ace \`a des m\'ecanismes de virtualisation c\^ot\'e frontend.
-    \item \textbf{S\'ecurit\'e}~: contr\^oler finement l'exposition des interfaces selon les environnements et impl\'ementer une authentification robuste via Keycloak.
-    \item \textbf{\'Evolutivit\'e}~: adopter une architecture modulaire permettant d'int\'egrer de nouvelles fonctionnalit\'es (configurateur t\'el\'ecom, observabilit\'e) sans refonte majeure.
-\end{itemize}
-
-\subsubsection{Enjeux Organisationnels}
-
-\begin{itemize}
-    \item \textbf{Adoption utilisateur}~: concevoir une interface suffisamment intuitive pour des agents aux profils vari\'es, minimisant la courbe d'apprentissage~;
-    \item \textbf{Processus}~: formaliser et automatiser les workflows m\'etier existants (validation de devis, gestion des abonnements) au sein de la plateforme~;
-    \item \textbf{Qualit\'e}~: mettre en place des garde-fous techniques (CI/CD, SonarQube, revues de code) garantissant la p\'erennit\'e de la solution dans le temps.
-\end{itemize}
-
-\subsubsection{Enjeux Strat\'egiques}
-
-\begin{itemize}
-    \item \textbf{Comp\'etitivit\'e commerciale}~: r\'eduire les cycles de production des devis pour am\'eliorer la r\'eactivit\'e commerciale de l'entreprise cliente face \`a ses concurrents~;
-    \item \textbf{R\'eplicabilit\'e}~: cr\'eer une solution architectur\'ee de mani\`ere \`a pouvoir s'adapter \`a d'autres contextes ou clients similaires~;
-    \item \textbf{Observabilit\'e}~: poser les bases d'une supervision applicative compl\`ete, pr\'ealable indispensable \`a la mise en conformit\'e avec les exigences de s\'ecurit\'e de l'entreprise.
-\end{itemize}
-
-% ========================================
 \section*{Conclusion}
-% ========================================
 
-L'analyse approfondie des processus existants de gestion des devis et des abonnements t\'el\'ecom au sein de l'entreprise cliente a r\'ev\'el\'e de nombreux dysfonctionnements ayant un impact direct sur l'efficacit\'e op\'erationnelle, la s\'ecurit\'e de l'application et la qualit\'e de l'exp\'erience utilisateur. Ces limitations, h\'erit\'ees d'un outil g\'en\'eraliste inadapt\'e aux sp\'ecificit\'es m\'etier du secteur, ont justifi\'e pleinement la conception d'une solution sur mesure et moderne.
-
-La probl\'ematique identifi\'ee d\'epasse le simple cadre technique pour englober des enjeux organisationnels, s\'ecuritaires et strat\'egiques majeurs. Le projet Bifr\"ost a ainsi repr\'esent\'e une opportunit\'e de transformer en profondeur les pratiques commerciales de l'entreprise cliente, tout en contribuant \`a la strat\'egie globale de modernisation de son syst\`eme d'information.
-
-Les d\'efis techniques et fonctionnels identifi\'es dans ce chapitre ont orient\'e l'ensemble des choix de conception et de d\'eveloppement pr\'esent\'es dans les chapitres suivants, en garantissant que la solution r\'eponde pr\'ecis\'ement aux besoins exprim\'es et aux objectifs strat\'egiques de l'entreprise.
+Ce chapitre a permis de mettre en lumière la genèse du projet Bifröst à travers une double lecture : d'une part, son ancrage historique dans un écosystème applicatif préexistant dont il avait été extrait pour répondre aux besoins spécifiques de l'opérateur client ; d'autre part, son articulation stratégique avec la migration vers Microsoft Dynamics, qui en avait constitué le déclencheur principal. L'analyse des processus existants et des dysfonctionnements identifiés avait permis de formuler avec précision la problématique centrale du projet et ses déclinaisons techniques. Cette compréhension approfondie du contexte et des enjeux avait constitué le point de départ indispensable à l'élaboration de l'architecture et des choix de conception présentés dans les chapitres suivants.
