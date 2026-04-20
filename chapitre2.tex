@@ -58,6 +58,123 @@ Parmi les limitations les plus critiques identifiées lors de l'analyse des beso
 Face à ce constat, l'opérateur avait étudié trois options. La première consistait à maintenir l'outil de devis hérité, option écartée en raison de son incompatibilité avec la nouvelle architecture SI. La deuxième envisageait un développement entièrement from scratch d'un module de devis, option jugée trop coûteuse en temps et en ressources. La troisième, finalement retenue, consistait à adapter et étendre la plateforme de devis partagée au sein du groupe, en y adjoignant les développements spécifiques nécessaires pour couvrir les besoins de l'opérateur. C'est cette troisième option qui avait donné naissance au projet Bifröst.
 
 % ==============================
+\section{\'Ecosyst\`eme Applicatif du Projet}
+\label{sec:ecosysteme_applicatif}
+% ==============================
+ 
+La compr\'ehension de l'\'ecosyst\`eme applicatif dans lequel Bifr\"ost s'ins\'erait constituait un pr\'ealable indispensable \`a toute d\'emarche de conception. En effet, Bifr\"ost n'avait pas vocation \`a fonctionner de mani\`ere isol\'ee~: il s'int\'egrait dans un syst\`eme d'information composite, constitu\'e de plusieurs briques logicielles pr\'eexistantes avec lesquelles il devait communiquer de mani\`ere fluide et s\'ecuris\'ee. Cette section pr\'esente les composants cl\'es de cet \'ecosyst\`eme, leurs r\^oles respectifs et les m\'ecanismes d'interaction qui les relient.
+ 
+\subsection{Les Composants Cl\'es de l'\'Ecosyst\`eme}
+ 
+L'\'ecosyst\`eme applicatif s'articulait autour de six composants principaux, chacun assurant une responsabilit\'e fonctionnelle distincte au sein de la cha\^ine de traitement commerciale.
+ 
+\subsubsection{Bifr\"ost --- L'Interface Commerciale}
+ 
+Bifr\"ost constituait l'outil web central utilis\'e par les agents commerciaux pour cr\'eer, \'editer et valider les devis ainsi que les modifications d'abonnements t\'el\'ecom (renouvellement, d\'em\'enagement, upgrade, r\'esiliation, etc.). Son architecture reposait sur trois couches distinctes~: un frontend d\'evelopp\'e en Vue.js~3 assurant l'interface utilisateur, une API interm\'ediaire construite avec ASP.NET Core (.NET~8) servant de pont entre les r\'ef\'erentiels et l'interface, et un backend m\'etier impl\'ement\'e \'egalement en ASP.NET Core (.NET~8) g\'erant la logique du deviseur et les calculs de marges. L'ensemble \'etait d\'eploy\'e dans des environnements Kubernetes isol\'es couvrant les phases de d\'eveloppement, de test, de pr\'eproduction et de production.
+ 
+Un point architectural fondamental m\'erite d'\^etre soulign\'e~: Bifr\"ost ne communiquait jamais directement avec les syst\`emes m\'etier de l'op\'erateur. Toutes les interactions avec le CRM, l'ERP ou la base des abonnements transitaient exclusivement par une passerelle centralis\'ee, garantissant ainsi un d\'ecouplage strict entre l'interface commerciale et les syst\`emes cibles.
+ 
+\subsubsection{Stargate --- La Passerelle d'Int\'egration Centralis\'ee}
+ 
+Stargate repr\'esentait le composant d'orchestration de l'\'ecosyst\`eme. Positionn\'ee comme une API Gateway, cette passerelle assumait le r\^ole de chef d'orchestre en recevant les requ\^etes \'emises par Bifr\"ost et en les redistribuant vers les syst\`emes cibles appropri\'es. Stargate exposait quatre micro-services d\'edi\'es~:
+ 
+\begin{itemize}
+    \item \textbf{Service ERP}~: assurant la communication avec l'ERP Cassiop\'ee pour la gestion des articles, des commandes et de la facturation~;
+    \item \textbf{Service CRM}~: \'etablissant le lien avec le CRM Ga\"ia pour la gestion des contacts, des structures commerciales et des devis~;
+    \item \textbf{Service R\'ef\'erentiels}~: donnant acc\`es aux donn\'ees de r\'ef\'erence partag\'ees par l'ensemble du syst\`eme d'information~;
+    \item \textbf{Service INSEE}~: permettant la v\'erification et l'enrichissement des donn\'ees l\'egales des entreprises clientes.
+\end{itemize}
+ 
+La s\'ecurisation de l'ensemble des \'echanges \'etait assur\'ee par Keycloak, un serveur d'authentification centralis\'e impl\'ementant le protocole OpenID Connect. Chaque requ\^ete transitant par Stargate faisait l'objet d'une v\'erification d'identit\'e et de droits d'acc\`es, garantissant ainsi l'int\'egrit\'e et la confidentialit\'e des flux de donn\'ees.
+ 
+\subsubsection{Ga\"ia --- Le CRM (Microsoft Dynamics Sales)}
+ 
+Ga\"ia d\'esignait l'instance Microsoft Dynamics~365 Sales d\'eploy\'ee chez l'op\'erateur client. Ce composant jouait un r\^ole central dans le cycle de vie des devis~: il recevait les devis valid\'es depuis Bifr\"ost via Stargate (par un m\'ecanisme d'\textit{upsert}), g\'erait le passage en commande et positionnait l'\'etat op\'erationnel de chaque transaction (cr\'eation, renouvellement, modification). Ga\"ia servait \'egalement de r\'ef\'erentiel pour les contacts commerciaux, les structures organisationnelles des clients et les offres disponibles.
+ 
+\subsubsection{Cassiop\'ee --- L'ERP (Microsoft Dynamics F\&O)}
+ 
+Cassiop\'ee correspondait \`a l'instance Microsoft Dynamics~365 Finance \& Operations. Ce composant intervenait en aval du processus commercial~: il recevait les Demandes d'Article (DAR) cr\'e\'ees par Stargate \`a la suite d'un passage en commande, et g\'erait l'ensemble des r\`egles de facturation associ\'ees. \`A titre d'exemple, dans le cas d'un renouvellement, les DAR \'etaient cr\'e\'ees avec un indicateur de non-facturation (\texttt{IsBillable~=~false}), signalant au syst\`eme qu'aucune mise \`a disposition ponctuelle n'\'etait requise.
+ 
+\subsubsection{ICMA --- La Base Contractuelle}
+ 
+ICMA constituait le r\'ef\'erentiel de tous les abonnements actifs et r\'esili\'es des clients de l'op\'erateur. Cette base \'etait aliment\'ee par un connecteur d'int\'egration d\'edi\'e --- Adispatch --- qui fonctionnait en dehors des micro-services Stargate et assurait la synchronisation des donn\'ees contractuelles. Bifr\"ost acc\'edait \`a ICMA exclusivement en lecture via Stargate pour r\'ecup\'erer les abonnements existants d'un client, tandis que les mises \`a jour \'etaient d\'eclench\'ees par les missions ADV (Administration Des Ventes) g\'en\'er\'ees lors des modifications de services.
+ 
+\subsubsection{Nova2 / Advance --- Le Portail Parc Commercial}
+ 
+Nova2, \'egalement d\'esign\'e sous le nom Advance, constituait le portail de consultation du parc de services des clients. Il offrait aux \'equipes commerciales et ADV une vue consolid\'ee de l'ensemble des services actifs, r\'esili\'es ou suspendus rattach\'es \`a un compte client donn\'e. Comme Bifr\"ost, Nova2 consommait les donn\'ees via Stargate, ce qui garantissait une coh\'erence des informations entre les diff\'erentes interfaces utilisateur.
+ 
+\subsection{Architecture Globale et Flux d'Int\'egration}
+ 
+La figure~\ref{fig:archi_ecosysteme} pr\'esente la topologie g\'en\'erale de l'\'ecosyst\`eme applicatif. Stargate y occupait une position centrale, servant de point de passage unique pour l'ensemble des flux entre les applications frontales (Bifr\"ost, Nova2) et les syst\`emes m\'etier (Ga\"ia, Cassiop\'ee, ICMA). Keycloak assurait l'authentification de mani\`ere transversale pour tous les composants du syst\`eme d'information.
+ 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{image/chapitre2/archi_globale_bifrost.png}
+\caption{Architecture globale de l'\'ecosyst\`eme applicatif --- Interactions entre composants}
+\label{fig:archi_ecosysteme}
+\end{figure}
+ 
+Cette architecture en \'etoile autour de Stargate pr\'esentait plusieurs avantages significatifs. Premi\`erement, elle garantissait un d\'ecouplage fort entre Bifr\"ost et les syst\`emes cibles~: toute \'evolution de Ga\"ia ou de Cassiop\'ee n'impactait Bifr\"ost que si le contrat d'interface expos\'e par Stargate \'etait modifi\'e. Deuxi\`emement, la centralisation de l'authentification via Keycloak \'eliminait la n\'ecessit\'e de g\'erer des m\'ecanismes d'authentification distincts pour chaque syst\`eme. Troisi\`emement, les micro-services de Stargate pouvaient \^etre adapt\'es ou \'etendus ind\'ependamment les uns des autres, facilitant ainsi l'\'evolution progressive de l'\'ecosyst\`eme.
+ 
+\subsection{Illustration par un Flux M\'etier~: le Renouvellement d'Abonnement}
+ 
+Pour ancrer cette architecture dans la r\'ealit\'e op\'erationnelle, il est instructif de d\'etailler le flux complet d'un renouvellement de service (d\'enomm\'e \og RENEW \fg{}), qui constituait l'un des cas d'usage les plus repr\'esentatifs des interactions entre les composants de l'\'ecosyst\`eme. Dans ce sc\'enario, le commercial cr\'eait dans Bifr\"ost un devis dont chaque ligne r\'ef\'eren\c{c}ait un abonnement existant via son identifiant, et seuls le prix et la dur\'ee d'engagement pouvaient \^etre modifi\'es.
+ 
+Le flux se d\'eroulait en cinq \'etapes successives~:
+ 
+\begin{enumerate}
+    \item \textbf{Cr\'eation du devis dans Bifr\"ost}~: l'agent commercial saisissait les lignes de renouvellement, chacune pointant sur un abonnement existant identifi\'e par son \texttt{ServiceAboId}.
+ 
+    \item \textbf{Validation et transmission vers Ga\"ia}~: Bifr\"ost transmettait le devis \`a Stargate, qui le transformait au format attendu et l'upsertait dans Ga\"ia. Le devis devenait alors visible dans le CRM avec le statut \textit{Quote}.
+ 
+    \item \textbf{Passage en commande}~: le commercial validait d\'efinitivement le devis dans Ga\"ia, qui d\'eclenchait un appel vers Stargate avec l'instruction \texttt{PassageEnCommande(RENEW)}. Stargate cr\'eait alors l'\textit{Order} avec l'orientation RENEW.
+ 
+    \item \textbf{Cr\'eation des DAR dans Cassiop\'ee}~: pour chaque ligne de renouvellement, Stargate g\'en\'erait une Demande d'Article dans l'ERP avec l'indicateur de non-facturation (\texttt{IsBillable~=~false}), signifiant qu'aucune mise \`a disposition ponctuelle n'\'etait requise.
+ 
+    \item \textbf{G\'en\'eration de la mission ADV}~: Stargate cr\'eait enfin une mission destin\'ee \`a l'\'equipe d'Administration Des Ventes, charg\'ee de mettre \`a jour l'abonnement concern\'e dans ICMA avec les nouvelles conditions tarifaires et la dur\'ee d'engagement r\'evis\'ee.
+\end{enumerate}
+ 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{image/chapitre2/flux_renew.png}
+\caption{Flux de renouvellement (RENEW) --- Interactions entre Bifr\"ost, Stargate, Ga\"ia, Cassiop\'ee et ICMA}
+\label{fig:flux_renew}
+\end{figure}
+ 
+Ce flux illustrait concr\`etement la mani\`ere dont Stargate orchestrait les \'echanges entre les diff\'erents composants, en assurant la transformation des donn\'ees, le routage des requ\^etes et la coordination des op\'erations m\'etier. La complexit\'e de ce processus --- impliquant cinq syst\`emes distincts pour une seule op\'eration commerciale --- mettait \'egalement en lumi\`ere l'importance d'une int\'egration robuste et d'une interface utilisateur capable d'abstraire cette complexit\'e pour l'agent commercial.
+ 
+\subsection{Synth\`ese des Composants}
+ 
+Le tableau~\ref{tab:composants_ecosysteme} r\'ecapitule les caract\'eristiques principales de chaque composant de l'\'ecosyst\`eme applicatif.
+ 
+\begin{table}[H]
+\centering
+\caption{Synth\`ese des composants de l'\'ecosyst\`eme applicatif}
+\label{tab:composants_ecosysteme}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{2.5cm}|p{2.5cm}|p{4.5cm}|p{3.5cm}|}
+\hline
+\textbf{Composant} & \textbf{Type} & \textbf{R\^ole principal} & \textbf{Technologie} \\
+\hline
+Bifr\"ost & Interface web & Cr\'eation et gestion des devis et modifications de services & Vue.js~3 / .NET~8 \\
+\hline
+Stargate & API Gateway & Orchestration des flux et s\'ecurisation des \'echanges & Micro-services / Keycloak \\
+\hline
+Ga\"ia & CRM & Gestion des devis, contacts et commandes & Microsoft Dynamics Sales \\
+\hline
+Cassiop\'ee & ERP & Facturation, articles et Demandes d'Article & Microsoft Dynamics F\&O \\
+\hline
+ICMA & Base contractuelle & R\'ef\'erentiel des abonnements actifs et r\'esili\'es & Base interne / Adispatch \\
+\hline
+Nova2 & Portail parc & Consultation du parc de services clients & Interface web interne \\
+\hline
+Keycloak & SSO / Auth & Authentification centralis\'ee (OpenID Connect) & Serveur d'identit\'e \\
+\hline
+\end{tabular}
+\end{table}
+ 
+Cette cartographie de l'\'ecosyst\`eme applicatif \'eclairait les contraintes d'int\'egration auxquelles le projet Bifr\"ost avait d\^u r\'epondre~: toute fonctionnalit\'e d\'evelopp\'ee dans l'interface devait tenir compte des contrats d'interface expos\'es par Stargate, des r\`egles m\'etier appliqu\'ees par Ga\"ia et Cassiop\'ee, et de la structure des donn\'ees contractuelles stock\'ees dans ICMA. Cette compr\'ehension fine de l'environnement technique avait constitu\'e un fondement essentiel pour les choix de conception d\'etaill\'es dans les chapitres suivants.
+% ==============================
 \section{Analyse des Processus Existants}
 % ==============================
 

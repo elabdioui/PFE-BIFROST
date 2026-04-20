@@ -1,2 +1,327 @@
-\chapter{Conception et Plan de Développement}
+% ========================================
+% CHAPITRE 3 — CONCEPTION ET PLAN DE DÉVELOPPEMENT
+% ========================================
+
+\chapter{Conception et Plan de D\'eveloppement}
 \label{chap:conception_developpement}
+
+\section*{Introduction}
+
+La conception technique constitue la pierre angulaire de tout projet de d\'eveloppement logiciel de grande envergure. Pour la plateforme Bifr\"ost, une approche m\'ethodique fond\'ee sur les meilleures pratiques du g\'enie logiciel avait \'et\'e adopt\'ee afin de garantir la robustesse, la scalabilit\'e et la maintenabilit\'e de la solution. Ce chapitre pr\'esente l'architecture technique choisie, les technologies retenues, la mod\'elisation UML du syst\`eme ainsi que les bonnes pratiques de d\'eveloppement mises en {\oe}uvre tout au long du projet.
+
+% ==============================
+\section{Architecture G\'en\'erale du Syst\`eme}
+% ==============================
+
+\subsection{Vue d'Ensemble}
+
+L'architecture de Bifr\"ost s'appuyait sur une approche en couches (layered architecture), d\'ecompos\'ee en deux applications distinctes mais compl\'ementaires~: l'application \textbf{Bifr\"ost} elle-m\^eme, g\'erant l'interface commerciale et la logique de devis, et l'application \textbf{Quoter}, con\c{c}ue comme un moteur de calcul ind\'ependant exposant ses fonctionnalit\'es via une API. Cette s\'eparation garantissait une responsabilit\'e claire pour chaque composant, facilitait la maintenance et permettait une \'evolution ind\'ependante des deux syst\`emes.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{image/archi_globale_bifrost.png}
+\caption{Architecture g\'en\'erale du syst\`eme Bifr\"ost --- D\'ecomposition en couches}
+\label{fig:architecture_generale}
+\end{figure}
+
+L'architecture se composait de trois couches principales interconnect\'ees via des API REST s\'ecuris\'ees, assurant une communication fluide entre l'interface utilisateur, la logique m\'etier et les syst\`emes externes.
+
+\subsection{Architecture Multi-Tiers}
+
+\subsubsection{Couche de Pr\'esentation (Frontend)}
+La couche de pr\'esentation avait \'et\'e d\'evelopp\'ee avec Vue.js~3 et s'articulait autour de composants modulaires et r\'eutilisables. Elle assurait l'interface utilisateur et la logique d'affichage, en s'appuyant sur PrimeVue~v4 pour les composants UI et TanStack Table pour la gestion du tableau de devis haute performance. L'ensemble \'etait compil\'e et servi via Vite, garantissant un temps de chargement minimal et une exp\'erience utilisateur fluide.
+
+\subsubsection{Couche d'Application (Backend ASP.NET Core)}
+La couche applicative principale avait \'et\'e construite avec ASP.NET Core (.NET~8). Elle g\'erait la logique m\'etier de l'interface commerciale, l'authentification via Keycloak (OpenID Connect), et servait de pont entre l'interface Vue.js et les syst\`emes d'int\'egration. Les contr\^oleurs exposaient des API REST consomm\'ees directement par le frontend, tandis que les services m\'etier encapsulaient les r\`egles propres \`a la gestion des devis t\'el\'ecom.
+
+\subsubsection{Couche M\'etier (Quoter --- ASP.NET Core)}
+Le moteur de devis Quoter avait \'et\'e impl\'ement\'e en C\# avec ASP.NET Core (.NET\,8). Cette application assurait la persistance des donn\'ees de devis dans une base PostgreSQL (via CloudNativePG), appliquait les proc\'edures stock\'ees de calcul des marges, et exposait les \'etats du devis au composant frontend embarqu\'e (\texttt{quoter\_instance.umd.min.js}). Sa conception en services m\'etier modulaires permettait une s\'eparation claire entre la logique m\'etier et la configuration des environnements et tenants. L'acc\`es aux donn\'ees \'etait g\'er\'e via Entity Framework Core, assurant une abstraction robuste sur la couche de persistance.
+
+\subsubsection{Couche de Donn\'ees}
+La persistance \'etait assur\'ee par deux syst\`emes distincts~: un \textbf{SQL Server} g\'er\'e par un prestataire externe pour les donn\'ees de r\'ef\'erentiel de l'application Bifr\"ost, et une instance \textbf{PostgreSQL} d\'eploy\'ee via l'op\'erateur CloudNativePG en Kubernetes pour le Quoter. Les migrations \'etaient g\'er\'ees respectivement par les outils de migration d'Entity Framework (.NET) pour les deux applications, garantissant une approche unifi\'ee de versioning du sch\'ema de base de donn\'ees.
+
+% ==============================
+\section{Technologies Backend}
+% ==============================
+
+\subsection{ASP.NET Core --- .NET 8}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.30\textwidth]{image/chapitre3/dotnet.png}
+\caption{Plateforme ASP.NET Core (.NET~8)}
+\label{fig:dotnet_logo}
+\end{figure}
+
+ASP.NET Core (.NET~8) constituait le c{\oe}ur du backend de Bifr\"ost, choisi pour ses performances \'elev\'ees, sa robustesse et son \'ecosyst\`eme mature. Les principaux avantages exploit\'es incluaient le syst\`eme de middleware configurable pour l'authentification et la gestion des erreurs, l'injection de d\'ependances native, et la g\'en\'eration automatique de documentation API via Swashbuckle (Swagger). Chaque environnement b\'en\'eficiait d'une configuration distincte (\texttt{launchSettings.json}, variables d'environnement), assurant l'isolation entre les instances de d\'eveloppement, de test et de production. La documentation Swagger \'etait expos\'ee exclusivement en environnement de d\'eveloppement afin de r\'eduire la surface d'attaque en pr\'eproduction et production.
+
+\subsection{ASP.NET Core --- .NET 8 (Backend M\'etier)}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.30\textwidth]{image/chapitre3/dotnet.png}
+\caption{Plateforme ASP.NET Core (.NET\,8) --- Backend m\'etier Quoter}
+\label{fig:dotnet_quoter_logo}
+\end{figure}
+
+Au-del\`a de l'API interm\'ediaire, ASP.NET Core (.NET\,8) avait \'et\'e retenu pour le d\'eveloppement du moteur Quoter, en raison de ses performances \'elev\'ees, de la richesse de son \'ecosyst\`eme et de la coh\'erence technologique avec le reste de l'architecture. Cette approche \'evitait une fragmentation inutile de l'infrastructure et facilitait le d\'eploiement, la monitoring et la maintenance de l'ensemble du syst\`eme backend. Les fonctionnalit\'es cl\'es exploit\'ees incluaient le syst\`eme de d\'ependance injection native pour la gestion des services m\'etier, Entity Framework Core pour l'acc\`es aux donn\'ees PostgreSQL avec un ORM robuste, et les controllers async pour le traitement haute performance des requ\^etes. La gestion des d\'ependances \'etait assur\'ee via \textbf{NuGet}, garantissant la reproductibilit\'e des environnements. Des outils de qualit\'e de code comme \textbf{StyleCop} et les \textbf{analyseurs Roslyn} \'etaient int\'egr\'es dans la cha^ine CI pour maintenir la coh\'erence stylistique et d\'etecter les bugs statiquement.
+
+\subsection{Bases de Donn\'ees~: SQL Server et PostgreSQL}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.28\textwidth]{image/chapitre3/sqlserver.png}
+\caption{Microsoft SQL Server (r\'ef\'erentiel Bifr\"ost)}
+\label{fig:sqlserver_logo}
+\end{figure}
+
+Microsoft SQL Server avait \'et\'e utilis\'e comme syst\`eme de gestion de bases de donn\'ees pour l'application Bifr\"ost, g\'er\'e par un prestataire externe. Il centralisait les donn\'ees de r\'ef\'erentiel des articles, des configurations m\'etier et des utilisateurs. Ses capacit\'es transactionnelles ACID et la compatibilit\'e avec l'\'ecosyst\`eme .NET via Entity Framework garantissaient l'int\'egrit\'e des donn\'ees dans un contexte multi-environnements.
+
+PostgreSQL, d\'eploy\'e via l'op\'erateur CloudNativePG au sein du cluster Kubernetes, assurait quant \`a lui la persistance des donn\'ees du moteur Quoter. Son support avanc\'e des types JSON, des proc\'edures stock\'ees (\texttt{sp\_post\_update\_lines}) et des transactions complexes en faisait le choix id\'eal pour les calculs de marges et la gestion des lignes de devis \`a haute fr\'equence de mise \`a jour.
+
+% ==============================
+\section{Technologies Frontend}
+% ==============================
+
+\subsection{Framework Vue.js 3}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.28\textwidth]{image/chapitre3/vue.png}
+\caption{Framework Vue.js~3}
+\label{fig:vuejs_logo}
+\end{figure}
+
+Vue.js~3 avait \'et\'e choisi pour le d\'eveloppement frontend de Bifr\"ost pour sa flexibilit\'e et sa composition API (\texttt{Composition API}) permettant une organisation claire de la logique des composants. Le framework offrait un syst\`eme de r\'eactivit\'e optimis\'e (\texttt{ref}, \texttt{computed}, \texttt{watch}), une gestion des \'ev\'enements fluide entre composants, et une int\'egration transparente avec l'\'ecosyst\`eme TypeScript. L'utilisation de TypeScript strict avait \'et\'e g\'en\'eralis\'ee sur l'ensemble du projet pour garantir la s\^uret\'e des types et faciliter la d\'etection d'erreurs \`a la compilation.
+
+\subsection{Build Tool Vite}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.25\textwidth]{image/chapitre3/vite.png}
+\caption{Build tool Vite}
+\label{fig:vite_logo}
+\end{figure}
+
+Vite constituait l'outil de build moderne retenu pour optimiser le processus de d\'eveloppement frontend. Il offrait un d\'emarrage instantan\'e du serveur de d\'eveloppement gr\^ace au Hot Module Replacement (HMR), un temps de build consid\'erablement r\'eduit par rapport aux outils traditionnels, et une optimisation automatique des assets en production. Sa configuration de proxy de d\'eveloppement avait \'et\'e utilis\'ee pour contourner les restrictions CORS lors des appels aux API backend, avec une gestion sp\'ecifique pour les requ\^etes provenant des composants UMD externes (monkey-patching de \texttt{XMLHttpRequest} et \texttt{window.fetch} en mode d\'eveloppement). Les configurations de port \'etaient externalis\'ees via des variables d'environnement (\texttt{.env.local}), permettant \`a plusieurs d\'eveloppeurs de travailler simultan\'ement sur une m\^eme machine sans conflit.
+
+\subsection{Biblioth\`eque UI PrimeVue v4}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.30\textwidth]{image/chapitre3/primevue.png}
+\caption{Biblioth\`eque de composants PrimeVue~v4}
+\label{fig:primevue_logo}
+\end{figure}
+
+PrimeVue~v4 enrichissait l'interface utilisateur avec un ensemble de composants professionnels pr\^ets \`a l'emploi. Cette biblioth\`eque apportait une coh\'erence visuelle \`a l'application avec des composants tels que \texttt{DataTable} pour l'affichage des r\'ef\'erences du catalogue, \texttt{Dialog} pour les modales de confirmation, \texttt{Popover} (en remplacement de l'\texttt{OverlayPanel} supprim\'e en v4) pour les panneaux contextuels, et \texttt{Toast} pour les notifications utilisateur. Son int\'egration native avec Vue.js~3 garantissait des performances optimales et une exp\'erience utilisateur fluide.
+
+\subsection{TanStack Table et TanStack Virtual}
+
+La gestion du tableau de devis --- composant central de l'interface Bifr\"ost --- avait \'et\'e r\'ealis\'ee avec \textbf{TanStack Table} (anciennement React Table), port\'e pour Vue.js, et \textbf{TanStack Virtual} pour la virtualisation des lignes. Cette combinaison permettait d'afficher de grandes quantit\'es de lignes de devis sans d\'egradation des performances, gr\^ace au rendu conditionnel des seules lignes visibles dans le viewport. Les fonctionnalit\'es de persistance des colonnes (visibilit\'e, ordre, dimensionnement) avaient \'et\'e impl\'ement\'ees c\^ot\'e backend via le mod\`ele \texttt{UserColumnPreference} (Quoter), synchronis\'e au frontend avec un m\'ecanisme de debounce \`a 1000~ms pour limiter les appels API.
+
+% ==============================
+\section{Infrastructure DevOps}
+% ==============================
+
+\subsection{Orchestration avec Kubernetes}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.28\textwidth]{image/chapitre3/kubernetes.png}
+\caption{Orchestrateur Kubernetes}
+\label{fig:kubernetes_logo}
+\end{figure}
+
+L'ensemble des composants de la plateforme Bifr\"ost \'etait d\'eploy\'e dans un cluster Kubernetes g\'er\'e par l'\'equipe technique du client. Cinq environnements isol\'es \'etaient maintenus~: \textbf{d\'eveloppement}, \textbf{test}, \textbf{pr\'eproduction}, \textbf{production} et \textbf{UAT}. Chaque environnement correspondait \`a un namespace Kubernetes d\'edi\'e, avec ses propres configurations de ressources et ses secrets. La gestion des secrets sensibles \'etait assur\'ee via \textbf{Azure Key Vault}, int\'egr\'e au cluster gr\^ace \`a des op\'erateurs CSI. Les d\'eploiements \'etaient orchestr\'es par \textbf{ArgoCD}, assurant une approche GitOps~: tout changement de configuration d\'eclar\'e dans les manifestes Git \'etait automatiquement r\'econcili\'e avec l'\'etat du cluster.
+
+\subsection{CI/CD avec Azure DevOps}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.30\textwidth]{image/chapitre3/azure_devops.jpg}
+\caption{Plateforme Azure DevOps}
+\label{fig:azuredevops_logo}
+\end{figure}
+
+Les pipelines d'int\'egration et de d\'eploiement continus avaient \'et\'e configur\'es sur \textbf{Azure DevOps}. \`A chaque merge request, le pipeline ex\'ecutait~: la compilation et la v\'erification des types TypeScript en frontend, la compilation des projets .NET en backend, l'analyse de qualit\'e de code via \textbf{SonarQube}, l'audit de s\'ecurit\'e des d\'ependances (\texttt{npm audit} c\^ot\'e frontend, scan NuGet c\^ot\'e .NET), la construction de l'image Docker et son push vers le registre, puis le d\'eclenchement du d\'eploiement ArgoCD. Les \'etapes de construction et de test \'etaient ex\'ecut\'ees en parall\`ele lorsque les d\'ependances le permettaient, r\'eduisant le temps de feedback.
+
+\subsection{Qualit\'e de Code avec SonarQube}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.30\textwidth]{image/chapitre3/sonar.png}
+\caption{Plateforme d'analyse de code SonarQube}
+\label{fig:sonarqube_logo}
+\end{figure}
+
+SonarQube assurait l'analyse continue de la qualit\'e du code sur les deux applications. Il d\'etectait les bugs potentiels, les vuln\'erabilit\'es de s\'ecurit\'e et les \textit{code smells}. Les seuils de qualit\'e (Quality Gates) \'etaient d\'efinis pour bloquer tout merge introduisant une r\'egression de la couverture de code ou de nouvelles vuln\'erabilit\'es critiques. L'int\'egration dans les pipelines CI garantissait que tout changement \'etait analys\'e avant d'\^etre int\'egr\'e \`a la branche principale.
+
+% ==============================
+\section{Mod\'elisation UML}
+% ==============================
+
+La mod\'elisation UML avait constitu\'e un \'el\'ement fondamental dans la phase de conception de la plateforme Bifr\"ost. Elle avait permis de repr\'esenter de mani\`ere claire et structur\'ee les diff\'erents aspects du syst\`eme~: depuis la structure statique des donn\'ees jusqu'aux interactions dynamiques entre les acteurs et les composants. Cette mod\'elisation avait servi de r\'ef\'erence commune entre l'\'equipe de d\'eveloppement, la product owner et les responsables techniques du client.
+
+\subsection{Diagrammes de Classes}
+
+Les diagrammes de classes mod\'elisaient la structure statique du syst\`eme en repr\'esentant les entit\'es principales, leurs attributs, leurs m\'ethodes et leurs relations. Cette mod\'elisation refl\'etait l'architecture modulaire mise en place pour r\'epondre aux besoins m\'etier complexes du secteur des t\'el\'ecommunications.
+
+\subsubsection{Mod\`ele de Donn\'ees du Moteur Quoter (ASP.NET Core)}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1.0\textwidth]{image/class_quoter.png}
+\caption{Diagramme de classes --- Moteur Quoter (ASP.NET Core / PostgreSQL)}
+\label{fig:diagramme_classes_quoter}
+\end{figure}
+
+Le diagramme de classes du moteur Quoter (figure~\ref{fig:diagramme_classes_quoter}) repr\'esentait les entit\'es m\'etier centrales de la gestion des devis. La classe \texttt{Quote} constituait l'agr\'egat racine, portant les informations de statut (\texttt{DRAFT}, \texttt{ARCHIVED}), de r\'ef\'erence client par d\'efaut (\texttt{default\_beneficiary\_customer}), et les indicateurs financiers (\texttt{pomt}, \texttt{pocat}). Chaque devis \'etait rattach\'e \`a un environnement (\texttt{Environment}) et un tenant (\texttt{Tenant}), permettant une architecture multi-tenant isol\'ee. La classe \texttt{Line} mod\'elisait les lignes du devis avec leur structure hi\'erarchique (relation parent-enfant r\'ecursive via Entity Framework), leurs prix de vente et d'achat (r\'ecurrents et ponctuels), leur source (\texttt{SourceEnum}~: catalogue, \'eligibilit\'e, MDS, import, etc.) et leur cycle de vie (m\'ethode \texttt{duplicate\_recursive}). La classe \texttt{UserColumnPreference} assurait la persistance des pr\'ef\'erences de colonnes par utilisateur via des requ\^etes Entity Framework optimis\'ees.
+
+\subsubsection{Mod\`ele de Donn\'ees de Bifr\"ost (.NET)}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1.0\textwidth]{image/class_bifrost.png}
+\caption{Diagramme de classes --- Application Bifr\"ost (ASP.NET Core / SQL Server)}
+\label{fig:diagramme_classes_bifrost}
+\end{figure}
+
+Le diagramme de classes de l'application Bifr\"ost (figure~\ref{fig:diagramme_classes_bifrost}) mettait en \'evidence les entit\'es m\'etier sp\'ecifiques \`a la couche .NET. La classe \texttt{Article} portait la logique de cycle de vie des r\'ef\'erences t\'el\'ecom via l'enum \texttt{EtatArticle} (\texttt{Actif}, \texttt{Obsolete}, \texttt{EndOfSale}, \texttt{EndOfLife}, \texttt{InDesign}) et les r\`egles de validation associ\'ees. Les types de facturation (\texttt{TypesFacturation}) et les types d'article (\texttt{TypesArticle}) permettaient une classification fine des articles du catalogue. La classe \texttt{ExcelLine} repr\'esentait une ligne d'import Budget Cloud avec ses contraintes de validation (\texttt{NOT\_NULL}, \texttt{ARTICLE\_EXIST}, \texttt{ETAT\_END\_OF\_LIFE}, \texttt{REF\_EXTERN\_ERP}), ex\'ecut\'ees lors du traitement des fichiers d'import. Le contr\^ole \texttt{IsPVPROk} garantissait la coh\'erence tarifaire (le prix de vente ne pouvant \^etre inf\'erieur au prix d'achat).
+
+\subsubsection{Architecture Globale des Composants}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1.0\textwidth]{image/class_global.png}
+\caption{Architecture globale --- Relations entre les composants Bifr\"ost et Quoter}
+\label{fig:diagramme_classes_global}
+\end{figure}
+
+La vue d'ensemble de l'architecture (figure~\ref{fig:diagramme_classes_global}) illustrait les relations entre les composants des deux applications. Plusieurs aspects architecturaux fondamentaux ressortaient de cette repr\'esentation.
+
+\paragraph{S\'eparation stricte des responsabilit\'es~:} Bifr\"ost g\'erait les r\'ef\'erentiels d'articles et les r\`egles de validation m\'etier sp\'ecifiques au t\'el\'ecom, tandis que Quoter prenait en charge la persistance et les calculs des devis. Cette s\'eparation rendait chaque syst\`eme \'evolvable ind\'ependamment.
+
+\paragraph{Architecture multi-tenant~:} L'isolation des donn\'ees entre tenants \'etait garantie par la relation obligatoire entre chaque \texttt{Quote} et son \texttt{Tenant}, avec des filtres automatiques appliqu\'es \`a toutes les requ\^etes.
+
+\paragraph{Workflow de validation m\'etier~:} Les contraintes de validation des articles (\texttt{EtatArticle}, \texttt{RefExterneErp}) \'etaient appliqu\'ees de mani\`ere cohérente entre les lignes de devis manuelles et les imports en masse.
+
+\paragraph{Extensibilit\'e du mod\`ele de lignes~:} La structure hi\'erarchique r\'ecursive de \texttt{Line} permettait de mod\'eliser des packages complexes (articles virtuels avec enfants) sans modifier le sch\'ema de base de donn\'ees.
+
+\subsection{Diagrammes de S\'equence}
+
+Les diagrammes de s\'equence illustraient les interactions temporelles entre les acteurs du syst\`eme et mod\'elisaient le comportement dynamique des principaux workflows. Ces diagrammes avaient permis d'identifier les points critiques des processus m\'etier, d'optimiser les flux de donn\'ees et de garantir la coh\'erence des \'echanges entre les composants.
+
+\subsubsection{Workflow de Cr\'eation et Validation d'un Devis}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1.0\textwidth]{image/seq_creation_devis.png}
+\caption{Diagramme de s\'equence --- Cr\'eation et validation d'un devis}
+\label{fig:sequence_creation_devis}
+\end{figure}
+
+Le diagramme de s\'equence (figure~\ref{fig:sequence_creation_devis}) illustrait le flux de cr\'eation d'un devis depuis son d\'eclenchement dans le CRM Ga\"ia jusqu'\`a sa validation finale. La s\'equence d\'ebutait par la r\'eception d'une opportunit\'e depuis Ga\"ia, qui d\'eclenchait la cr\'eation d'un devis vide dans le Quoter via l'API Bifr\"ost. L'agent commercial ajoutait ensuite des lignes via le catalogue ou le configurateur t\'el\'ecom~; chaque ajout \'etait transmis au Quoter qui mettait \`a jour les calculs de marge et retournait l'\'etat actualis\'e. La validation finale d\'eclenchait un upsert du devis complet vers Ga\"ia via Stargate, puis l'archivage automatique du devis dans le Quoter. Ce flux mettait en \'evidence l'orchestration centralis\'ee par l'API .NET et le r\^ole du composant Quoter comme source de v\'erit\'e pour les donn\'ees financi\`eres du devis.
+
+\subsubsection{Workflow de Modification de Service (MDS)}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{image/seq_mds.png}
+\caption{Diagramme de s\'equence --- Modification de service (MDS)}
+\label{fig:sequence_mds}
+\end{figure}
+
+Le processus de modification de service (figure~\ref{fig:sequence_mds}) pr\'esentait un cas d'usage plus complexe, sp\'ecifique aux op\'erations t\'el\'ecom. L'agent commercial s\'electionnait un abonnement existant depuis ICMA (via Stargate), choisissait l'op\'eration applicable (r\'esiliation, d\'em\'enagement, upgrade, renouvellement) et configurait les articles remplaçants. Ce workflow introduisait des contraintes de blocage sp\'ecifiques~: les lignes MDS ne pouvaient pas \^etre dupliqu\'ees individuellement, et la s\'election d'un article en \'etat \texttt{EndOfLife} ou sans r\'ef\'erence ERP bloquait la validation. Ces v\'erifications \'etaient appliqu\'ees c\^ot\'e .NET avant toute transmission vers le Quoter ou Stargate.
+
+\subsubsection{Workflow d'Import Budget Cloud}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{image/seq_import.png}
+\caption{Diagramme de s\'equence --- Import Budget Cloud}
+\label{fig:sequence_import}
+\end{figure}
+
+L'import Budget Cloud (figure~\ref{fig:sequence_import}) permettait aux Ing\'enieurs Avant-Vente de constituer rapidement un devis \`a partir d'un fichier Excel structur\'e. La s\'equence d\'etaillait le traitement du fichier~: lecture des lignes (\texttt{ExcelLine}), validation de chaque cellule selon les contraintes d\'efinies (\texttt{RowConfig}), r\'ecup\'eration des articles correspondants depuis le r\'ef\'erentiel, et injection des lignes valid\'ees dans le Quoter. En cas d'erreur de validation, un rapport d'erreurs \'etait g\'en\'er\'e et retourN\'e \`a l'utilisateur, identifiant pr\'ecis\'ement chaque ligne et colonne probl\'ematique.
+
+\subsection{Diagrammes de Cas d'Usage}
+
+Les diagrammes de cas d'usage pr\'esentaient une vue fonctionnelle du syst\`eme en d\'ecrivant les interactions entre les acteurs et les fonctionnalit\'es offertes. Centr\'ee sur les besoins m\'etier, cette mod\'elisation avait servi de r\'ef\'erence commune avec la product owner et avait guid\'e la d\'efinition des user stories dans l'outil de gestion de projet Azure DevOps.
+
+\subsubsection{Cas d'Usage de l'Interface Commerciale}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.90\textwidth]{image/uc_agent_commercial.png}
+\caption{Diagramme de cas d'usage --- Agent commercial (interface Bifr\"ost)}
+\label{fig:use_case_commercial}
+\end{figure}
+
+Le diagramme de cas d'usage de l'agent commercial (figure~\ref{fig:use_case_commercial}) d\'ecrivait l'ensemble des interactions disponibles dans l'interface Bifr\"ost. L'acteur principal --- l'agent commercial --- pouvait~: cr\'eer un devis \`a partir d'une opportunit\'e Ga\"ia, ajouter des articles via le catalogue ou le configurateur t\'el\'ecom, appliquer des remises unitaires (fixe ou pourcentage) sur les frais r\'ecurrents et ponctuels, modifier un service existant, ajuster les prix de revient avec justification, importer un budget Cloud via fichier Excel, et valider l'ensemble du devis pour transmission vers le CRM. Le cas d'usage de gestion des pr\'ef\'erences de colonnes illustrait une fonctionnalit\'e transversale, persistant les personnalisations d'affichage entre les sessions.
+
+\subsubsection{Cas d'Usage du Syst\`eme de Devis (Quoter)}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.90\textwidth]{image/uc_quoter.png}
+\caption{Diagramme de cas d'usage --- Moteur Quoter}
+\label{fig:use_case_quoter}
+\end{figure}
+
+Le diagramme de cas d'usage du Quoter (figure~\ref{fig:use_case_quoter}) mod\'elisait les interactions du syst\`eme avec ses acteurs externes (API Bifr\"ost, Ga\"ia via Stargate, composant frontend embarqu\'e). Les cas d'usage essentiels incluaient la cr\'eation et l'archivage de devis, l'ajout et la modification de lignes hi\'erarchiques, le calcul des marges (ponctuelle et r\'ecurrente) via la proc\'edure stock\'ee \texttt{sp\_post\_update\_lines}, la duplication de devis avec pr\'eservation de la hi\'erarchie, et la gestion des pr\'ef\'erences de colonnes par utilisateur. La gestion des packages virtuels (articles conteneurs sans r\'ef\'erence propre) constituait un cas d'usage sp\'ecifique, illustrant la capacit\'e du mod\`ele \`a repr\'esenter des structures tarifaires complexes.
+
+\subsubsection{Vue d'Ensemble du Syst\`eme}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1.0\textwidth]{image/uc_global.png}
+\caption{Diagramme de cas d'usage --- Vue d'ensemble du syst\`eme Bifr\"ost}
+\label{fig:use_case_global}
+\end{figure}
+
+La vue d'ensemble (figure~\ref{fig:use_case_global}) synth\'etisait l'ensemble des interactions entre les acteurs du syst\`eme. Quatre profils d'acteurs principaux interagissaient avec la plateforme~: les \textbf{agents commerciaux} pour la gestion des devis, les \textbf{Ing\'enieurs Avant-Vente} pour les imports Budget Cloud, les \textbf{\'equipes ADV} pour les modifications de services, et les \textbf{syst\`emes externes} (Ga\"ia, Stargate, ICMA) pour les flux de donn\'ees automatis\'es.
+
+\paragraph{Coh\'erence fonctionnelle~:} L'analyse des cas d'usage r\'ev\'elait une architecture fonctionnelle coh\'erente o\`u chaque module contribuait \`a l'objectif global de fluidification du processus commercial. Les fonctionnalit\'es sp\'ecifiques au t\'el\'ecom (\'eligibilit\'e, MDS, cycles de vie des articles) coexistaient avec les fonctionnalit\'es transversales (remises, imports, pr\'ef\'erences), cr\'eant un \'ecosyst\`eme fonctionnel int\'egr\'e.
+
+\paragraph{Extensibilit\'e~:} La structure modulaire des cas d'usage facilitait l'\'evolution du syst\`eme. L'ajout de nouveaux types de modification de service ou de nouvelles r\`egles de validation d'articles pouvait s'effectuer de mani\`ere isol\'ee, minimisant l'impact sur les fonctionnalit\'es op\'erationnelles existantes.
+
+Cette mod\'elisation fonctionnelle avait efficacement guid\'e le d\'eveloppement en maintenant une vision claire de la valeur apport\'ee aux utilisateurs finaux, tout en assurant la tra\c{c}abilit\'e entre les exigences m\'etier et leur impl\'ementation technique.
+
+% ==============================
+\section{Bonnes Pratiques de D\'eveloppement}
+% ==============================
+
+\subsection{Architecture Modulaire et S\'eparation des Responsabilit\'es}
+
+\subsubsection{Organisation du Code Backend}
+Le code de l'application Bifr\"ost \'etait organis\'e selon une s\'eparation stricte des responsabilit\'es~: les contr\^oleurs exposaient les endpoints REST et d\'el\'eguaient imm\'ediatement aux services m\'etier, les services encapsulaient la logique complexe (validation des articles, transformation des donn\'ees d'import), et les repositories g\'eraient l'acc\`es aux donn\'ees. Cette approche facilitait les tests unitaires et limitait les r\'egressions lors des \'evolutions. Les contr\^oleurs ne contenaient aucune logique m\'etier, un pattern syst\'ematiquement appliqu\'e pour maintenir la lisibilit\'e et la testabilit\'e du code.
+
+Le moteur Quoter suivait une organisation similaire avec les services m\'etier ASP.NET Core, o\`u les controllers \'etaient maintenus concis et les services encapsulaient la logique m\'etier complexe (gestion des environnements, tenants, calculs de marges). L'acc\`es aux donn\'ees \'etait g\'er\'e via des repositories utilisant Entity Framework Core, eux-m\^emes isol\'es des controllers pour maintenir une s\'eparation claire des responsabilit\'es.
+
+\subsubsection{Gestion des Changements par Minimal Diff}
+Une philosophie de changements minimaux et chirurgicaux avait \'et\'e adopt\'ee syst\'ematiquement~: toute modification visait \`a r\'esoudre pr\'ecis\'ement le probl\`eme identifi\'e sans refactorisation non n\'ecessaire. Cette approche r\'eduisait les risques de r\'egression et facilitait la revue de code. Les pull/merge requests \'etaient volontairement petites et atomiques, chacune r\'epondant \`a une seule user story ou correction de bug.
+
+\subsection{D\'eveloppement Frontend Modulaire}
+
+\subsubsection{Composants Vue.js R\'eutilisables}
+L'interface utilisateur avait \'et\'e construite autour de composants Vue.js modulaires, chacun encapsulant sa logique, son template et ses styles locaux (scoped CSS). La hi\'erarchie des composants suivait une logique claire~: les composants de base (boutons, inputs) \'etaient ind\'ependants du domaine m\'etier, les composants m\'etier (QuoteToolbar, LigneDevis, PanelFinancier) encapsulaient la logique sp\'ecifique au devis, et les vues compl\`etes assemblaient ces composants pour constituer les \'ecrans de l'application. Les conventions existantes dans le projet \'etaient syst\'ematiquement respect\'ees (pas d'extraction en composables sauf si le projet l'utilisait d\'ej\`a).
+
+\subsubsection{Gestion des \'Ev\`enements et Callbacks}
+Les \'echanges entre le composant frontend embarqu\'e du Quoter (\texttt{quoter\_instance.umd.min.js}) et l'application Vue.js Bifr\"ost \'etaient assur\'es via des callbacks bridge (\texttt{quoterInstance.refresh}). La robustesse de ce m\'ecanisme avait \'et\'e une priorit\'e lors des merges de user stories, car les fusions de branches travaillant sur des composants communs avaient identifi\'e ce callback comme un point de r\'egression \`a haute probabilit\'e. Des audits post-merge syst\'ematiques avaient \'et\'e mis en place pour v\'erifier l'int\'egrit\'e de ces ponts entre composants.
+
+\subsection{S\'ecurit\'e et Observabilit\'e}
+
+\subsubsection{S\'ecurisation des Surfaces d'Attaque}
+La s\'ecurit\'e avait \'et\'e trait\'ee comme une dimension transversale. La documentation Swagger \'etait restrict\'ee \`a l'environnement de d\'eveloppement gr\^ace \`a une v\'erification conditionnelle (\texttt{if (app.Environment.IsDevelopment())}). L'authentification centralis\'ee via Keycloak garantissait un contr\^ole d'acc\`es uniforme sur l'ensemble des endpoints. L'audit de s\'ecurit\'e des d\'ependances (\texttt{npm audit}, scan NuGet) \'etait int\'egr\'e dans les pipelines CI, et les vuln\'erabilit\'es d\'etect\'ees \'etaient trait\'ees en priorit\'e avant toute mise en production.
+
+\subsubsection{Observabilit\'e via Splunk}
+Un dispositif de centralisation des logs avait \'et\'e architectur\'e pour l'ensemble de la plateforme. Pour les composants Kubernetes, l'architecture retenait \textbf{Splunk Connect for Kubernetes} (en mode DaemonSet), collectant automatiquement les logs de tous les pods. Pour le SQL Server externe (g\'er\'e par un prestataire), un Universal Forwarder Splunk classique avait \'et\'e pr\'evu, en coordination avec le r\'ef\'erent Splunk du prestataire. Cette architecture garantissait une visibilit\'e compl\`ete sur les \'ev\'enements de s\'ecurit\'e et les erreurs applicatives, facilitant la d\'etection d'anomalies et la r\'esolution d'incidents.
+
+% ==============================
+\section*{Conclusion}
+% ==============================
+
+Ce chapitre a pr\'esent\'e la conception technique compl\`ete de la plateforme Bifr\"ost, en mettant en \'evidence les choix technologiques r\'efl\'echis et les bonnes pratiques adopt\'ees. L'architecture modulaire fond\'ee sur ASP.NET Core et Vue.js~3 avait garanti une solution robuste, scalable et maintenable, avec une coh\'erence technologique affirm\'ee \`a travers l'ensemble des couches (frontend, API, moteur de calcul). L'int\'egration des outils DevOps (Azure DevOps, Kubernetes, ArgoCD, SonarQube) avait assur\'e la qualit\'e et la fiabilit\'e du d\'eveloppement tout au long des cycles de livraison.
+
+La mod\'elisation UML approfondie et l'adoption de bonnes pratiques de d\'eveloppement --- changements minimaux, composants atomiques, s\'ecurit\'e par conception --- avaient constitu\'e les fondements d'un syst\`eme maintenable et \'evolvable. Cette approche m\'ethodique, combin\'ee \`a la m\'ethodologie Scrum structur\'ee pr\'esent\'ee au chapitre pr\'ec\'edent, avait garanti la capacit\'e de la plateforme Bifr\"ost \`a r\'epondre pr\'ecis\'ement aux exigences m\'etier de l'op\'erateur client tout en s'int\'egrant de mani\`ere transparente dans son \'ecosyst\`eme applicatif existant.
