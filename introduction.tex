@@ -1,55 +1,46 @@
 % ========================================
-% INTRODUCTION GÉNÉRALE
+% INTRODUCTION
 % ========================================
 
-\chapter*{Introduction G\'en\'erale}
-\label{chap:introduction_generale}
-\addcontentsline{toc}{chapter}{Introduction G\'en\'erale}
+\chapter*{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
 
-La transformation num\'erique des entreprises s'est impos\'ee, au cours des derni\`eres ann\'ees, comme un imp\'eratif strat\'egique dans l'ensemble des secteurs d'activit\'e. 
+\section*{Contexte G\'en\'eral}
 
-Dans le domaine des t\'el\'ecommunications et des services num\'eriques \`a destination des entreprises, cette transformation s'est manifest\'ee par une complexification croissante des offres commerciales, une diversification des cat\'egories de services propos\'es et une exigence accrue de r\'eactivit\'e op\'erationnelle. 
+La transformation num\'erique des op\'erateurs t\'el\'ecom impose des exigences fonctionnelles que les outils ERP g\'en\'eralistes ne peuvent satisfaire sans d\'eveloppements sp\'ecifiques lourds. La gestion d'un catalogue de plusieurs dizaines de milliers de r\'ef\'erences d'articles, la structuration hi\'erarchique des lignes de devis, le traitement des processus d'\'eligibilit\'e des adresses, l'application de r\`egles de marge et de remise complexes, et les workflows de modification d'abonnements---autant de sp\'ecificit\'es qui ont rendu inutilisable l'outil de devis g\'en\'erique propos\'e dans le cadre de la migration ERP de l'entreprise cliente.
 
-Les outils m\'etier qui ont soutenu ces processus~--- longtemps per\c{c}us comme des composantes secondaires des syst\`emes d'information~--- sont devenus de v\'eritables leviers de comp\'etitivit\'e, dont la fiabilit\'e, la performance et l'ergonomie ont conditionn\'e directement la productivit\'e des \'equipes qui les ont utilis\'es au quotidien.
-\vspace{0.3cm}
+La conception d'une solution sur mesure, modulaire et maintenable, s'est alors impos\'ee comme la r\'eponse la plus pertinente.
 
-C'est dans cet environnement exigeant que s'est inscrit le pr\'esent projet de fin d'\'etudes, r\'ealis\'e du 4\,mars au 4\,septembre\,2025 au sein de \textbf{VISEO}, soci\'et\'e fran\c{c}aise de conseil en technologies et en transformation digitale, fond\'ee en 1999 et pr\'esente aujourd'hui sur cinq continents. 
+\section*{Probl\'ematique}
 
-Le projet a \'et\'e men\'e au sein du centre d'excellence de Casablanca, en collaboration avec une \'equipe pluridisciplinaire compos\'ee d'un tech lead, d'un product owner et de d\'eveloppeurs sp\'ecialis\'es. 
+La probl\'ematique centrale de ce projet peut se formuler ainsi~: comment concevoir et d\'evelopper une plateforme web capable de couvrir l'int\'egralit\'e du cycle de vie commercial des offres t\'el\'ecom de l'entreprise cliente, de la cr\'eation du devis jusqu'\`a la gestion des modifications d'abonnements en production, tout en garantissant performance, s\'ecurit\'e et qualit\'e logicielle dans un environnement d\'eploy\'e en Kubernetes~?
 
-La mission confi\'ee a port\'e sur la conception et le d\'eveloppement d'une plateforme web compl\`ete de gestion des devis et des abonnements pour le compte d'un acteur de r\'ef\'erence du march\'e fran\c{c}ais des t\'el\'ecommunications d'entreprise. Cette plateforme, nomm\'ee \textbf{Bifr\"ost}, a eu pour vocation d'\'equiper les agents du service client d'un outil d\'edi\'e, adapt\'e aux sp\'ecificit\'es m\'etier de leur secteur, et int\'egr\'e dans l'\'ecosyst\`eme ERP de l'entreprise cliente.
-\vspace{0.3cm}
+\section*{Objectifs}
 
-Le besoin \`a l'origine de ce projet a trouv\'e sa source dans l'inadaptation de l'outil de devis g\'en\'erique propos\'e nativement par l'ERP en place chez l'entreprise cliente. 
+Pour r\'epondre \`a cette probl\'ematique, les objectifs du projet ont \'et\'e structur\'es autour de trois dimensions compl\'ementaires.
 
+\textbf{Premi\`erement, la dimension fonctionnelle} a vis\'e la conception de l'ensemble des fonctionnalit\'es attendues par les agents~: construction et \'edition des devis, gestion des modifications de services, v\'erification d'\'eligibilit\'e des adresses et persistance des pr\'ef\'erences utilisateur.
 
-Les sp\'ecificit\'es m\'etier du secteur des t\'el\'ecommunications~--- catalogue de plusieurs dizaines de milliers de r\'ef\'erences d'articles, structure hi\'erarchique des lignes de devis, processus d'\'eligibilit\'e des adresses, gestion de r\`egles de marge et de remise complexes, et modifications de services encadr\'ees par des workflows m\'etier stricts~--- ont rendu inutilisable un outil non sp\'ecialis\'e. 
+\textbf{Deuxi\`emement, la dimension technique} a port\'e sur la mise en \oe{}uvre d'une architecture distribu\'ee, associant deux applications autonomes---\textbf{Bifr\"ost} et \textbf{Quoter}---toutes deux construites sur une stack ASP.NET Core (.NET~8) c\^ot\'e backend et Vue.js~3\,/\,TypeScript c\^ot\'e frontend, d\'eploy\'ees dans des environnements Kubernetes isol\'es par vocation.
 
-La conception d'une solution sur mesure, modulaire et maintenable, s'est alors impos\'ee comme la r\'eponse la plus pertinente. 
-\vspace{0.3cm}
-
-La probl\'ematique centrale de ce projet a pu se formuler ainsi~: comment concevoir et d\'evelopper une plateforme web capable de couvrir l'int\'egralit\'e du cycle de vie commercial des offres t\'el\'ecom de l'entreprise cliente, de la cr\'eation du devis jusqu'\`a la gestion des modifications d'abonnements en production, tout en garantissant performance, s\'ecurit\'e et qualit\'e logicielle dans un environnement d\'eploy\'e en Kubernetes~?
-
-Pour r\'epondre \`a cette probl\'ematique, les objectifs du projet ont \'et\'e structur\'es autour de trois dimensions compl\'ementaires. 
-\vspace{0.3cm}
-
-\textbf{Premi\`erement, la dimension fonctionnelle} a vis\'e la conception de l'ensemble des fonctionnalit\'es attendues par les agents~: construction et \'edition des devis, gestion des modifications de services, v\'erification d'\'eligibilit\'e des adresses et persistance des pr\'ef\'erences utilisateur. 
-
-\textbf{Deuxi\`emement, la dimension technique} a port\'e sur la mise en \oe{}uvre d'une architecture trois couches robuste, associant deux applications ASP.NET Core (.NET 8) et un frontend Vue.js\,/\,TypeScript, d\'eploy\'ee dans des environnements Kubernetes isol\'es par vocation. 
-
-\textbf{Troisi\`ement, la dimension qualitative} a vis\'e \`a garantir la maintenabilit\'e et la s\'ecurit\'e de la solution gr\^ace \`a des pipelines d'int\'egration continue sur Azure\,DevOps, une analyse statique du code par SonarQube, et une strat\'egie d'observabilit\'e bas\'ee sur Splunk\,Enterprise.
+\textbf{Troisi\`emement, la dimension qualitative} a vis\'e \`a garantir la maintenabilit\'e et la s\'ecurit\'e de la solution gr\^ace \`a des pipelines d'int\'egration continue sur Azure\,DevOps, une analyse statique du code par SonarQube, et une strat\'egie d'observabilit\'e bas\'ee sur Splunk\,Enterprise.
 
 L'ensemble du projet a \'et\'e conduit selon la m\'ethodologie \textbf{Agile\,/\,Scrum}, organis\'ee en sprints de deux semaines, avec des revues de code syst\'ematiques et une livraison continue vers les environnements de test.
-\vspace{0.3cm}
+
+\section*{Architecture en Deux Applications}
+
+L'un des choix architecturaux fondateurs de ce projet r\'eside dans la s\'eparation entre \textbf{Bifr\"ost} et \textbf{Quoter} en deux applications distinctes. Cette s\'eparation n'est pas li\'ee \`a un choix technologique~: les deux applications partagent la m\^eme stack technique (ASP.NET Core\,/\,Vue.js\,3). Elle r\'epond \`a une exigence de \textbf{r\'eutilisabilit\'e}~: Quoter a \'et\'e con\c{c}u d\`es l'origine comme un moteur de devis autonome, d\'edi\'e \`a \^etre instanci\'e par diff\'erentes applications clientes via un composant web embarquable (fichier UMD), sans d\'ependance directe vis-\`a-vis de Bifr\"ost. Bifr\"ost est l'un des consommateurs de Quoter, mais non le seul~: cette architecture garantit que le moteur de devis peut \^etre int\'egr\'e dans tout autre applicatif du syst\`eme d'information du client, ou adapt\'e \`a d'autres tenants, sans modification du code de Quoter.
+
+\section*{Structure du Rapport}
 
 Le pr\'esent rapport est structur\'e en quatre chapitres progressifs~:
 
 \begin{itemize}
     \item \textbf{Le premier chapitre} pr\'esente le contexte g\'en\'eral du projet~: l'organisme d'accueil VISEO, l'entreprise cliente, le cadre fonctionnel de Bifr\"ost et l'organisation en sprints.
-    
-    \item \textbf{Le deuxi\`eme chapitre} est consacr\'e \`a l'analyse de l'existant et \`a l'\'etude de la solution~: architecture technique cible, choix technologiques justifi\'es et organisation des environnements de d\'eploiement.
-    
-    \item \textbf{Le troisi\`eme chapitre} d\'etaille les r\'ealisations de conception et de d\'eveloppement, en distinguant les contributions apport\'ees \`a chacune des trois couches de l'architecture et en exposant les d\'ecisions d'impl\'ementation retenues.
-    
-    \item \textbf{Le quatri\`eme chapitre} ouvre sur les perspectives d'\'evolution~: strat\'egie d'observabilit\'e avec Splunk, gestion des d\'ependances et axes d'am\'elioration envisag\'es pour les phases ult\'erieures du projet.
+
+    \item \textbf{Le deuxi\`eme chapitre} est consacr\'e \`a l'analyse de l'existant et \`a l'\'etude de la solution~: \'ecosyst\`eme applicatif, architecture technique cible, justification de la s\'eparation Bifr\"ost\,/\,Quoter et organisation des environnements de d\'eploiement.
+
+    \item \textbf{Le troisi\`eme chapitre} d\'etaille la conception et les choix de d\'eveloppement, en distinguant les contributions apport\'ees aux deux applications et en exposant les d\'ecisions d'impl\'ementation retenues pour chacune.
+
+    \item \textbf{Le quatri\`eme chapitre} ouvre sur les r\'ealisations concr\`etes~: fonctionnalit\'es d\'evelopp\'ees par sprint, pratiques qualit\'e mises en place, strat\'egie d'observabilit\'e avec Splunk, et axes d'\'evolution identifi\'es.
 \end{itemize}

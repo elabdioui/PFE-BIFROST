@@ -1,23 +1,57 @@
-\documentclass[a4paper, oneside, 12pt, final]{extreport}
-\usepackage{graphicx}
-\usepackage{makeidx}
-\usepackage[lined,boxed,commentsnumbered, french, ruled,vlined,linesnumbered]{algorithm2e}
-\usepackage{amsthm}
-\usepackage{etoolbox}
-\usepackage[nottoc]{tocbibind}
-\usepackage{ifxetex}
-\usepackage{graphics}
-\usepackage[acronym,toc,section=chapter]{glossaries}
+\documentclass[a4paper,oneside,12pt,final]{extreport}
+
+% Encodage, langue
 \usepackage[utf8]{inputenc}
 \usepackage[french]{babel}
+
+% Mathématiques
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+% Graphiques et figures
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage{float}
 \usepackage{adjustbox}
-\usepackage{dirtree}
-\usepackage[edges]{forest}
+\usepackage{caption}
+
+% Couleurs et tableaux
+\usepackage[table]{xcolor}
+\usepackage{colortbl}
+\usepackage{array}
+\usepackage{booktabs}
+
+% Listes
+\usepackage{enumitem}
+\setlist[itemize]{nosep, leftmargin=*, topsep=2pt, partopsep=0pt}
+\setlist[enumerate]{nosep, leftmargin=*, topsep=2pt, partopsep=0pt}
+
+% Algorithmes
+\usepackage[
+  lined,
+  boxed,
+  commentsnumbered,
+  french,
+  ruled,
+  vlined,
+  linesnumbered
+]{algorithm2e}
+
+% Arbres et diagrammes
 \usepackage{tikz}
 \usepackage{tikz-qtree}
-\usepackage{float}
-\usepackage[table]{xcolor}
+\usepackage[edges]{forest}
+\usepackage{dirtree}
 \usepackage{pgfgantt}
+
+% Glossaire et index
+\usepackage{makeidx}
+\usepackage[acronym,toc,section=chapter]{glossaries}
+\usepackage[nottoc]{tocbibind}
+
+% Outils divers
+\usepackage{etoolbox}
+\usepackage{ifxetex}
 
 \parindent 0cm
 \makeindex
