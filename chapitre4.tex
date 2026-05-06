@@ -2,5 +2,233 @@
 % CHAPITRE 4 - MISE EN ŒUVRE : TRAVAIL RÉALISÉ
 % ========================================
 
-\chapter{Mise en Œuvre : Travail Réalisé}
+\chapter{Mise en \OE{}uvre : Travail R\'ealis\'e}
 \label{chap:mise_en_oeuvre}
+
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+
+Ce chapitre constitue le c\oe{}ur op\'erationnel du rapport~: il pr\'esente les r\'ealisations concr\`etes issues de la conception d\'etaill\'ee au chapitre pr\'ec\'edent. Chaque fonctionnalit\'e d\'ecrite a \'et\'e livr\'ee au sein d'un sprint Scrum d\'edi\'e, valid\'ee par la Product Owner avant int\'egration dans l'environnement de test. Les d\'eveloppements se r\'epartissent entre les deux applications de l'\'ecosyst\`eme~: \textbf{Bifr\"ost}, l'interface commerciale centrale, et \textbf{Quoter}, le moteur de devis embarqu\'e. Ce chapitre suit la logique du cycle de vie d'un devis~: de son ouverture depuis Ga\"ia jusqu'\`a la validation finale de ses lignes, en passant par la configuration des articles t\'el\'ecom, l'\'edition des lignes et la gestion des modifications de services.
+
+% ==============================
+\section{Int\'egration avec Dynamics\,365 --- Ga\"ia}
+% ==============================
+
+La plateforme Bifr\"ost a \'et\'e con\c{c}ue pour op\'erer en compl\'ement direct de Ga\"ia, le CRM Microsoft\,Dynamics\,365 utilis\'e par l'entreprise cliente. Cette int\'egration constitue le point d'entr\'ee et de sortie de chaque cycle de devis~: un devis est initialis\'e depuis Ga\"ia, enrichi dans Bifr\"ost, puis retourn\'e vers Ga\"ia apr\`es validation pour passage en commande.
+
+\subsection{Vue liste des devis dans Ga\"ia}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{image/chapitre4/devis.png}
+\caption{Liste des devis dans Dynamics\,365 -- Ga\"ia}
+\label{fig:gaia_liste_devis}
+\end{figure}
+
+La figure~\ref{fig:gaia_liste_devis} pr\'esente l'interface de liste des devis dans Ga\"ia, comptabilisant \textit{2519} enregistrements actifs au moment de la capture. Chaque entr\'ee expose les champs structurants du devis~: num\'ero, r\'evision, statut, nom, compte commande, contact commercial et charg\'e de compte. Cette vue est l'unique point de d\'epart du flux commercial~: un clic sur un devis d\'eclenche son chargement dans Bifr\"ost via le composant embarqu\'e. La volumétrie observ\'ee illustre l'exigence de performance impos\'ee~: Bifr\"ost a \'et\'e optimis\'e pour g\'erer de grands volumes sans d\'egradation de l'exp\'erience utilisateur, notamment gr\^ace \`a la virtualisation de la grille TanStack\,Virtual c\^ot\'e Quoter. La coh\'erence des donn\'ees entre les deux syst\`emes est assur\'ee par le middleware Stargate.
+
+\subsection{D\'etail d'un devis dans Ga\"ia}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{image/chapitre4/crm_gaia.png}
+\caption{Vue d\'etail d'un devis dans Dynamics\,365 -- Ga\"ia}
+\label{fig:gaia_detail_devis}
+\end{figure}
+
+La figure~\ref{fig:gaia_detail_devis} illustre la fiche d\'etail d'un devis dans Ga\"ia, organis\'ee autour d'un processus commercial progressif visible en haut de page~: \og{}Informations\fg{}, \og{}\'Edition\fg{}, \og{}Passage en Commande\fg{}. Ce processus guide le commercial \`a travers les \'etapes m\'etier successives. La fiche centralise les informations essentielles~: donn\'ees administratives (num\'ero, r\'evision, charg\'e de compte), contacts (commercial, signataire, technique), compte b\'en\'eficiaire, ainsi que les informations de vente (dur\'ee d'engagement, type de commande). Ces m\'etadonn\'ees sont synchronis\'ees vers Bifr\"ost \`a l'ouverture du composant et sont affich\'ees dans l'en-t\^ete de l'application pour maintenir la coh\'erence contextuelle pendant toute la session de devis.
+
+\subsection{Acc\`es \`a Bifr\"ost depuis Ga\"ia}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{image/chapitre4/emplacement_bifrost.png}
+\caption{Bouton d'acc\`es \`a Bifr\"ost depuis l'onglet \og{}Lignes de devis\fg{} de Ga\"ia}
+\label{fig:gaia_visualiser}
+\end{figure}
+
+La figure~\ref{fig:gaia_visualiser} met en \'evidence le point d'int\'egration concret entre les deux syst\`emes~: le bouton \og{}Visualiser\fg{}, accessible depuis l'onglet \og{}Lignes de devis\fg{} du devis Ga\"ia, d\'eclenche l'ouverture du composant Bifr\"ost en mode embarqu\'e. L'onglet pr\'esente \'egalement un r\'ecapitulatif financier structur\'e (Total FMS/FAS, Total ABO, TVA, totaux TTC) qui refl\`ete fidèlement les donn\'ees calcul\'ees dans Quoter. Cette architecture garantit que Ga\"ia demeure la source de v\'erit\'e pour les donn\'ees commerciales, tandis que Bifr\"ost se positionne comme l'interface sp\'ecialis\'ee de constitution du devis. L'ensemble du flux de communication a \'et\'e s\'ecuris\'e par Keycloak avec des jetons JWT \`a dur\'ee limit\'ee, conformément aux exigences de s\'ecurit\'e d\'efinies dans le cahier des charges.
+
+% ==============================
+\section{Interface Principale de Bifr\"ost}
+% ==============================
+
+L'interface principale de Bifr\"ost constitue le centre n\'evralgi\-que du processus de devis~: elle agrège en un seul \'ecran l'en-t\^ete contextuel h\'erit\'e de Ga\"ia, la barre d'actions m\'etier et le composant Quoter embarqu\'e. Sa conception a fait l'objet d'une attention particuli\`ere pour r\'epondre aux contraintes d'ergonomie formul\'ees par la Product Owner lors des revues de sprint.
+
+\subsection{Page d'accueil et composant Quoter int\'egr\'e}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{image/chapitre4/acceuil.png}
+\caption{Interface principale de Bifr\"ost avec le composant Quoter embarqu\'e}
+\label{fig:bifrost_accueil}
+\end{figure}
+
+La figure~\ref{fig:bifrost_accueil} pr\'esente la vue d'ensemble de Bifr\"ost telle qu'elle a \'et\'e livr\'ee. L'en-t\^ete expose les informations cl\'es du devis~: nom du client, montants POCAT et POMT indicatifs, marge nette, taux de marge global et dur\'ee d'engagement. La barre d'actions centrale met \`a disposition les commandes m\'etier~: ajout d'articles, modification d'un service, validation des lignes et export du devis. Le cadre en bleu montre le diviseur QUOTER qui affiche plusieurs lignes de devis et offre des possibilit\'es de dupliquer, supprimer, \'editer et configurer chaque ligne.
+
+\subsection{Menu d'ajout d'articles}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.35\textwidth]{image/chapitre4/ajouter.png}
+\caption{Menu d\'eroulant \og{}Ajouter des articles\fg{} -- point d'entr\'ee des fonctionnalit\'es m\'etier}
+\label{fig:menu_ajouter}
+\end{figure}
+
+La figure~\ref{fig:menu_ajouter} pr\'esente le menu d\'eroulant \og{}Ajouter des articles\fg{}, accessible depuis la barre d'actions principale. Ce menu concentrel'ensemble des vecteurs d'alimentation du devis en lignes articles. Il propose sept entr\'ees distinctes~: le \textbf{Configurateur t\'el\'ecom} (\'eligibilit\'e r\'eseau et s\'election d'offres), le \textbf{Catalogue} (s\'election manuelle d'articles), trois modes d'import de masse (\textbf{Budget Cloud}, \textbf{Bundles}, \textbf{Devis}), l'\textbf{Offre Galea} et l'\textbf{Import Liens}. Cette organisation en un point d'entr\'ee unique a \'et\'e pr\'ef\'er\'ee \`a une multiplication des boutons de premier niveau, conformément aux pr\'econisations UX de la Product Owner. Chaque option du menu d\'eclenche l'ouverture d'un \'ecran d\'edi\'e ou d'un panel lat\'eral, pr\'eservant ainsi la continuit\'e de l'exp\'erience utilisateur sans rechargement de page.
+
+% ==============================
+\section{\'Edition des Lignes de Devis}
+% ==============================
+
+La gestion fine des lignes de devis repr\'esente le c\oe{}ur m\'etier de Quoter. Chaque ligne expose les attributs commerciaux et financiers n\'ecessaires au calcul de marge~: d\'esignation, pr\'efixe, client b\'en\'eficiaire, site de livraison, quantit\'e, prix FMS/FAS et remises applicables. L'interface d'\'edition a \'et\'e con\c{c}ue pour minimiser les saisies tout en garantissant la coh\'erence des r\`egles m\'etier.
+
+\subsection{Formulaire d'\'edition avanc\'ee d'une ligne}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.55\textwidth]{image/chapitre4/edition_ligne_de_devis.png}
+\caption{Formulaire d'\'edition avanc\'ee d'une ligne de devis dans Quoter}
+\label{fig:edition_ligne}
+\end{figure}
+
+La figure~\ref{fig:edition_ligne} pr\'esente le formulaire d'\'edition avanc\'ee d'une ligne de devis, accessible par double-clic sur la ligne ou via le bouton \og{}\'Editer\fg{} de la barre d'actions. Ce panneau lat\'eral expose les champs modifiables~: \textbf{Pr\'efixe} (label visible sur le devis client), \textbf{D\'esignation} (r\'ef\'erence article), \textbf{Description compl\'ementaire}, \textbf{Client b\'en\'eficiaire} et \textbf{Site} de livraison (s\'electionn\'es depuis le r\'ef\'erentiel client), ainsi que la \textbf{Quantit\'e}, le \textbf{Prix FMS/FAS} et le mode de \textbf{Prix remis\'e} (pourcentage ou montant fixe). La case \og{}Champ visible pour le client\fg{} permet de masquer s\'electivement une ligne sur le devis PDF g\'en\'er\'e, sans la supprimer du calcul. L'impl\'ementation de l'\'edition du pr\'efixe en mode inline dans la grille~--- fonctionnalit\'e d\'evelopp\'ee en cours de stage --- a \'et\'e align\'ee sur ce formulaire pour garantir la coh\'erence de l'exp\'erience utilisateur.
+
+% ==============================
+\section{Modification de Services (MDS)}
+% ==============================
+
+La modification de services repr\'esente un use case m\'etier majeur dans l'activit\'e de l'entreprise cliente~: elle couvre la gestion du cycle de vie des abonnements en production (renouvellement, d\'em\'enagement, r\'esiliation, remplacement, modification tarifaire). La complexit\'e de ce processus r\'eside dans la n\'ecessit\'e d'associer chaque modification \`a un ou plusieurs abonnements existants extraits du syst\`eme d'information, tout en appliquant les r\`egles m\'etier sp\'ecifiques \`a chaque type d'op\'eration.
+
+\subsection{Interface de modification des abonnements}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{image/chapitre4/mds.png}
+\caption{Interface MDS --- S\'election des abonnements et modification en masse}
+\label{fig:mds}
+\end{figure}
+
+La figure~\ref{fig:mds} illustre la fen\^etre modale de gestion des Modifications de Services (MDS), intitul\'ee \og{}Ajouter des abonnements \`a modifier au catalogue\fg{}. Elle pr\'esente la liste des abonnements en cours pour le client b\'en\'eficiaire s\'electionn\'e (ici, 94~\'el\'ements distribu\'es sur plusieurs pages). Chaque ligne expose~: le num\'ero d'abonnement, la d\'esignation, la r\'ef\'erence article, la quantit\'e, le prix de vente unitaire (PV unitaire), le montant HT, la date de d\'ebut et la date de fin d'engagement. La fonctionnalit\'e \textbf{Modification en masse}, visible dans la fen\^etre secondaire, permet de s\'electionner plusieurs abonnements simultan\'ement et d'appliquer un m\^eme type de param\'etrage~: R\'esiliation, D\'em\'enagement, Remplacement sans changement de site, Modification tarifaire administrative, Suppression administrative ou Remplacement administratif. Ce m\'ecanisme r\'eduit consid\'erablement le temps de traitement des marchés multi-sites, cas fr\'equent chez les clients entreprises de l'op\'erateur.
+
+% ==============================
+\section{Configurateur T\'el\'ecom et V\'erification d'\'Eligibilit\'e}
+% ==============================
+
+L'une des fonctionnalit\'es les plus strat\'egiques du projet a \'et\'e l'int\'egration d'un configurateur t\'el\'ecom directement au sein du flux de cr\'eation de devis. Auparavant, les agents commerciaux devaient consulter des outils d'\'eligibilit\'e externes, entra\^inant des allers-retours manuels sources d'erreurs et de perte de temps. Le configurateur t\'el\'ecom d\'evelopp\'e dans Bifr\"ost \'elimine ces frictions en centralisant la recherche d'\'eligibilit\'e et la s\'election des offres dans un unique \'ecran.
+
+\subsection{Carte interactive d'\'eligibilit\'e r\'eseau}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{image/chapitre4/carte_eligibilte.png}
+\caption{Configurateur t\'el\'ecom -- Carte interactive d'\'eligibilit\'e r\'eseau}
+\label{fig:config_telco_carte}
+\end{figure}
+
+La figure~\ref{fig:config_telco_carte} illustre l'\'ecran principal du configurateur t\'el\'ecom apr\`es l'ex\'ecution d'une recherche d'\'eligibilit\'e sur une adresse. La zone encadr\'ee en rouge en haut de l'\'ecran regroupe les \'el\'ements de saisie~: s\'election entre \og{}Adresses connues\fg{} (issues du r\'ef\'erentiel client) et saisie libre, ainsi que les onglets de navigation~: \og{}R\'esultat API\fg{}, \og{}Compl\'ement d'adresse\fg{}, \og{}Offre\fg{} et \og{}Options\fg{}. La carte interactive (Leaflet) mat\'erialise la localisation g\'eographique de l'adresse recherch\'ee avec un marqueur rose, entour\'e de marqueurs bleus repr\'esentant les points de pr\'esence r\'eseau \`a proximit\'e. Le panneau \og{}R\'esultats\fg{} \`a droite synth\'etise l'\'eligibilit\'e par technologie~: 4G, FTTE, FTTH, FTTO et SATELLITE, chacune avec un code couleur indiquant les niveaux de disponibilit\'e (vert, orange, rouge). Ce rendu en temps r\'eel, obtenu par appel \`a l'API d'\'eligibilit\'e partenaire, a \'et\'e int\'egr\'e en pr\'eservant la logique de fallback en cas de non-r\'eponse.
+
+\subsection{S\'election des options t\'el\'ecom}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{image/chapitre4/option.png}
+\caption{Configurateur t\'el\'ecom -- Onglet \og{}Options\fg{} avec s\'election des articles compl\'ementaires}
+\label{fig:config_telco_options}
+\end{figure}
+
+La figure~\ref{fig:config_telco_options} pr\'esente l'onglet \og{}Options\fg{} du configurateur t\'el\'ecom, accessible apr\`es s\'election d'une offre principale. Cet onglet affiche la liste des articles optionnels compatibles avec l'offre choisie~: raccordements (C2ERS2), options de GTR (Garantie de Temps de R\'etablissement), prestations d'installation standard ou complexe (FO-OPT-INSTALL-STD, FO-OPT-INSTALL-NSTD, INHS-INSTAL-NSTDHO), chacune associ\'ee \`a ses prix FMS/FAS et ABO. Le code couleur en liseret vert \`a gauche de certaines r\'ef\'erences signale les articles actifs imm\'ediatement s\'electionnables. Un syst\`eme de pagination (12~\'el\'ements distribu\'es sur deux pages) et une barre de recherche permettent de naviguer efficacement dans le catalogue d'options. La s\'election d'une option l'ajoute directement aux lignes de devis en cours de constitution, sans rupture de flux.
+
+
+% ==============================
+\section{Qualit\'e et Continuit\'e de Livraison}
+% ==============================
+ 
+Au-del\`a des fonctionnalit\'es applicatives visibles, les travaux r\'ealis\'es ont int\'egr\'e une dimension qualitative et op\'erationnelle fondamentale. Tout au long du projet, un soin particulier a \'et\'e apport\'e \`a garantir que chaque fonctionnalit\'e livr\'ee respecte les standards de qualit\'e de l'organisation~:
+
+\begin{itemize}
+  \item Couverture de tests int\'egrale
+  \item Revues de code syst\'ematiques \`a chaque pull request
+  \item Contr\^ole continu de la qualit\'e par analyse statique
+  \item Mise \`a jour r\'eguli\`ere des d\'ependances pour maintenir la s\'ecurit\'e et la p\'erennit\'e
+  \item Instrumentation Splunk pour la supervision en conditions r\'eelles
+\end{itemize}
+
+Ces contributions, bien qu'invisibles depuis l'interface utilisateur, constituent le socle sur lequel repose la fiabilit\'e \`a long terme de Bifr\"ost.
+ 
+% ==============================
+\section{Difficult\'es Rencontr\'ees}
+% ==============================
+ 
+La conduite d'un projet de cette envergure, men\'e en conditions industrielles r\'eelles, a impliqu\'e de faire face \`a plusieurs cat\'egories de difficult\'es~: certaines ont \'et\'e anticip\'ees par la conception, d'autres ont \'emerg\'e progressivement au fil des sprints.
+ 
+\subsubsection*{Difficult\'e fonctionnelle}
+
+Les r\`egles m\'etier propres au secteur des t\'el\'ecommunications se sont r\'ev\'el\'ees d'une complexit\'e significativement plus \'elev\'ee que celle perceptible \`a l'analyse initiale. La diversit\'e des types de modifications de services, les logiques d'\'eligibilit\'e d'adresses et les r\`egles de calcul de marge ont n\'ecessit\'e des allers-retours fr\'equents avec la Product Owner. Cette densit\'e fonctionnelle a renforc\'e l'importance d'une collaboration \'etroite et continue avec les repr\'esentants du client tout au long des sprints.
+ 
+\subsubsection*{Difficult\'e technique}
+
+L'architecture \`a deux applications int\'egr\'ees via un composant embarquable a introduit des probl\'ematiques sp\'ecifiques~:
+
+\begin{itemize}
+  \item Gestion de la synchronisation d'\'etat entre les deux couches
+  \item Coordination des cycles de d\'eploiement ind\'ependants
+  \item Maintien de la compatibilit\'e des interfaces \`a chaque \'evolution
+\end{itemize}
+
+Ces d\'efis ont \'et\'e adress\'es par la d\'efinition de conventions d'interface stables et une discipline de contr\^ole de version rigoureuse.
+ 
+\subsubsection*{Difficult\'e d'int\'egration dans un \(SI\) existant}
+
+Les d\'ependances vis-\`a-vis de syst\`emes tiers (Ga\"ia, Stargate, APIs d'\'eligibilit\'e) ont expos\'e le projet \`a des al\'eas ext\'erieurs~:
+
+\begin{itemize}
+  \item Disponibilit\'e des environnements partag\'es
+  \item \'Evolutions non annonc\'ees de contrats d'interface
+\end{itemize}
+
+La rigueur des tests d'int\'egration mis en place a permis de d\'etecter et de contenir ces situations sans impact sur les livraisons planifi\'ees.
+ 
+% ==============================
+\section{Perspectives d'Am\'elioration}
+% ==============================
+ 
+La premi\`ere mise en production de la plateforme a confirm\'e la pertinence des choix fonctionnels et architecturaux retenus. Elle a \'egalement permis d'identifier plusieurs axes d'\'evolution concrets.
+ 
+\subsubsection*{Axe fonctionnel}
+
+Les retours des agents commerciaux apr\`es prise en main ont mis en lumi\`ere des opportunit\'es d'optimisation~:
+
+\begin{itemize}
+  \item Guid\'age utilisateur int\'egr\'e pour r\'eduire le temps de mont\'ee en comp\'etence
+  \item Fonctionnalit\'es de formatage contextuel sans besoin de formation formelle
+  \item Personnalisation avanc\'ee de l'interface selon les pr\'ef\'erences de chaque profil d'agent
+\end{itemize}
+
+\subsubsection*{Axe technique}
+
+L'architecture actuelle pr\'esente des fondations solides ouvrant la voie \`a plusieurs \'evolutions~:
+
+\begin{itemize}
+  \item \'Elargissement de la couverture de supervision pour anticiper comportements anomaliques
+  \item Raccourcissement des temps de diagnostic en production
+  \item Optimisation des flux de donn\'ees pour gains de performance suppl\'ementaires
+\end{itemize}
+
+\subsubsection*{Axe d'autonomie m\'etier}
+
+Piloter certains param\'etrages applicatifs sans intervention technique repr\'esente un axe strat\'egique~:
+
+\begin{itemize}
+  \item Gestion autonome des r\`egles de validation
+  \item Configuration des flux m\'etier
+  \item Mod\'elisation des documents
+\end{itemize}
+
+Cette direction r\'eduit la d\'ependance aux cycles de d\'eveloppement et augmente l'agilit\'e fonctionnelle globale de la plateforme.
+% ==============================
+\section*{Conclusion}
+\addcontentsline{toc}{section}{Conclusion}
+% ==============================
+
+Ce chapitre a pr\'esent\'e les r\'ealisations concr\`etes du projet Bifr\"ost, articul\'ees autour de deux axes compl\'ementaires. Le premier axe, fonctionnel, a couvert l'int\'egralit\'e du cycle de vie du devis~: depuis l'ouverture du contexte depuis Ga\"ia jusqu'\`a la validation des lignes, en passant par la v\'erification d'\'eligibilit\'e r\'eseau, la configuration des articles t\'el\'ecom, l'\'edition des lignes et la gestion des modifications de services en masse. Le second axe, qualit\'e et op\'erations, a contribu\'e \`a la fiabilit\'e \`a long terme de la plateforme~: pipelines CI/CD renforc\'es, s\'ecurisation de la surface d'API et instrumentation Splunk pour l'observabilit\'e en production. L'ensemble de ces contributions a \'et\'e livr\'e dans le respect des standards de qualit\'e d\'efinis par l'organisation, avec une couverture de tests int\'egrale et une revue de code syst\'ematique \`a chaque sprint.
