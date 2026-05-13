@@ -7,6 +7,13 @@
 % Mathématiques
 \usepackage{amsthm}
 \usepackage{amssymb}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=black,
+  citecolor=black
+}
 
 % Graphiques et figures
 \usepackage{graphicx}
@@ -15,6 +22,10 @@
 \usepackage{adjustbox}
 \usepackage{caption}
 \usepackage{adjustbox}
+\usepackage{tikz}
+\usetikzlibrary{calc}   
+\usepackage{xcolor}
+\definecolor{emsigreen}{HTML}{009B4D}
 
 % Couleurs et tableaux
 \usepackage[table]{xcolor}
@@ -143,68 +154,67 @@
 % ========================================
 \thispagestyle{empty}
 \begin{titlepage}
-    \begin{center}
+ 
+% ── Formes géométriques d'arrière-plan (Triangles) ───────────
+\begin{tikzpicture}[remember picture, overlay]
+  % Triangle vert en haut à gauche
+  \fill[emsigreen] (current page.north west) -- ++(11,0) -- ++(-11,-11) -- cycle;
+  % Triangle vert en bas à droite
+  \fill[emsigreen] (current page.south east) -- ++(-7,0) -- ++(7,7) -- cycle;
+\end{tikzpicture}
+ 
+% ── Logo EMSI en haut à droite ───────────────────────────────
+\vspace*{-0.5cm}
+\hfill
+\begin{minipage}{8cm}
+  \raggedleft
+  \includegraphics[width=8cm]{image/EMSI_logo2.png}
+\end{minipage}
+ 
+\vspace{2.5cm}
+ 
+% ── Section Titre du projet ──────────────────────────────────
+\begin{center}
+  \textbf{\large PROJET DE FIN D'\'ETUDES}\\[0.2cm]
+  \textit{5\`eme Ann\'ee en Ing\'enierie Informatique et R\'eseaux}\\[0.8cm]
+ 
+  \rule{13cm}{0.5pt}\\[0.6cm]
+ 
+  {\LARGE \bfseries \reportSubject}\par\vspace{0.6cm}
+ 
+  \rule{13cm}{0.5pt}
+\end{center}
+ 
+\vspace{1cm}
+ 
+% ── Section Étudiant, Tuteurs et Organisme d'accueil ─────────
+\begin{flushleft}
+  \hspace{2.5cm}
+  \begin{minipage}{0.75\textwidth}
+    \textbf{\textit{R\'ealis\'e par :}}\\[0.25cm]
+    \hspace*{1cm}\textit{\reportAuthor}\\[0.7cm]
+ 
+    \textbf{\textit{Tuteur(s) :}}\\[0.25cm]
+    \hspace*{1cm}\textit{Encadrant Professionnel : \juryMemberTwo}\\[0.1cm]
+    \hspace*{1cm}\textit{Encadrant P\'edagogique : \juryMemberOne}\\[1cm]
+ 
+    \textbf{\textit{Au sein de (Organisme d'accueil) :}}\\[0.3cm]
+    \hspace*{1cm}\includegraphics[height=1.5cm]{image/viseo.jpg}
+  \end{minipage}
+\end{flushleft}
+ 
+\vfill
 
-    % 1. En-tête et Logos
-    {\large Honoris United Universities -- \EMSI{} \par}
-    \vspace{0.8cm}
-    \begin{tabular}{cc}      
-      \adjustbox{valign=c}{\includegraphics[scale=0.5]{image/EMSI_logo2.png}} & 
-      \adjustbox{valign=c}{\includegraphics[scale=0.2]{image/viseo.jpg}}
-    \end{tabular}
+% ── Pied de page : Année universitaire ───────────────────────
+\begin{tikzpicture}[remember picture, overlay]
+  \node at (current page.center|-current page.south) [anchor=south, yshift=1.5cm] {
+    \textbf{Ann\'ee universitaire : \academicYear}
+  };
+\end{tikzpicture}
 
-    \vfill
-
-    % 2. Type de document et Auteur
-    {\Large\textbf{\textit{Rapport de stage -- Projet de Fin d'Études}}}\par
-    
-    \vspace{1cm}
-
-    {\large \textit{Réalisé par :}}\par
-    \vspace{0.3cm}
-    {\Large \textbf{\reportAuthor}}\par
-    
-    \vfill
-
-    % 3. Titre du projet
-    \rule{0.85\textwidth}{0.5pt}\par
-    \vspace{0.6cm}
-    {\LARGE \textbf{\reportSubject}}\par
-    \vspace{0.6cm}
-    \rule{0.85\textwidth}{0.5pt}\par
-    
-    \vfill
-
-    % 4. Encadrants et Jury disposés proprement en deux colonnes équilibrées
-    \begin{minipage}[t]{0.48\textwidth}
-        {\large \textit{Sous la direction de :}}\\[0.3cm]
-        \textbf{\juryMemberOne}\\
-        \small \juryMemberOneDesc\\[0.3cm]
-        \textbf{\juryMemberTwo}\\
-        \small \juryMemberTwoDesc
-    \end{minipage}
-    \hfill
-    \begin{minipage}[t]{0.48\textwidth}
-        {\large \textit{Membres du jury :}}\\[0.3cm]
-        \textbf{\juryMemberThree}\\
-        \small \juryMemberThreeDesc\\[0.3cm]
-        \textbf{\juryMemberFour}\\
-        \small \juryMemberFourDesc\\[0.3cm]
-        \textbf{\juryMemberFive}\\
-        \small \juryMemberFiveDesc
-    \end{minipage}\par
-
-    \vfill
-    
-    % 5. Informations de bas de page
-    \textbf{\textit{Année académique :}} \academicYear{} \hfill \textbf{\textit{Date de soutenance :}} \dateSoutenance{} \\
-    \vspace{0.4cm}
-    \textbf{\textit{Entreprise d'accueil :}} \studyDepartment{}
-
-    \end{center}
+\vspace*{1cm}
+ 
 \end{titlepage}
-
-
 
 % ========================================
 % DÉDICACE
