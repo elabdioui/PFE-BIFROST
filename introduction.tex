@@ -29,9 +29,7 @@ L'ensemble du projet a \'et\'e conduit selon la m\'ethodologie \textbf{Agile\,/\
 
 \section*{Architecture en Deux Applications}
 
-L'un des choix architecturaux fondateurs de ce projet r\'eside dans la s\'eparation entre \textbf{Bifr\"ost} et \textbf{Quoter} en deux applications distinctes. Cette s\'eparation n'est pas li\'ee \`a un choix technologique~: les deux applications partagent la m\^eme stack technique (ASP.NET Core\,/\,Vue.js\,3). Elle r\'epond \`a une exigence de \textbf{r\'eutilisabilit\'e}~: Quoter a \'et\'e con\c{c}u d\`es l'origine comme un moteur de devis autonome, d\'edi\'e \`a \^etre instanci\'e par diff\'erentes applications clientes via un composant web embarquable (fichier UMD), sans d\'ependance directe vis-\`a-vis de Bifr\"ost. Bifr\"ost est l'un des consommateurs de Quoter, mais non le seul~: cette architecture garantit que le moteur de devis peut \^etre int\'egr\'e dans tout autre applicatif du syst\`eme d'information du client, ou adapt\'e \`a d'autres tenants, sans modification du code de Quoter.
-
-\section*{Structure du Rapport}
+L'un des choix architecturaux fondateurs de ce projet réside dans la séparation de la plateforme en deux applications distinctes et complémentaires — \textbf{Bifröst} et \textbf{Quoter} — dont les motivations et les implications techniques sont détaillées aux chapitres 2 et 3.\section*{Structure du Rapport}
 
 Le pr\'esent rapport est structur\'e en quatre chapitres progressifs~:
 
