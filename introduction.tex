@@ -23,7 +23,7 @@ Pour r\'epondre \`a cette probl\'ematique, les objectifs du projet ont \'et\'e s
 
 \textbf{Deuxi\`emement, la dimension technique} a port\'e sur la mise en \oe{}uvre d'une architecture distribu\'ee, associant deux applications autonomes---\textbf{Bifr\"ost} et \textbf{Quoter}---toutes deux construites sur une stack ASP.NET Core (.NET~8) c\^ot\'e backend et Vue.js~3\,/\,TypeScript c\^ot\'e frontend, d\'eploy\'ees dans des environnements Kubernetes isol\'es par vocation.
 
-\textbf{Troisi\`emement, la dimension qualitative} a vis\'e \`a garantir la maintenabilit\'e et la s\'ecurit\'e de la solution gr\^ace \`a des pipelines d'int\'egration continue sur Azure\,DevOps, une analyse statique du code par SonarQube, et une strat\'egie d'observabilit\'e bas\'ee sur Splunk\,Enterprise.
+\textbf{Troisi\`emement, la dimension qualitative} a vis\'e \`a garantir la maintenabilit\'e et la s\'ecurit\'e de la solution gr\^ace \`a des pipelines d'int\'egration continue sur Azure\,DevOps, une analyse statique du code par SonarQube, et une strat\'egie d'observabilit\'e bas\'ee sur Prometheus et Grafana.
 
 L'ensemble du projet a \'et\'e conduit selon la m\'ethodologie \textbf{Agile\,/\,Scrum}, organis\'ee en sprints de deux semaines, avec des revues de code syst\'ematiques et une livraison continue vers les environnements de test.
 
@@ -40,5 +40,5 @@ Le pr\'esent rapport est structur\'e en quatre chapitres progressifs~:
 
     \item \textbf{Le troisi\`eme chapitre} d\'etaille la conception et les choix de d\'eveloppement, en distinguant les contributions apport\'ees aux deux applications et en exposant les d\'ecisions d'impl\'ementation retenues pour chacune.
 
-    \item \textbf{Le quatri\`eme chapitre} ouvre sur les r\'ealisations concr\`etes~: fonctionnalit\'es d\'evelopp\'ees par sprint, pratiques qualit\'e mises en place, strat\'egie d'observabilit\'e avec Splunk, et axes d'\'evolution identifi\'es.
+    \item \textbf{Le quatri\`eme chapitre} ouvre sur les r\'ealisations concr\`etes~: fonctionnalit\'es d\'evelopp\'ees par sprint, pratiques qualit\'e mises en place, strat\'egie d'observabilit\'e avec Prometheus et Grafana, et axes d'\'evolution identifi\'es.
 \end{itemize}

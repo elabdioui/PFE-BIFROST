@@ -15,7 +15,7 @@ L'architecture de la plateforme s'appuyait sur une approche en couches (\textit{
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.95\textwidth]{image/chapitre3/architecture.drawio.png}
+\includegraphics[width=0.99\textwidth]{image/chapitre3/architecture.drawio.png}
 \caption{Architecture générale du système --- Décomposition en couches}
 \label{fig:architecture_generale}
 \end{figure}
@@ -187,18 +187,18 @@ Pipeline décentralisé pour Quoter avec exécution sur runners GitLab. Mêmes �
 
 GitLab CI offre une alternative décentralisée à Azure DevOps, permettant aux équipes travaillant sur Quoter une autonomie maximale sans dépendre d'une infrastructure centralisée. L'exécution sur runners GitLab distribués réduit les goulots d'étranglement et améliore la scalabilité des pipelines. L'audit npm intégré assure la sécurité des dépendances JavaScript, élément critique pour les composants frontend distribués en UMD.
 
-\subsection{Splunk --- Observabilité et Monitoring}
+\subsection{Prometheus et Grafana --- Observabilité et Monitoring}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.28\textwidth]{image/chapitre3/splunk.png}
-\caption{Splunk}
-\label{fig:splunk_logo}
+\includegraphics[width=0.5\textwidth]{image/chapitre3/prometheus_grafana.png}
+\caption{Prometheus et Grafana}
+\label{fig:prometheus_grafana_logo}
 \end{figure}
 
-Plateforme centralisée de collecte, indexation et analyse journaux applicatifs et système des environnements production. Dashboards pour métriques clés~: latence requêtes, taux erreurs, performance devis. Alertes automatiques sur déviations anomalies facilitant détection rapide incidents et troubleshooting en production.
+Prometheus assure la collecte et le stockage des métriques applicatives et infrastructure via des exporters et des règles d'alerte, tandis que Grafana fournit des tableaux de bord pour suivre les indicateurs clés~: latence, taux d'erreurs, disponibilité et saturation des ressources. Cette séparation collecte/visualisation apporte une visibilité rapide sur l'état des services et facilite le diagnostic des incidents en production.
 
-Splunk offre une observabilité holistique sur l'ensemble des services en production, capturant logs applicatifs et métriques systèmes dans un référentiel centralisé et queryable. Les dashboards pré-configurés fournissent une visibilité immédiate sur la santé de la plateforme, tandis que les alertes automatiques sur seuils anormaux permettent une détection proactive des incidents. Cette approche réduit significativement les temps de résolution (MTTR) lors de dégradations en production.
+La stratégie d'observabilité retenue s'appuie sur des dashboards Grafana configurés par service et des alertes Prometheus sur seuils et tendances anormales. Cette approche améliore la détection proactive des dégradations et contribue à réduire les temps de résolution (MTTR).
 
 % ==============================
 \section{Modélisation UML}
@@ -210,7 +210,7 @@ La modélisation UML avait constitué un élément fondamental dans la phase de 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=1.0\textwidth]{image/chapitre3/diagramme_classe.png}
+\includegraphics[width=1.0\textwidth]{image/chapitre3/Diagramme_classe_v2.png}
 \caption{Diagramme de classes --- Application Bifrost (ASP.NET Core\,/\,SQL Server)}
 \label{fig:diagramme_classes_bifrost}
 \end{figure}

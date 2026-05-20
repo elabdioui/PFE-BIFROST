@@ -25,6 +25,7 @@ La plateforme Bifr\"ost a \'et\'e con\c{c}ue pour op\'erer en compl\'ement direc
 \caption{Vue dashboard principal Dynamics\,365 -- Ga\"ia}
 \label{fig:gaia_dashboard}
 \end{figure}
+Cette interface dashboard constitue le point de départ de l'activité commerciale~: elle centralise les informations de synthèse essentielles pour le pilotage des ventes et permet un accès rapide aux opportunités en cours.
 
 \subsection{Vue panel opportunité dans Ga\"ia}
 
@@ -34,6 +35,8 @@ La plateforme Bifr\"ost a \'et\'e con\c{c}ue pour op\'erer en compl\'ement direc
 \caption{Panel opportunité dans Dynamics\,365 -- Ga\"ia}
 \label{fig:gaia_opportunité}
 \end{figure}
+Le panel opportunité synthétise les informations commerciales structurantes~: prospect, type d'opportunité, montant estimé et étapes commerciales. Cette vue transversale permet au commercial de suivre la progression de chaque occasion de vente.
+
 
 \subsection{Création d'une opportunité dans Ga\"ia}
 
@@ -43,6 +46,7 @@ La plateforme Bifr\"ost a \'et\'e con\c{c}ue pour op\'erer en compl\'ement direc
 \caption{Vue panel de création d'une opportunité dans Dynamics\,365 -- Ga\"ia}
 \label{fig:gaia_creation_opportunité}
 \end{figure}
+La création d'une nouvelle opportunité s'effectue via un formulaire structuré qui capture les éléments essentiels~: nom de l'opportunité, compte client, type d'opportunité et probabilité de fermeture. Cette formalisation garantit la cohérence du référentiel commercial.
 
 \subsection{Accès au panel devis dans Ga\"ia}
 
@@ -52,6 +56,7 @@ La plateforme Bifr\"ost a \'et\'e con\c{c}ue pour op\'erer en compl\'ement direc
 \caption{Vue du panel devis dans Dynamics\,365 -- Ga\"ia}
 \label{fig:gaia_panel_devis}
 \end{figure}
+Le panel devis dans Dynamics~365 expose la liste des devis associés à une opportunité donnée, permettant au commercial de consulter l'historique complet des versions du devis avant de procéder aux modifications.
 
 \subsection{Création d'un devis dans Ga\"ia}
 
@@ -61,6 +66,7 @@ La plateforme Bifr\"ost a \'et\'e con\c{c}ue pour op\'erer en compl\'ement direc
 \caption{Vue panel de création d'un devis dans Dynamics\,365 -- Ga\"ia}
 \label{fig:gaia_creation_devis}
 \end{figure}
+L'interface de création d'un devis requiert la saisie des informations commerciales fondamentales~: durée d'engagement, type de commande, contact signataire et chargé de compte. Ces données constituent les métadonnées structurantes du devis et seront synchronisées avec Bifrost.
 
 \subsection{Panel lignes de devis dans Ga\"ia}
 
@@ -70,6 +76,7 @@ La plateforme Bifr\"ost a \'et\'e con\c{c}ue pour op\'erer en compl\'ement direc
 \caption{Vue panel lignes de devis dans Dynamics\,365 -- Ga\"ia}
 \label{fig:gaia_panel_lignes_devis}
 \end{figure}
+Le panel lignes expose l'ensemble des articles composant le devis dans Dynamics~365, avant enrichissement dans Bifrost. Cette vue sommaire facilite le suivi du contenu et constitue le point de basculement vers l'interface spécialisée Bifrost pour l'édition détaillée.
 
 
 \subsection{Vue liste des devis dans Ga\"ia}
@@ -207,7 +214,7 @@ Au-del\`a des fonctionnalit\'es applicatives visibles, les travaux r\'ealis\'es 
   \item Revues de code syst\'ematiques \`a chaque pull request
   \item Contr\^ole continu de la qualit\'e par analyse statique
   \item Mise \`a jour r\'eguli\`ere des d\'ependances pour maintenir la s\'ecurit\'e et la p\'erennit\'e
-  \item Instrumentation Splunk pour la supervision en conditions r\'eelles
+  \item Instrumentation Prometheus et Grafana pour la supervision en conditions r\'eelles
 \end{itemize}
 
 Ces contributions, bien qu'invisibles depuis l'interface utilisateur, constituent le socle sur lequel repose la fiabilit\'e \`a long terme de Bifr\"ost.
@@ -287,4 +294,4 @@ Cette direction r\'eduit la d\'ependance aux cycles de d\'eveloppement et augmen
 \addcontentsline{toc}{section}{Conclusion}
 % ==============================
 
-Ce chapitre a pr\'esent\'e les r\'ealisations concr\`etes du projet Bifr\"ost, articul\'ees autour de deux axes compl\'ementaires. Le premier axe, fonctionnel, a couvert l'int\'egralit\'e du cycle de vie du devis~: depuis l'ouverture du contexte depuis Ga\"ia jusqu'\`a la validation des lignes, en passant par la v\'erification d'\'eligibilit\'e r\'eseau, la configuration des articles t\'el\'ecom, l'\'edition des lignes et la gestion des modifications de services en masse. Le second axe, qualit\'e et op\'erations, a contribu\'e \`a la fiabilit\'e \`a long terme de la plateforme~: pipelines CI/CD renforc\'es, s\'ecurisation de la surface d'API et instrumentation Splunk pour l'observabilit\'e en production. L'ensemble de ces contributions a \'et\'e livr\'e dans le respect des standards de qualit\'e d\'efinis par l'organisation, avec une couverture de tests int\'egrale et une revue de code syst\'ematique \`a chaque sprint.
+Ce chapitre a pr\'esent\'e les r\'ealisations concr\`etes du projet Bifr\"ost, articul\'ees autour de deux axes compl\'ementaires. Le premier axe, fonctionnel, a couvert l'int\'egralit\'e du cycle de vie du devis~: depuis l'ouverture du contexte depuis Ga\"ia jusqu'\`a la validation des lignes, en passant par la v\'erification d'\'eligibilit\'e r\'eseau, la configuration des articles t\'el\'ecom, l'\'edition des lignes et la gestion des modifications de services en masse. Le second axe, qualit\'e et op\'erations, a contribu\'e \`a la fiabilit\'e \`a long terme de la plateforme~: pipelines CI/CD renforc\'es, s\'ecurisation de la surface d'API et instrumentation Prometheus et Grafana pour l'observabilit\'e en production. L'ensemble de ces contributions a \'et\'e livr\'e dans le respect des standards de qualit\'e d\'efinis par l'organisation, avec une couverture de tests int\'egrale et une revue de code syst\'ematique \`a chaque sprint.
