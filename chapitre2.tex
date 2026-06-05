@@ -1,7 +1,8 @@
 \chapter{Contexte, Probl\'ematique et Analyse des Besoins}
+\clearpage
 \label{chap:contexte}
 
-\section*{Introduction}
+\section{Introduction}
 
 Avant d'aborder les choix de conception et le d\'eveloppement de la plateforme, il est n\'ecessaire de comprendre l'environnement dans lequel elle a vu le jour. Ce chapitre suit une progression d\'elib\'er\'ee~: partir du contexte m\'etier de l'op\'erateur t\'el\'ecom, retracer l'histoire qui a conduit \`a la naissance de Bifr\"ost, pr\'esenter l'\'ecosyst\`eme dans lequel il s'inscrit, puis zoomer sur l'architecture retenue, la probl\'ematique formul\'ee et les besoins auxquels la plateforme devait r\'epondre.
 
@@ -22,6 +23,8 @@ L'op\'erateur g\`ere un catalogue de pr\`es de 45\,000 r\'ef\'erences d'articles
 Avant toute modernisation, la gestion commerciale de l'op\'erateur reposait sur un ensemble d'outils h\'et\'erog\`enes et de proc\'edures manuelles. Le tableau~\ref{tab:etat_existant} d\'ecrit les principaux processus et leur mode op\'eratoire d'origine.
 
 \begin{table}[H]
+\caption{\'Etat des processus commerciaux avant la transformation num\'erique}
+\label{tab:etat_existant}
 \centering
 \renewcommand{\arraystretch}{1.55}
 \begin{tabular}{|>{\raggedright\arraybackslash}p{3.4cm}|>{\raggedright\arraybackslash}p{5.6cm}|>{\raggedright\arraybackslash}p{4.0cm}|}
@@ -40,8 +43,6 @@ Modifications d'abonnements & Transmises par messagerie et saisies dans plusieur
 Passage en commande & Saisies successives dans plusieurs syst\`emes non synchronis\'es & Multi-saisie manuelle \\
 \hline
 \end{tabular}
-\caption{\'Etat des processus commerciaux avant la transformation num\'erique}
-\label{tab:etat_existant}
 \end{table}
 
 Cette organisation entra\^inait des risques d'erreur \'elev\'es, des cycles de devis longs et une incapacit\'e \`a r\'eagir rapidement dans un march\'e concurrentiel. Ces constats ont justifi\'e la d\'ecision d'entamer une transformation num\'erique profonde.
@@ -111,6 +112,8 @@ Bifr\"ost ne fonctionne pas de mani\`ere isol\'ee~: il s'inscrit dans un syst\`e
 L'\'ecosyst\`eme s'articule autour de huit composants principaux dont les r\^oles respectifs sont synth\'etis\'es dans le tableau~\ref{tab:composants_ecosysteme}.
 
 \begin{table}[H]
+\caption{Synth\`ese des composants de l'\'ecosyst\`eme applicatif}
+\label{tab:composants_ecosysteme}
 \centering
 \renewcommand{\arraystretch}{1.55}
 \begin{tabular}{|>{\raggedright\arraybackslash}p{2.3cm}|>{\raggedright\arraybackslash}p{2.1cm}|>{\raggedright\arraybackslash}p{5.5cm}|>{\raggedright\arraybackslash}p{3.0cm}|}
@@ -135,8 +138,6 @@ Nova2 & Portail parc & Consultation du parc de services clients (issu de Nova) &
 Keycloak & SSO\,/\,Auth & Authentification centralis\'ee par jeton JWT (OpenID~Connect) & Serveur d'identit\'e \\
 \hline
 \end{tabular}
-\caption{Synth\`ese des composants de l'\'ecosyst\`eme applicatif}
-\label{tab:composants_ecosysteme}
 \end{table}
 
 \subsection{La position de Bifr\"ost dans l'\'ecosyst\`eme}
@@ -146,6 +147,8 @@ Un principe architectural fondamental structure l'ensemble des flux~: \textbf{Bi
 La relation entre Bifr\"ost et Microsoft Dynamics est de nature \textbf{compl\'ementaire et bidirectionnelle}. D'un c\^ot\'e, la cr\'eation d'une opportunit\'e dans Ga\"ia peut d\'eclencher l'ouverture automatique d'un devis pr\'e-aliment\'e dans Bifr\"ost. De l'autre, la validation d'un devis dans Bifr\"ost d\'eclenche un \textit{upsert} vers Ga\"ia via Stargate, permettant \`a Dynamics de prendre le relais pour le passage en commande et l'alimentation de Cassiop\'ee. Le tableau~\ref{tab:bifrost_dynamics} pr\'ecise la r\'epartition des responsabilit\'es entre les deux syst\`emes.
 
 \begin{table}[H]
+\caption{R\'epartition des responsabilit\'es entre Bifr\"ost et Microsoft Dynamics}
+\label{tab:bifrost_dynamics}
 \centering
 \renewcommand{\arraystretch}{1.5}
 \begin{tabular}{|>{\raggedright\arraybackslash}p{5.2cm}|>{\centering\arraybackslash}p{3.8cm}|>{\centering\arraybackslash}p{3.8cm}|}
@@ -170,8 +173,6 @@ V\'erification d'\'eligibilit\'e r\'eseau & --- & \checkmark \\
 Calcul et visualisation des marges & --- & \checkmark \\
 \hline
 \end{tabular}
-\caption{R\'epartition des responsabilit\'es entre Bifr\"ost et Microsoft Dynamics}
-\label{tab:bifrost_dynamics}
 \end{table}
 
 Dynamics demeure ainsi le \textbf{syst\`eme de r\'ef\'erence} pour les donn\'ees clients, les commandes et la facturation, tandis que Bifr\"ost assure la \textbf{couche m\'etier sp\'ecialis\'ee} propre \`a la construction et \`a la gestion des devis t\'el\'ecom.
@@ -216,6 +217,8 @@ La figure~\ref{fig:bifrost_quoter} illustre la relation entre les deux applicati
 Le tableau~\ref{tab:separation_bifrost_quoter} synth\'etise la r\'epartition fonctionnelle et technique entre les deux applications.
 
 \begin{table}[H]
+\caption{R\'epartition des responsabilit\'es entre Bifr\"ost et Quoter}
+\label{tab:separation_bifrost_quoter}
 \centering
 \renewcommand{\arraystretch}{1.55}
 \begin{tabular}{|>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{4.5cm}|>{\raggedright\arraybackslash}p{4.5cm}|}
@@ -238,8 +241,6 @@ Int\'egrations externes & Stargate, Keycloak, Quoter & Keycloak (SSO) uniquement
 Multi-tenant & Non (d\'edi\'e \`a l'op\'erateur) & Oui (environnements et tenants isol\'es) \\
 \hline
 \end{tabular}
-\caption{R\'epartition des responsabilit\'es entre Bifr\"ost et Quoter}
-\label{tab:separation_bifrost_quoter}
 \end{table}
 
 % ==============================
@@ -311,6 +312,8 @@ Sur le plan technique, quatre exigences structurantes ont \'et\'e d\'efinies pou
 Le tableau~\ref{tab:besoins_fonctionnels} pr\'esente les besoins fonctionnels identifi\'es lors de la phase d'analyse, class\'es par domaine m\'etier.
 
 \begin{table}[H]
+\caption{Besoins fonctionnels par domaine m\'etier}
+\label{tab:besoins_fonctionnels}
 \centering
 \renewcommand{\arraystretch}{1.6}
 \begin{tabular}{|>{\bfseries\raggedright\arraybackslash}p{3.2cm}|>{\raggedright\arraybackslash}p{9.8cm}|}
@@ -339,8 +342,6 @@ Personnalisation &
 \textbullet\enspace Adapter les vues aux habitudes de travail de chaque agent \\
 \hline
 \end{tabular}
-\caption{Besoins fonctionnels par domaine m\'etier}
-\label{tab:besoins_fonctionnels}
 \end{table}
 \newpage
 \subsection{Besoins non fonctionnels}
@@ -348,6 +349,8 @@ Personnalisation &
 Les exigences non fonctionnelles ont \'et\'e formalis\'ees autour de quatre axes, d\'etaill\'es dans le tableau~\ref{tab:besoins_nf}.
 
 \begin{table}[H]
+\caption{Besoins non fonctionnels}
+\label{tab:besoins_nf}
 \centering
 \renewcommand{\arraystretch}{1.55}
 \begin{tabular}{|>{\raggedright\arraybackslash}p{3cm}|>{\raggedright\arraybackslash}p{10cm}|}
@@ -364,10 +367,8 @@ Disponibilit\'e & R\'esilience des environnements de pr\'eproduction et de produ
 Maintenabilit\'e & Qualit\'e de code contr\^ol\'ee via SonarQube~; couverture de tests unitaires et d'int\'egration~; documentation technique \`a jour~; pipelines CI/CD automatis\'es \\
 \hline
 \end{tabular}
-\caption{Besoins non fonctionnels}
-\label{tab:besoins_nf}
 \end{table}
 
-\section*{Conclusion}
+\section{Conclusion}
 
 Ce chapitre a retrac\'e la gen\`ese compl\`ete du projet Bifr\"ost~: d'un op\'erateur t\'el\'ecom B2B aux processus commerciaux manuels, en passant par les limites de Microsoft Dynamics, l'essor puis les difficult\'es de maintenance de la plateforme Nova, jusqu'\`a la d\'ecision de modularisation qui a donn\'e naissance \`a Bifr\"ost et Quoter. L'\'ecosyst\`eme applicatif, la r\'epartition des responsabilit\'es entre les deux applications, la probl\'ematique centrale, les objectifs et les besoins ont \'et\'e \'etablis avec suffisamment de pr\'ecision pour guider les choix de conception architecturale d\'etaill\'es dans le chapitre suivant.

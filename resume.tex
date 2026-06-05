@@ -2,6 +2,8 @@
 % RÉSUMÉ
 % ========================================
 
+\pagenumbering{roman}
+\setcounter{page}{1}
 \chapter*{R\'esum\'e}
 \thispagestyle{empty}
 \addcontentsline{toc}{chapter}{R\'esum\'e}
@@ -26,3 +28,34 @@ Les fonctionnalit\'es d\'evelopp\'ees ont couvert l'int\'egralit\'e du p\'erim\`
 
 \vspace{0.3cm}
 \keywords{Vue.js\,3, ASP.NET Core, .NET\,8, SQL Server, Kubernetes, SonarQube, Azure\,DevOps, Prometheus, Grafana, gestion de devis, télécommunications B2B, VISEO}
+
+\clearpage
+
+% ========================================
+% ABSTRACT
+% ========================================
+
+\chapter*{Abstract}
+\thispagestyle{empty}
+\addcontentsline{toc}{chapter}{Abstract}
+
+In a context of accelerated digitalization of commercial processes, telecom companies face growing requirements for operational efficiency and the modernization of business tools. VISEO, a French consulting firm specializing in technology and digital transformation, was mandated by a leading French B2B digital services provider to address a strategic need: equip sales agents with a dedicated web platform capable of managing the full lifecycle of quotations and service changes, replacing a generic tool unsuited to the sector's specific business rules. This is the scope of the present final year project carried out at VISEO Casablanca: the design and development of the \textbf{Bifr"ost} platform.
+
+\vspace{0.2cm}
+
+The core issue was the mismatch between generic ERP quotation tools and the telecom domain's constraints: catalogs with tens of thousands of references, hierarchical line and sub-line logic, address eligibility workflows, complex discount and margin rules, and service modification processes governed by strict business rules. A custom, modular, and maintainable solution was therefore required.
+
+\vspace{0.2cm}
+
+The main objective of this project was to design and build a complete web platform for quotation and subscription management, providing customer service agents with a modern and ergonomic interface, ensuring reliable business calculations, operational traceability, and secure access across deployment environments.
+
+\vspace{0.2cm}
+
+The solution was built on a three-tier architecture. The frontend was developed with \textbf{Vue.js\,3}. The business backend was implemented in \textbf{ASP.NET Core (.NET\,8)}, managed with NuGet, and persisted in \textbf{SQL Server} within a CloudNativePG cluster deployed on \textbf{Kubernetes}. Code quality was enforced using SonarQube, StyleCop, and Roslyn analyzers, and continuous delivery was orchestrated via an \textbf{Azure\,DevOps} pipeline.
+
+\vspace{0.2cm}
+
+The delivered features covered the full functional scope: quotation management with inline line editing, automated margin and discount calculations driven by business rules, per-user display preferences, service change management with line-level error identification, global selection of filtered lines, and address eligibility checks. Application security was strengthened by conditionally disabling documentation endpoints by environment, and the foundations of an observability stack centered on \textbf{Prometheus} and \textbf{Grafana} were established to supervise security logs in production.
+
+\vspace{0.3cm}
+\keywordss{Vue.js\,3, ASP.NET Core, .NET\,8, SQL Server, Kubernetes, SonarQube, Azure\,DevOps, Prometheus, Grafana, quotation management, B2B telecommunications, VISEO}

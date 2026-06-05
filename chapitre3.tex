@@ -1,7 +1,8 @@
 \chapter{Conception et Plan de Développement}
+\clearpage
 \label{chap:conception_developpement}
 
-\section*{Introduction}
+\section{Introduction}
 
 La conception technique constitue la pierre angulaire de tout projet de développement logiciel de grande envergure. Pour la plateforme Bifrost, une approche méthodique fondée sur les meilleures pratiques du génie logiciel avait été adoptée afin de garantir la robustesse, la scalabilité et la maintenabilité de la solution. Ce chapitre présente l'architecture technique choisie, les technologies retenues, la modélisation UML du système ainsi que les bonnes pratiques de développement mises en \oe{}uvre tout au long du projet.
 
@@ -274,6 +275,6 @@ Ce diagramme illustre le flux de modification de services existants, use case tr
 
 Ce diagramme de cas d'utilisation synthétise les interactions principales entre les acteurs (agent commercial, Product Owner, système Quoter) et Bifrost. L'agent commercial concentre son activité sur la gestion du cycle complet du devis~: recherche client, vérification éligibilité, configuration articles, passage commande. La Product Owner gère administrativement le catalogue et paramètres globaux. Quoter apparaît comme acteur transversal fournissant les logiques de calcul et validation métier critiques.
 
-\section*{Conclusion}
+\section{Conclusion}
 
 Ce chapitre a détaillé les choix techniques et architecturaux qui ont fondé la conception de la plateforme Bifrost. L'homogénéité technologique entre les deux applications---ASP.NET Core pour le backend, Vue.js~3 pour le frontend---a simplifié la maintenance et le déploiement, tout en préservant une séparation fonctionnelle stricte entre l'interface commerciale de Bifrost et le moteur de devis autonome de Quoter. Le chapitre suivant présente les réalisations concrètes issues de cette conception~: fonctionnalités développées, décisions d'implémentation et contributions DevOps.
