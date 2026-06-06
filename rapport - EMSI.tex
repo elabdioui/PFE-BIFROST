@@ -12,16 +12,18 @@
   colorlinks=true,
   linkcolor=black,
   urlcolor=black,
-  citecolor=black
+  citecolor=black,
+  pageanchor=false
 }
 
 % Graphiques et figures
-\usepackage{float}
 \usepackage{graphicx}
 \usepackage{graphics}
-\usepackage{float}
 \usepackage{adjustbox}
 \usepackage{caption}
+\usepackage{floatrow}
+\floatsetup[table]{capposition=top}
+\captionsetup[table]{position=top,skip=6pt}
 \usepackage{adjustbox}
 \usepackage{tikz}
 \usetikzlibrary{calc}   
@@ -36,6 +38,11 @@
 \usepackage{tabularx}
 \definecolor{titlegray}{HTML}{595959}  % gris du titre du rapport
 \definecolor{rulegray}{HTML}{3F3F3F}   % gris des filets encadrant le titre
+% Couleurs page de garde officielle EMSI
+\definecolor{emsicover}{HTML}{00B050}    % vert triangles + filet
+\definecolor{coverbox}{HTML}{D6EFE1}     % boites vert clair
+\definecolor{covergray}{HTML}{404040}    % gris du grand titre
+\definecolor{coverborder}{HTML}{BFBFBF}  % bordures du tableau
 % (optionnel) vert un peu plus vif, plus proche du modèle :
 % \definecolor{emsigreen}{HTML}{00A651}
 
@@ -71,6 +78,7 @@
 \usepackage{etoolbox}
 \usepackage{ifxetex}
 \usepackage{fancyhdr}
+\usepackage{pdfpages}
 
 \parindent 0cm
 \makeindex
@@ -81,6 +89,7 @@
 \textheight 24cm
 \topmargin -0.5cm
 \oddsidemargin -1cm
+\setlength{\headheight}{14.5pt}
 
 % Font encoding
 \ifxetex
@@ -99,14 +108,50 @@
 \providecommand{\keywords}[1]{\textbf{\textit{Mots clés---}} #1}
 \providecommand{\keywordss}[1]{\textbf{\textit{Keywords---}} #1}
 
+%% Style des têtes de chapitre
+\makeatletter
+% Chapitres NUMÉROTÉS : page-titre pleine page, centrée verticalement
+\def\@makechapterhead#1{%
+  \thispagestyle{plain}%
+  \vspace*{\fill}
+  {\parindent\z@\raggedright\normalfont
+    {\sffamily\bfseries\fontsize{15}{18}\selectfont
+       \textcolor{emsigreen}{CHAPITRE\ \thechapter}}\par
+    \vskip 6pt
+    {\color{emsigreen}\rule{\textwidth}{2pt}}\par
+    \vskip 24pt
+    {\bfseries\fontsize{30}{36}\selectfont
+       \textcolor{black}{#1}\par}
+    \vskip 18pt
+    {\color{emsigreen!60}\rule{0.45\textwidth}{1.2pt}}\par
+  }
+  \vspace*{\fill}\vspace*{\fill}
+}
+% Chapitres NON numérotés (Introduction, Conclusion, Remerciements, ToC...) :
+% en-tête en haut de page, le texte suit immédiatement
+\def\@makeschapterhead#1{%
+  {\parindent\z@\raggedright\normalfont
+    \vspace*{12pt}
+    {\bfseries\fontsize{24}{28}\selectfont
+       \textcolor{black}{#1}\par}
+    \vskip 8pt
+    {\color{emsigreen}\rule{0.45\textwidth}{2pt}}\par
+    \vskip 22pt
+  }
+}
+\makeatother
+
 % Headers for body chapters
 \renewcommand{\chaptermark}[1]{\markboth{#1}{}}
-\fancypagestyle{bodychapters}{
-  \fancyhf{}
-  \fancyhead[L]{\nouppercase{\textcolor{emsigreen}{Chapitre \thechapter : \leftmark}}}
-  \fancyfoot[C]{\thepage}
-  \renewcommand{\headrulewidth}{0.4pt}
-  \renewcommand{\footrulewidth}{0pt}
+\fancypagestyle{bodychapters}{%
+  \fancyhf{}%
+  \fancyhead[L]{\nouppercase{%
+    \ifnum\value{chapter}>0
+      \textcolor{emsigreen}{\small\bfseries Chapitre~\thechapter\ \textbf{--}\ \leftmark}%
+    \fi}}%
+  \fancyfoot[C]{\thepage}%
+  \renewcommand{\headrulewidth}{0.4pt}%
+  \renewcommand{\footrulewidth}{0pt}%
 }
 
 % ========================================
@@ -116,12 +161,8 @@
 
 \newcommand{\reportAuthor}{Haitham \textsc{El Abdioui}}
 
-\newcommand{\reportSubject}{%
-  Contribution à la conception et au développement \\
-  \vspace{6pt}
-   de la plateforme de gestion des devis BIFR\"OST
-
-}
+\newcommand{\reportSubject}{Contribution \`a la conception et au d\'eveloppement de la plateforme de gestion des devis BIFR\"OST}
+\newcommand{\academicYearLong}{2025 / 2026}
 
 \newcommand{\dateSoutenance}{16/07/2026}
 
@@ -163,84 +204,13 @@
 \newacronym{ci}{CI}{Continuous Integration}
 
 \pagenumbering{roman}
+\setcounter{page}{0}
 
 \begin{document}
 
-\thispagestyle{empty}
-\begin{titlepage}
-
-% ===== Formes géométriques d'arrière-plan =====
-\begin{tikzpicture}[remember picture, overlay]
-  % Grand triangle vert en haut à gauche
-  \fill[emsigreen] (current page.north west) -- ++(11.5,0) -- ++(-11.5,-11.5) -- cycle;
-  % Ligne fine parallèle au triangle (effet double bordure)
-  \draw[emsigreen, line width=1.2pt] 
-    ($(current page.north west) + (11.7, -0.15)$) -- 
-    ($(current page.north west) + (0.15, -11.7)$);
-  % Triangle vert bas-droite
-  \fill[emsigreen]
-    (current page.south east) -- ++(-8.2,0) -- ++(8.2,7.0) -- cycle;
-  % Fine ligne grise bas-gauche
-  \draw[gray!55, line width=0.4pt]
-    ($(current page.south west) + (2.2,2.4)$) --
-    ($(current page.south west) + (10.2,2.4)$);
-\end{tikzpicture}
-
-% ===== Logo EMSI + filet noir =====
-\vspace*{-1.3cm}
-\begin{flushright}
-  \raisebox{0.45cm}{\rule{5.5cm}{0.4pt}}\hspace{0.15cm}%
-  \includegraphics[height=1.5cm]{image/EMSI_logo2.png}
-\end{flushright}
-
-\vspace{1.7cm}
-
-% ===== Titre =====
-\begin{center}
-  {\fontfamily{ptm} Projet de Fin d'\'Etudes}\\[0.35cm]
-  {\fontfamily{phv}\selectfont\small 5\textsuperscript{\`eme} Ann\'ee --- Ann\'ee universitaire 2025 / 2026}\\[1.7cm]
-
-  {\color{rulegray}\rule{14cm}{0.7pt}}\\[0.65cm]
-  {\fontfamily{phv} \reportSubject}\par\vspace{0.65cm}
-  {\color{rulegray}\rule{14cm}{0.7pt}}
-\end{center}
-
-\vspace{1.5cm}
-
-% ===== Tableau informations =====
-\begin{center}
-  \setlength{\arrayrulewidth}{0.4pt}%
-  \arrayrulecolor{gray!65}%
-  \begin{tabular}{|c|c|}
-    \hline
-    \begin{minipage}[t]{8.7cm}
-      \vspace{0.3cm}
-      {\fontfamily{phv} R\'ealis\'e par :}\\[0.14cm]
-      \hspace*{0.45cm}\colorbox{emsigreen!13}{\parbox{0.78\linewidth}{\vspace{1.5pt}\centering\bfseries \reportAuthor\vspace{1.5pt}}}\\[0.3cm]
-
-      {\fontfamily{phv} Encadrant Professionnel :}\\[0.14cm]
-      \hspace*{0.45cm}\colorbox{emsigreen!13}{\parbox{0.78\linewidth}{\vspace{1.5pt}\centering\bfseries \juryMemberTwo{} \textperiodcentered{} \studyDepartment\vspace{1.5pt}}}\\[0.3cm]
-
-      {\fontfamily{phv} Encadrant P\'edagogique :}\\[0.14cm]
-      \hspace*{0.45cm}\colorbox{emsigreen!13}{\parbox{0.78\linewidth}{\vspace{1.5pt}\centering\bfseries \juryMemberOne\vspace{1.5pt}}}
-      \vspace{0.3cm}
-    \end{minipage}
-    &
-    \begin{minipage}[t]{6.1cm}
-      \centering
-      \vspace{0.85cm}
-      {\fontfamily{phv} Organisme d'accueil :}\\[0.35cm]
-      \colorbox{emsigreen!13}{\parbox{0.82\linewidth}{\vspace{4pt}\centering\includegraphics[width=3.4cm,height=1.6cm,keepaspectratio]{image/viseo.jpg}\vspace{4pt}}}\\[0.22cm]
-      {\itshape\footnotesize \studyDepartment}
-      \vspace{0.85cm}
-    \end{minipage} \\
-    \hline
-  \end{tabular}
-  \arrayrulecolor{black}
-\end{center}
-
-\vfill
-\end{titlepage}
+% ===== Page de garde importée depuis le PDF officiel =====
+\includepdf[pages=1,fitpaper=true]{image/Page_de_garde.pdf}
+\hypersetup{pageanchor=true}
 
 % ========================================
 % DÉDICACE
@@ -276,13 +246,12 @@
 % ========================================
 % INTRODUCTION
 % ========================================
+\pagestyle{bodychapters}
 \input{introduction}
 
 % ========================================
 % CHAPITRES PRINCIPAUX
 % ========================================
-
-\pagestyle{bodychapters}
 
 \label{chap:1}
 \input{chapitre1}
