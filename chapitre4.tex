@@ -68,39 +68,6 @@ Le panel devis dans Dynamics~365 expose la liste des devis associés à une oppo
 \end{figure}
 L'interface de création d'un devis requiert la saisie des informations commerciales fondamentales~: durée d'engagement, type de commande, contact signataire et chargé de compte. Ces données constituent les métadonnées structurantes du devis et seront synchronisées avec Bifrost.
 
-\subsection{Panel lignes de devis dans Ga\"ia}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.95\textwidth]{image/chapitre4/lignes de devis.png}
-\caption{Vue panel lignes de devis dans Dynamics\,365 -- Ga\"ia}
-\label{fig:gaia_panel_lignes_devis}
-\end{figure}
-Le panel lignes expose l'ensemble des articles composant le devis dans Dynamics~365, avant enrichissement dans Bifrost. Cette vue sommaire facilite le suivi du contenu et constitue le point de basculement vers l'interface spécialisée Bifrost pour l'édition détaillée.
-
-
-\subsection{Vue liste des devis dans Ga\"ia}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.95\textwidth]{image/chapitre4/devis.png}
-\caption{Liste des devis dans Dynamics\,365 -- Ga\"ia}
-\label{fig:gaia_liste_devis}
-\end{figure}
-
-La figure~\ref{fig:gaia_liste_devis} pr\'esente l'interface de liste des devis dans Ga\"ia, comptabilisant \textit{2519} enregistrements actifs au moment de la capture. Chaque entr\'ee expose les champs structurants du devis~: num\'ero, r\'evision, statut, nom, compte commande, contact commercial et charg\'e de compte. Cette vue est l'unique point de d\'epart du flux commercial~: un clic sur un devis d\'eclenche son chargement dans Bifr\"ost via le composant embarqu\'e. La volumétrie observ\'ee illustre l'exigence de performance impos\'ee~: Bifr\"ost a \'et\'e optimis\'e pour g\'erer de grands volumes sans d\'egradation de l'exp\'erience utilisateur, notamment gr\^ace \`a la virtualisation de la grille TanStack\,Virtual c\^ot\'e Quoter. La coh\'erence des donn\'ees entre les deux syst\`emes est assur\'ee par le middleware Stargate.
-
-\subsection{D\'etail d'un devis dans Ga\"ia}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.95\textwidth]{image/chapitre4/crm_gaia.png}
-\caption{Vue d\'etail d'un devis dans Dynamics\,365 -- Ga\"ia}
-\label{fig:gaia_detail_devis}
-\end{figure}
-
-La figure~\ref{fig:gaia_detail_devis} illustre la fiche d\'etail d'un devis dans Ga\"ia, organis\'ee autour d'un processus commercial progressif visible en haut de page~: \og{}Informations\fg{}, \og{}\'Edition\fg{}, \og{}Passage en Commande\fg{}. Ce processus guide le commercial \`a travers les \'etapes m\'etier successives. La fiche centralise les informations essentielles~: donn\'ees administratives (num\'ero, r\'evision, charg\'e de compte), contacts (commercial, signataire, technique), compte b\'en\'eficiaire, ainsi que les informations de vente (dur\'ee d'engagement, type de commande). Ces m\'etadonn\'ees sont synchronis\'ees vers Bifr\"ost \`a l'ouverture du composant et sont affich\'ees dans l'en-t\^ete de l'application pour maintenir la coh\'erence contextuelle pendant toute la session de devis.
-
 \subsection{Acc\`es \`a Bifr\"ost depuis Ga\"ia}
 
 \begin{figure}[H]
