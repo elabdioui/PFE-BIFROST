@@ -1,4 +1,4 @@
-% ========================================
+﻿% ========================================
 % CHAPITRE 1 - CONTEXTE GÉNÉRAL DU PROJET
 % ========================================
 
@@ -138,7 +138,7 @@ L'entreprise se distingue par sa capacit\'e \`a accompagner ses clients dans leu
 Dans le cadre de sa transition vers un nouvel ERP (Microsoft Dynamics), l'opérateur a constaté que l'outil de devis générique proposé ne répondait pas à ses spécificités métier. Elle a donc confi\'e \`a VISEO la mission de concevoir et de d\'evelopper une solution d\'edi\'ee~: la plateforme \textbf{Bifr\"ost}.
 
 \section{Contexte du Projet Bifröst}
-\label{sec:contexte_bifrost_ch1}
+\label{sec:contexte_Bifröst_ch1}
 % ==============================
  
 \subsection{Positionnement Stratégique dans l'Écosystème VISEO}
@@ -204,86 +204,10 @@ En complément du suivi opérationnel par sprints, un diagramme de Gantt avait �
  
 \begin{figure}[H]
 \centering
-
- 
-\begin{ganttchart}[
-    hgrid,
-    vgrid={*5{draw=none}, dotted},
-    x unit=0.48cm,
-    y unit title=0.5cm,
-    y unit chart=0.45cm,
-    title height=1,
-    bar height=0.55,
-    group right shift=0,
-    group top shift=0.7,
-    group height=0.3,
-    bar/.style={fill=blue!45, rounded corners=1pt},
-    group/.style={fill=gray!40},
-    milestone/.style={fill=red!70},
-    title label font=\scriptsize,
-    bar label font=\scriptsize,
-    group label font=\scriptsize\bfseries,
-    milestone label font=\scriptsize,
-    canvas/.append style={fill=none},
-]{1}{26}
- 
-%% TITRES SEMAINES / MOIS
-\gantttitle{Mois 1}{4}
-\gantttitle{Mois 2}{4}
-\gantttitle{Mois 3}{5}
-\gantttitle{Mois 4}{5}
-\gantttitle{Mois 5}{4}
-\gantttitle{Mois 6}{4} \\
- 
-\gantttitlelist{1,...,26}{1} \\
- 
-%% ─── PHASE 1 : Prise en main ────────────────────────────
-\ganttgroup{1. Prise en main}{1}{4} \\
-\ganttbar{Intégration équipe / outils}{1}{2} \\
-\ganttbar{Lecture doc. technique \& SFD}{2}{4} \\
-\ganttbar{Setup environnement local}{1}{3} \\
- 
-%% ─── PHASE 2 : Analyse \& Conception ───────────────────
-\ganttgroup{2. Analyse \& Conception}{4}{8} \\
-\ganttbar{Analyse des besoins fonctionnels}{4}{6} \\
-\ganttbar{Conception architecture API .NET}{5}{7} \\
-\ganttbar{Modélisation base de données}{6}{8} \\
-\ganttbar{Maquettes UI Vue.js}{5}{8} \\
- 
-%% ─── PHASE 3 : Développement Backend ───────────────────
-\ganttgroup{3. Développement Backend}{8}{17} \\
-\ganttbar{API devis (CRUD, lignes, remises)}{8}{12} \\
-\ganttbar{API abonnements \& modifications}{11}{15} \\
-\ganttbar{Intégration Keycloak (auth)}{9}{11} \\
-\ganttbar{Sécurité \& Swagger / OpenAPI}{12}{14} \\
-\ganttbar{Tests unitaires backend}{13}{17} \\
- 
-%% ─── PHASE 4 : Développement Frontend ──────────────────
-\ganttgroup{4. Développement Frontend}{10}{20} \\
-\ganttbar{Composants Vue.js (tables, éditeurs)}{10}{14} \\
-\ganttbar{Préférences colonnes utilisateur}{14}{16} \\
-\ganttbar{Gestion erreurs modifications}{15}{18} \\
-\ganttbar{Édition marges en masse}{17}{20} \\
- 
-%% ─── PHASE 5 : DevOps \& Qualité ────────────────────────
-\ganttgroup{5. DevOps \& Qualité}{12}{22} \\
-\ganttbar{Pipeline CI/CD Azure DevOps}{12}{15} \\
-\ganttbar{SonarQube \& refactoring qualité}{15}{18} \\
-\ganttbar{Mises à jour dépendances (CVE)}{16}{19} \\
-\ganttbar{Intégration Prometheus \& Grafana (observabilité)}{19}{22} \\
- 
-%% ─── PHASE 6 : Tests \& Livraison ───────────────────────
-\ganttgroup{6. Tests \& Livraison}{20}{26} \\
-\ganttbar{Tests d'intégration \& recette}{20}{23} \\
-\ganttbar{Corrections \& ajustements}{22}{24} \\
-\ganttbar{Documentation \& rapport PFE}{23}{26} \\
-\ganttmilestone{Soutenance}{26}
- 
-\end{ganttchart}
-\caption{Diagramme de Gantt — Projet Bifröst}
-\label{fig:gantt}
+ \includegraphics[width=1.0\textwidth]{image/chapitre1/gantt.png}
+\caption{Diagramme de Gantt du projet Bifröst}
+\label{fig:gantt_diag}
 \end{figure}
- 
 \section{Conclusion}
  
 Ce chapitre a permis de dresser un portrait complet de l'environnement professionnel dans lequel s'est ancré ce projet de fin d'études. La présentation du groupe VISEO et de son entité casablancaise a mis en lumière les atouts organisationnels et techniques qui ont constitué le socle du projet Bifröst, tandis que la description du cadre méthodologique adopté — la méthode Scrum — a illustré la rigueur avec laquelle la conduite du projet a été appréhendée. Le chapitre suivant sera consacré à l'analyse approfondie de la problématique à l'origine du projet et au contexte fonctionnel dans lequel il a pris naissance.

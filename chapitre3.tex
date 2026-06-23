@@ -1,10 +1,10 @@
-\chapter{Conception et Plan de Développement}
+﻿\chapter{Conception et Plan de Développement}
 \clearpage
 \label{chap:conception_developpement}
 
 \section{Introduction}
 
-La conception technique constitue la pierre angulaire de tout projet de développement logiciel de grande envergure. Pour la plateforme Bifrost, une approche méthodique fondée sur les meilleures pratiques du génie logiciel avait été adoptée afin de garantir la robustesse, la scalabilité et la maintenabilité de la solution. Ce chapitre présente l'architecture technique choisie, les technologies retenues, la modélisation UML du système ainsi que les bonnes pratiques de développement mises en \oe{}uvre tout au long du projet.
+La conception technique constitue la pierre angulaire de tout projet de développement logiciel de grande envergure. Pour la plateforme Bifröst, une approche méthodique fondée sur les meilleures pratiques du génie logiciel avait été adoptée afin de garantir la robustesse, la scalabilité et la maintenabilité de la solution. Ce chapitre présente l'architecture technique choisie, les technologies retenues, la modélisation UML du système ainsi que les bonnes pratiques de développement mises en \oe{}uvre tout au long du projet.
 
 % ==============================
 \section{Architecture Générale du Système}
@@ -12,7 +12,7 @@ La conception technique constitue la pierre angulaire de tout projet de dévelop
 
 \subsection{Vue d'Ensemble}
 
-L'architecture de la plateforme s'appuyait sur une approche en couches (\textit{layered architecture}), décomposée en deux applications distinctes mais complémentaires~: \textbf{Bifrost}, qui gérait l'interface commerciale et la logique métier télécom, et \textbf{Quoter}, conçu comme un moteur de devis autonome et embarquable exposant ses fonctionnalités via une API REST et un composant frontend distribué. Ces deux applications partageaient la même stack technique~: ASP.NET Core (.NET~8) pour le backend et Vue.js~3\,/\,TypeScript pour la couche de présentation. Leur séparation répondait à une exigence de \textbf{réutilisabilité}~: Quoter devait pouvoir être instancié par d'autres applications du système d'information de l'opérateur, indépendamment de Bifrost.
+L'architecture de la plateforme s'appuyait sur une approche en couches (\textit{layered architecture}), décomposée en deux applications distinctes mais complémentaires~: \textbf{Bifröst}, qui gérait l'interface commerciale et la logique métier télécom, et \textbf{Quoter}, conçu comme un moteur de devis autonome et embarquable exposant ses fonctionnalités via une API REST et un composant frontend distribué. Ces deux applications partageaient la même stack technique~: ASP.NET Core (.NET~8) pour le backend et Vue.js~3\,/\,TypeScript pour la couche de présentation. Leur séparation répondait à une exigence de \textbf{réutilisabilité}~: Quoter devait pouvoir être instancié par d'autres applications du système d'information de l'opérateur, indépendamment de Bifröst.
 
 \begin{figure}[H]
 \centering
@@ -21,7 +21,7 @@ L'architecture de la plateforme s'appuyait sur une approche en couches (\textit{
 \label{fig:architecture_generale}
 \end{figure}
 
-Ce diagramme illustre la séparation architecturale entre Bifrost et Quoter, organisée selon une approche en couches verticales. Bifrost assure l'interface commerciale et la gestion métier complète, tandis que Quoter fonctionne comme un service autonome réutilisable. Cette décomposition favorise la scalabilité indépendante de chaque composant et facilite l'évolution future du système. L'isolation des couches (présentation, métier, accès données) garantit une maintenance simplifiée et une testabilité accrue.
+Ce diagramme illustre la séparation architecturale entre Bifröst et Quoter, organisée selon une approche en couches verticales. Bifröst assure l'interface commerciale et la gestion métier complète, tandis que Quoter fonctionne comme un service autonome réutilisable. Cette décomposition favorise la scalabilité indépendante de chaque composant et facilite l'évolution future du système. L'isolation des couches (présentation, métier, accès données) garantit une maintenance simplifiée et une testabilité accrue.
 
 % ==============================
 \section{Technologies Backend}
@@ -49,8 +49,8 @@ ASP.NET Core~8 représente le socle technologique idéal pour cette architecture
 \label{fig:sqlserver_logo}
 \end{figure}
 
-Système de gestion de base de données pour Bifrost, géré par prestataire externe. Centralise les données de référentiel des articles, configurations métier et utilisateurs. Ses capacités transactionnelles ACID et compatibilité native avec .NET via Entity Framework garantissent l'intégrité des données multi-environnements.
-SQL Server assure la persistance des données critiques de Bifrost avec des garanties transactionnelles ACID robustes, essentielles pour maintenir la cohérence des référentiels métier. La gestion externalisée par le prestataire réduit les responsabilités opérationnelles et garantit une disponibilité maximale. Le support natif dans Entity Framework Core permet une intégration fluide et sécurisée, minimisant les risques de fuite de données ou d'incohérences.
+Système de gestion de base de données pour Bifröst, géré par prestataire externe. Centralise les données de référentiel des articles, configurations métier et utilisateurs. Ses capacités transactionnelles ACID et compatibilité native avec .NET via Entity Framework garantissent l'intégrité des données multi-environnements.
+SQL Server assure la persistance des données critiques de Bifröst avec des garanties transactionnelles ACID robustes, essentielles pour maintenir la cohérence des référentiels métier. La gestion externalisée par le prestataire réduit les responsabilités opérationnelles et garantit une disponibilité maximale. Le support natif dans Entity Framework Core permet une intégration fluide et sécurisée, minimisant les risques de fuite de données ou d'incohérences.
 
 \begin{figure}[H]
 \centering
@@ -76,7 +76,7 @@ PostgreSQL, orchestré par CloudNativePG au sein du cluster Kubernetes, offre un
 \label{fig:vuejs_logo}
 \end{figure}
 
-Framework retenu pour frontend de Bifrost (application SPA) et Quoter (composant UMD embarquable). Composition~API pour organisation claire de la logique, système de réactivité optimisé (\texttt{ref}, \texttt{computed}, \texttt{watch}) offrant hautes performances pour grilles volumineuses. Intégration transparente avec TypeScript garantit sûreté des types sur ensemble du code.
+Framework retenu pour frontend de Bifröst (application SPA) et Quoter (composant UMD embarquable). Composition~API pour organisation claire de la logique, système de réactivité optimisé (\texttt{ref}, \texttt{computed}, \texttt{watch}) offrant hautes performances pour grilles volumineuses. Intégration transparente avec TypeScript garantit sûreté des types sur ensemble du code.
 
 Vue.js~3 combine une courbe d'apprentissage douce avec une puissance suffisante pour supporter des applications complexes et volumineuses. La Composition~API offre une flexibilité supérieure à l'approche Options~API, facilitant la réutilisabilité et la testabilité des composants. Le système de réactivité granulaire (\texttt{ref}, \texttt{reactive}, \texttt{computed}) génère une expérience utilisateur fluide même avec des grilles contenant des milliers de lignes, élément critique pour les interfaces commerciales.
 
@@ -91,7 +91,7 @@ Vue.js~3 combine une courbe d'apprentissage douce avec une puissance suffisante 
 
 Outil de build moderne pour frontend, offrant démarrage instantané du serveur de développement via Hot Module Replacement (HMR) et temps de build réduit. Configuration de proxy de développement pour contourner restrictions CORS. Monkey-patching de \texttt{XMLHttpRequest} et \texttt{window.fetch} en mode développement pour intercepter requêtes du composant UMD de Quoter.
 
-Vite révolutionne l'expérience développeur en remplaçant les bundlers traditionnels par une approche baseée sur les modules ES natifs. Le HMR instantané réduit considérablement le temps de boucle développement-test, améliorant la productivité. La configuration du proxy et le monkey-patching permettent l'intégration transparente du composant UMD de Quoter dans l'environnement de développement de Bifrost, simulant le comportement en production sans complexité supplémentaire.
+Vite révolutionne l'expérience développeur en remplaçant les bundlers traditionnels par une approche baseée sur les modules ES natifs. Le HMR instantané réduit considérablement le temps de boucle développement-test, améliorant la productivité. La configuration du proxy et le monkey-patching permettent l'intégration transparente du composant UMD de Quoter dans l'environnement de développement de Bifröst, simulant le comportement en production sans complexité supplémentaire.
 
 \subsection{Bibliothèques UI et Tableaux}
 
@@ -102,7 +102,7 @@ Vite révolutionne l'expérience développeur en remplaçant les bundlers tradit
 \label{fig:primevue_logo}
 \end{figure}
 
-Bibliothèque de composants UI pour Bifrost couvrant besoins complets~: formulaires, dialogues, menus, toasts et overlays. Version~4 introduit composants remodelés et thématisation granulaire. TanStack Table intégré pour gestion tableau de devis avec virtualisation des lignes et fonctionnalités de redimensionnement\/réordonnancement des colonnes répondant exigences de personnalisation agents commerciaux.
+Bibliothèque de composants UI pour Bifröst couvrant besoins complets~: formulaires, dialogues, menus, toasts et overlays. Version~4 introduit composants remodelés et thématisation granulaire. TanStack Table intégré pour gestion tableau de devis avec virtualisation des lignes et fonctionnalités de redimensionnement\/réordonnancement des colonnes répondant exigences de personnalisation agents commerciaux.
 
 PrimeVue~v4 fournit un ensemble exhaustif de composants professionnels, réduisant significativement le coût de développement de l'interface utilisateur. La thématisation granulaire permet une adaptation rapide à l'identité visuelle du client sans refonte majeure. L'intégration de TanStack Table avec virtualisation des lignes garantit des performances optimales même avec des milliers de lignes de devis, tandis que les fonctionnalités de personnalisation permettent aux agents commerciaux d'adapter l'interface à leurs préférences.
 
@@ -119,7 +119,7 @@ PrimeVue~v4 fournit un ensemble exhaustif de composants professionnels, réduisa
 \label{fig:docker_logo}
 \end{figure}
 
-Docker assure la conteneurisation des applications Bifrost et Quoter, garantissant portabilité et reproductibilité entre environnements de développement et production. Images construites automatiquement par pipelines CI avec multi-stage builds optimisant tailles et sécurité. Publication dans registre de conteneurs privé accessible par cluster Kubernetes.
+Docker assure la conteneurisation des applications Bifröst et Quoter, garantissant portabilité et reproductibilité entre environnements de développement et production. Images construites automatiquement par pipelines CI avec multi-stage builds optimisant tailles et sécurité. Publication dans registre de conteneurs privé accessible par cluster Kubernetes.
 
 La conteneurisation par Docker élimine la problématique classique \og{}ça marche sur ma machine\fg{} en standardisant l'environnement d'exécution. Les multi-stage builds réduisent significativement la taille des images finales en séparant compilation et exécution, diminuant les temps de déploiement et l'empreinte mémoire. Le registre privé assure la sécurité du code source propriétaire tout en garantissant la disponibilité des images pour l'ensemble de la chaîne de déploiement.
 
@@ -132,7 +132,7 @@ La conteneurisation par Docker élimine la problématique classique \og{}ça mar
 \label{fig:kubernetes_logo}
 \end{figure}
 
-Cluster Kubernetes géré par client, organisé en namespaces isolés par environnement (dev, test, preprod, uat, prod). Chaque environnement héberge instances propres de Bifrost et Quoter garantissant isolation complète données et configurations. Opérateur CloudNativePG assure gestion cycle de vie instances PostgreSQL directement dans cluster.
+Cluster Kubernetes géré par client, organisé en namespaces isolés par environnement (dev, test, preprod, uat, prod). Chaque environnement héberge instances propres de Bifröst et Quoter garantissant isolation complète données et configurations. Opérateur CloudNativePG assure gestion cycle de vie instances PostgreSQL directement dans cluster.
 
 L'architecture multi-namespace dans Kubernetes offre une isolation complète des environnements tout en maintenant une gestion centralisée. Chaque environnement dispose de ressources dédiées (CPU, mémoire) avec quotas strictement définis, prévenant les dégradations croisées. L'opérateur CloudNativePG automatise entièrement le cycle de vie des instances PostgreSQL---création, sauvegarde, failover---directement via les APIs Kubernetes, simplifiant l'exploitation et réduisant l'intervention manuelle.
 
@@ -162,7 +162,7 @@ Plateforme d'analyse statique intégrée dans CI/CD pour contrôle continu quali
 
 SonarQube fournit une visibilité continue sur la qualité du code à travers la détection automatisée de vulnérabilités, duplications et code smell. L'intégration étroite dans la pipeline CI/CD permet un feedback rapide aux développeurs, favorisant les bonnes pratiques dès la phase de développement. Le quality gate empêche la fusion de branches dégradant la santé globale du projet, garantissant un maintien rigoureux des standards de qualité en production.
 
-\subsection{Azure DevOps --- CI/CD Bifrost}
+\subsection{Azure DevOps --- CI/CD Bifröst}
 
 \begin{figure}[H]
 \centering
@@ -171,9 +171,9 @@ SonarQube fournit une visibilité continue sur la qualité du code à travers la
 \label{fig:azuredevops_logo}
 \end{figure}
 
-Pipeline d'intégration continue pour Bifrost orchestrant compilation, tests, analyse SonarQube et audit dépendances. Trigger automatique sur merge request avec feedback rapide aux développeurs. ArgoCD synchronise manifestes Kubernetes générés avec environnements cibles assurant déploiements atomiques et tracés.
+Pipeline d'intégration continue pour Bifröst orchestrant compilation, tests, analyse SonarQube et audit dépendances. Trigger automatique sur merge request avec feedback rapide aux développeurs. ArgoCD synchronise manifestes Kubernetes générés avec environnements cibles assurant déploiements atomiques et tracés.
 
-Azure DevOps orchestre le cycle de vie complet de Bifrost depuis le commit jusqu'au déploiement en production, sans intervention manuelle. Les triggers automatiques sur merge request garantissent un feedback immédiat sur la qualité et la compatibilité du code. L'intégration avec ArgoCD pour la synchronisation des manifestes Kubernetes assure une déclaration d'état souhaité, facilitant le troubleshooting et la reproductibilité des déploiements.
+Azure DevOps orchestre le cycle de vie complet de Bifröst depuis le commit jusqu'au déploiement en production, sans intervention manuelle. Les triggers automatiques sur merge request garantissent un feedback immédiat sur la qualité et la compatibilité du code. L'intégration avec ArgoCD pour la synchronisation des manifestes Kubernetes assure une déclaration d'état souhaité, facilitant le troubleshooting et la reproductibilité des déploiements.
 
 \subsection{GitLab CI --- CI/CD Quoter}
 
@@ -211,23 +211,23 @@ La modélisation UML avait constitué un élément fondamental dans la phase de 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.8\textwidth]{image/chapitre3/usecase.drawio.png}
-  \caption{Diagramme de cas d'utilisation -- Bifrost}
-  \label{fig:usecase_bifrost}
+  \includegraphics[width=1.0\textwidth]{image/chapitre3/usecase.drawio.png}
+  \caption{Diagramme de cas d'utilisation -- Bifröst}
+  \label{fig:usecase_Bifröst}
 \end{figure}
 
-Ce diagramme de cas d'utilisation synthétise les interactions principales entre les acteurs (agent commercial, Product Owner, système Quoter) et Bifrost. L'agent commercial concentre son activité sur la gestion du cycle complet du devis~: recherche client, vérification éligibilité, configuration articles, passage commande. La Product Owner gère administrativement le catalogue et paramètres globaux. Quoter apparaît comme acteur transversal fournissant les logiques de calcul et validation métier critiques.
+Ce diagramme de cas d'utilisation synthétise les interactions principales entre les acteurs (agent commercial, Product Owner, système Quoter) et Bifröst. L'agent commercial concentre son activité sur la gestion du cycle complet du devis~: recherche client, vérification éligibilité, configuration articles, passage commande. La Product Owner gère administrativement le catalogue et paramètres globaux. Quoter apparaît comme acteur transversal fournissant les logiques de calcul et validation métier critiques.
 
 \subsection{Diagramme de Classes}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=1.0\textwidth]{image/chapitre3/Diagramme_classe_v2.png}
-\caption{Diagramme de classes --- Application Bifrost (ASP.NET Core\,/\,SQL Server)}
-\label{fig:diagramme_classes_bifrost}
+\caption{Diagramme de classes --- Application Bifröst (ASP.NET Core\,/\,SQL Server)}
+\label{fig:diagramme_classes_Bifröst}
 \end{figure}
 
-Ce diagramme de classes représente la structure statique du domaine métier de Bifrost, organisant les entités principales~: Quote, QuoteLine, Article, Customer et related configurations. Les associations et multiplicités illustrent les contraintes métier fondamentales, par exemple la relation 1:N entre Quote et QuoteLine. Cette modélisation guide l'implémentation d'Entity Framework Core et assure une correspondance fidèle entre le modèle conceptuel et la base de données SQL Server.
+Ce diagramme de classes représente la structure statique du domaine métier de Bifröst, organisant les entités principales~: Quote, QuoteLine, Article, Customer et related configurations. Les associations et multiplicités illustrent les contraintes métier fondamentales, par exemple la relation 1:N entre Quote et QuoteLine. Cette modélisation guide l'implémentation d'Entity Framework Core et assure une correspondance fidèle entre le modèle conceptuel et la base de données SQL Server.
 
 \subsection{Diagrammes de Séquence}
 
@@ -240,7 +240,7 @@ Ce diagramme de classes représente la structure statique du domaine métier de 
 \label{fig:seq_auth_creation_devis}
 \end{figure}
 
-Ce diagramme de séquence illustre le processus d'authentification via Keycloak et l'initiation d'un nouveau devis depuis le CRM Gaïa. Le flux démarre par l'authentification de l'agent commercial auprès du CRM, suivi de la création d'une opportunité commerciale. L'intégration entre Gaïa et Bifrost garantit la synchronisation du contexte commercial, permettant à l'agent d'accéder immédiatement à l'interface de configuration du devis avec toutes les données nécessaires pré-remplies.
+Ce diagramme de séquence illustre le processus d'authentification via Keycloak et l'initiation d'un nouveau devis depuis le CRM Gaïa. Le flux démarre par l'authentification de l'agent commercial auprès du CRM, suivi de la création d'une opportunité commerciale. L'intégration entre Gaïa et Bifröst garantit la synchronisation du contexte commercial, permettant à l'agent d'accéder immédiatement à l'interface de configuration du devis avec toutes les données nécessaires pré-remplies.
 
 \subsubsection{Recherche d'éligibilité}
 
@@ -262,7 +262,7 @@ Ce diagramme montre le flux complet de vérification d'éligibilité d'une adres
 \label{fig:seq_gestion_devis}
 \end{figure}
 
-Ce diagramme synthétise le processus global de gestion d'un devis de sa création à son intégration dans le CRM Gaïa. Après construction du devis par l'agent, le système applique des règles de validation métier (logique Quoter). En cas d'invalidité, le devis est rejeté avec feedback détaillé. En cas de succès, Bifrost transmet les données à Stargate, middleware d'intégration responsable de synchroniser le devis vers Gaïa, fermant ainsi la boucle commerciale.
+Ce diagramme synthétise le processus global de gestion d'un devis de sa création à son intégration dans le CRM Gaïa. Après construction du devis par l'agent, le système applique des règles de validation métier (logique Quoter). En cas d'invalidité, le devis est rejeté avec feedback détaillé. En cas de succès, Bifröst transmet les données à Stargate, middleware d'intégration responsable de synchroniser le devis vers Gaïa, fermant ainsi la boucle commerciale.
 
 \subsubsection{Modification de services}
 
@@ -280,12 +280,12 @@ Ce diagramme illustre le flux de modification de services existants, use case tr
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.8\textwidth]{image/chapitre3/usecase.drawio.png}
-  \caption{Diagramme de cas d'utilisation -- Bifrost}
-  \label{fig:usecase_bifrost}
+  \caption{Diagramme de cas d'utilisation -- Bifröst}
+  \label{fig:usecase_Bifröst}
 \end{figure}
 
-Ce diagramme de cas d'utilisation synthétise les interactions principales entre les acteurs (agent commercial, Product Owner, système Quoter) et Bifrost. L'agent commercial concentre son activité sur la gestion du cycle complet du devis~: recherche client, vérification éligibilité, configuration articles, passage commande. La Product Owner gère administrativement le catalogue et paramètres globaux. Quoter apparaît comme acteur transversal fournissant les logiques de calcul et validation métier critiques.
+Ce diagramme de cas d'utilisation synthétise les interactions principales entre les acteurs (agent commercial, Product Owner, système Quoter) et Bifröst. L'agent commercial concentre son activité sur la gestion du cycle complet du devis~: recherche client, vérification éligibilité, configuration articles, passage commande. La Product Owner gère administrativement le catalogue et paramètres globaux. Quoter apparaît comme acteur transversal fournissant les logiques de calcul et validation métier critiques.
 
 \section{Conclusion}
 
-Ce chapitre a détaillé les choix techniques et architecturaux qui ont fondé la conception de la plateforme Bifrost. L'homogénéité technologique entre les deux applications---ASP.NET Core pour le backend, Vue.js~3 pour le frontend---a simplifié la maintenance et le déploiement, tout en préservant une séparation fonctionnelle stricte entre l'interface commerciale de Bifrost et le moteur de devis autonome de Quoter. Le chapitre suivant présente les réalisations concrètes issues de cette conception~: fonctionnalités développées, décisions d'implémentation et contributions DevOps.
+Ce chapitre a détaillé les choix techniques et architecturaux qui ont fondé la conception de la plateforme Bifröst. L'homogénéité technologique entre les deux applications---ASP.NET Core pour le backend, Vue.js~3 pour le frontend---a simplifié la maintenance et le déploiement, tout en préservant une séparation fonctionnelle stricte entre l'interface commerciale de Bifröst et le moteur de devis autonome de Quoter. Le chapitre suivant présente les réalisations concrètes issues de cette conception~: fonctionnalités développées, décisions d'implémentation et contributions DevOps.

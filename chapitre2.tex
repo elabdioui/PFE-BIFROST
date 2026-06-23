@@ -1,4 +1,4 @@
-\chapter{Contexte, Probl\'ematique et Analyse des Besoins}
+﻿\chapter{Contexte, Probl\'ematique et Analyse des Besoins}
 \clearpage
 \label{chap:contexte}
 
@@ -104,7 +104,7 @@ Bifr\"ost ne fonctionne pas de mani\`ere isol\'ee~: il s'inscrit dans un syst\`e
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\textwidth]{image/chapitre2/archi_globale_bifrost.png}
+\includegraphics[width=0.85\textwidth]{image/chapitre2/archi_globale_Bifrost.png}
 \caption{Architecture globale de l'\'ecosyst\`eme applicatif}
 \label{fig:archi_ecosysteme}
 \end{figure}
@@ -144,11 +144,11 @@ Keycloak & SSO\,/\,Auth & Authentification centralis\'ee par jeton JWT (OpenID~C
 
 Un principe architectural fondamental structure l'ensemble des flux~: \textbf{Bifr\"ost ne communique jamais directement avec les syst\`emes m\'etier}. Toutes ses interactions avec Ga\"ia, Cassiop\'ee et ICMA transitent exclusivement par Stargate, qui joue le r\^ole de passerelle centralis\'ee assurant l'orchestration et la s\'ecurisation des appels. Ce d\'ecouplage strict pr\'eserve Bifr\"ost de toute d\'ependance directe envers des syst\`emes ext\'erieurs et facilite l'\'evolution ind\'ependante de chaque composant.
 
-La relation entre Bifr\"ost et Microsoft Dynamics est de nature \textbf{compl\'ementaire et bidirectionnelle}. D'un c\^ot\'e, la cr\'eation d'une opportunit\'e dans Ga\"ia peut d\'eclencher l'ouverture automatique d'un devis pr\'e-aliment\'e dans Bifr\"ost. De l'autre, la validation d'un devis dans Bifr\"ost d\'eclenche un \textit{upsert} vers Ga\"ia via Stargate, permettant \`a Dynamics de prendre le relais pour le passage en commande et l'alimentation de Cassiop\'ee. Le tableau~\ref{tab:bifrost_dynamics} pr\'ecise la r\'epartition des responsabilit\'es entre les deux syst\`emes.
+La relation entre Bifr\"ost et Microsoft Dynamics est de nature \textbf{compl\'ementaire et bidirectionnelle}. D'un c\^ot\'e, la cr\'eation d'une opportunit\'e dans Ga\"ia peut d\'eclencher l'ouverture automatique d'un devis pr\'e-aliment\'e dans Bifr\"ost. De l'autre, la validation d'un devis dans Bifr\"ost d\'eclenche un \textit{upsert} vers Ga\"ia via Stargate, permettant \`a Dynamics de prendre le relais pour le passage en commande et l'alimentation de Cassiop\'ee. Le tableau~\ref{tab:Bifröst_dynamics} pr\'ecise la r\'epartition des responsabilit\'es entre les deux syst\`emes.
 
 \begin{table}[H]
 \caption{R\'epartition des responsabilit\'es entre Bifr\"ost et Microsoft Dynamics}
-\label{tab:bifrost_dynamics}
+\label{tab:Bifröst_dynamics}
 \centering
 \renewcommand{\arraystretch}{1.5}
 \begin{tabular}{|>{\raggedright\arraybackslash}p{5.2cm}|>{\centering\arraybackslash}p{3.8cm}|>{\centering\arraybackslash}p{3.8cm}|}
@@ -179,7 +179,7 @@ Dynamics demeure ainsi le \textbf{syst\`eme de r\'ef\'erence} pour les donn\'ees
 
 % ==============================
 \section{Bifr\"ost et Quoter~: Deux Applications Compl\'ementaires}
-\label{sec:bifrost_quoter}
+\label{sec:Bifröst_quoter}
 % ==============================
 
 \subsection{Bifr\"ost~: l'interface commerciale d\'edi\'ee \`a l'op\'erateur}
@@ -202,23 +202,23 @@ La s\'eparation entre Bifr\"ost et Quoter r\'epond \`a trois motivations archite
     \item \textbf{L'architecture multi-tenant de Quoter.} Quoter g\`ere des environnements et des tenants isol\'es, ce qui lui permet de servir plusieurs applications clientes en garantissant l'\'etanch\'eit\'e des donn\'ees. Bifr\"ost, en tant que simple consommateur, b\'en\'eficie de cette isolation sans avoir \`a la g\'erer lui-m\^eme.
 \end{itemize}
 
-La figure~\ref{fig:bifrost_quoter} illustre la relation entre les deux applications.
+La figure~\ref{fig:Bifröst_quoter} illustre la relation entre les deux applications.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.78\textwidth]{image/chapitre2/bifrost_quoter_relation.png}
+\includegraphics[width=0.78\textwidth]{image/chapitre2/Bifrost_quoter_relation.png}
 \caption{Relation entre Bifr\"ost (consommateur) et Quoter (moteur de devis autonome)}
-\label{fig:bifrost_quoter}
+\label{fig:Bifröst_quoter}
 \end{figure}
 
 \newpage
 \subsection{R\'epartition des responsabilit\'es}
 
-Le tableau~\ref{tab:separation_bifrost_quoter} synth\'etise la r\'epartition fonctionnelle et technique entre les deux applications.
+Le tableau~\ref{tab:separation_Bifröst_quoter} synth\'etise la r\'epartition fonctionnelle et technique entre les deux applications.
 
 \begin{table}[H]
 \caption{R\'epartition des responsabilit\'es entre Bifr\"ost et Quoter}
-\label{tab:separation_bifrost_quoter}
+\label{tab:separation_Bifröst_quoter}
 \centering
 \renewcommand{\arraystretch}{1.55}
 \begin{tabular}{|>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{4.5cm}|>{\raggedright\arraybackslash}p{4.5cm}|}
